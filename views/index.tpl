@@ -22,7 +22,7 @@
 			}
 
 			.hero-unit {
-				padding: 60px;
+				padding: 40px;
 				margin-bottom: 30px;
 				border-radius: 6px 6px 6px 6px;
 			}
@@ -88,71 +88,23 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Title</th>
-					<th>Speaker(s)</th>
-					<th>Day</th>
-					<th>When</th>
-					<th>Room</th>
+					<th>Function</th>
+					<th>Middle</th>
+					<th>CaseName</th>
+					<th>OS</th>
+					<th>Platform</th>
 				</tr>
 			</thead>
 			<tbody>
 				{{range .Report}}
 				<tr>
-					<td>.Title</td>
-					<td>.Speaker</td>
-					<td>.Day</td>
-					<td>.When</td>
-					<td>.Room</td>
+					<td>{{.Function}}</td>
+					<td>{{.Middle}}</td>
+					<td>{{.Casename}}</td>
+					<td>{{.System}}</td>
+					<td>{{.Platform}}</td>
 				</tr>
 				{{end}}
-				<tr>
-					<td>
-						Welcome to FOSDEM 
-					</td>
-					<td>
-						FOSDEM Staff</td>
-					<td>
-						Saturday
-					</td>
-					<td>
-						10:30 - 10:55
-					</td>
-					<td>
-						Janson
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Welcome to FOSDEM 
-					</td>
-					<td>
-						FOSDEM Staff</td>
-					<td>
-						Saturday
-					</td>
-					<td>
-						10:30 - 10:55
-					</td>
-					<td>
-						Janson
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Welcome to FOSDEM 
-					</td>
-					<td>
-						FOSDEM Staff</td>
-					<td>
-						Saturday
-					</td>
-					<td>
-						10:30 - 10:55
-					</td>
-					<td>
-						Janson
-					</td>
-				</tr>
 			</tbody>
 		</table>
 	</body>

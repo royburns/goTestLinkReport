@@ -4,22 +4,32 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/royburns/goTestLinkReport/models"
+	// "strconv"
 )
 
 type MainController struct {
 	beego.Controller
 }
 
+type Report1 struct {
+	Id       int64
+	Function string `xorm:"VARCHAR(64)"`
+	Middle   string `xorm:"VARCHAR(64)"`
+	CaseName string `xorm:"VARCHAR(64)"`
+	OS       string `xorm:"VARCHAR(64)"`
+	Platform string `xorm:"VARCHAR(64)"`
+}
+
 func (this *MainController) Get() {
-	reports, err := models.GetAllReport(0, 10)
+	reports, err := models.GetAllReport(5, 0)
 	if err != nil {
-		fmt.Errorf(" Failed to get reports from db: %v\n", err)
+		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
+	} else {
+		beego.Debug("Success!!!")
 	}
+
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
-	// for i := 0; i < 10; i++ {
-	// 	//
-	// }
 	this.Data["Report"] = reports
 	this.TplNames = "index.tpl"
 }

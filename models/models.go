@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-	//"github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 
 	"github.com/Unknwon/gowalker/utils"
 	_ "github.com/go-sql-driver/mysql"
@@ -10,11 +10,12 @@ import (
 )
 
 type Report struct {
-	Title   string
-	Speaker string
-	Day     string
-	When    string
-	Room    string
+	Id       int64
+	Function string `xorm:"VARCHAR(64)"`
+	Middle   string `xorm:"VARCHAR(64)"`
+	Casename string `xorm:"VARCHAR(64)"`
+	System   string `xorm:"VARCHAR(64)"`
+	Platform string `xorm:"VARCHAR(64)"`
 }
 
 var (
@@ -49,31 +50,38 @@ func InitDB() (err error) {
 	case "mysql":
 		// connstr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8",
 		// 	user, pwd, host, port, name)
-		connstr := fmt.Sprintf("%s:%s@%s/%s?charset=utf8",
-			user, pwd, host, name)
-		// fmt.Println(connstr)
+		connstr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8",
+			user, pwd, host, port, name)
+		fmt.Errorf(connstr)
 		orm, err = xorm.NewEngine("mysql", connstr)
 		if err != nil {
-			panic("models.init(failed to connect database): " + err.Error())
+			beego.Debug(fmt.Sprintf("Failed to create new engine : %v\n", err))
 		}
 	case "postgres":
 		cnnstr := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=%s",
 			user, pwd, host, port, name, ssl)
 		orm, err = xorm.NewEngine("postgres", cnnstr)
 	default:
+		beego.Debug(fmt.Sprintf("Unknown db type: %s\n", dbtype))
 		return fmt.Errorf("Unknown db type: %s\n", dbtype)
 	}
 
 	if err != nil {
+		beego.Debug(fmt.Sprintf("models.init(failed to connect database): %v\n", err))
 		return fmt.Errorf("models.init(failed to connect database): %v\n", err)
 	}
 
+	orm.ShowSQL = true
+	orm.ShowInfo = true
+	orm.ShowDebug = true
+	orm.ShowWarn = true
+	orm.ShowErr = true
 	fmt.Println("success!")
 	return orm.Sync(tables...)
 }
 
-func GetAllReport(start int, count int) ([]Report, error) {
+func GetAllReport(count int, start int) ([]Report, error) {
 	var rs []Report
-	err := orm.Limit(count, start).Desc("title").Find(&rs)
+	err := orm.Limit(count, start).Asc("Id").Find(&rs)
 	return rs, err
 }
