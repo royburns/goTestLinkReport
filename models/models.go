@@ -14,7 +14,7 @@ type Report struct {
 	Function string `xorm:"VARCHAR(64)"`
 	Middle   string `xorm:"VARCHAR(64)"`
 	Casename string `xorm:"VARCHAR(64)"`
-	System   string `xorm:"VARCHAR(64)"`
+	OS       string `xorm:"VARCHAR(64) OS"`
 	Platform string `xorm:"VARCHAR(64)"`
 }
 
@@ -78,6 +78,7 @@ func InitDB() (err error) {
 	orm.ShowErr = true
 	fmt.Println("success!")
 	return orm.Sync(tables...)
+
 }
 
 func GetAllReport(count int, start int) ([]Report, error) {

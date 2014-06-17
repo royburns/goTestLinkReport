@@ -101,7 +101,7 @@
 					<td>{{.Function}}</td>
 					<td>{{.Middle}}</td>
 					<td>{{.Casename}}</td>
-					<td>{{.System}}</td>
+					<td>{{.OS}}</td>
 					<td>{{.Platform}}</td>
 				</tr>
 				{{end}}
