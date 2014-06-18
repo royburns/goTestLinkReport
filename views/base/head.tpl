@@ -1,6 +1,6 @@
-  	<head>
-    	<title>Report</title>
-    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<head>
+		<title>Report</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
 		<link href="/static/css/styles.css" rel="stylesheet" />
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />

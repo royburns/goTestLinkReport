@@ -1,4 +1,4 @@
-  		<header class="header" style="background-color:#A9F16C">
+		<header class="header" style="background-color:#A9F16C">
 			<div class="container">
 				<div class="row">
 					<div class="hero-text">

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
 <html>
-	{{template "base/head.tpl" .}}
+{{template "base/head.tpl" .}}
 	
 	<body class="header">
-		{{template "base/header.tpl" .}}
-		{{template "base/navbar.tpl" .}}
+	{{template "base/header.tpl" .}}
+	{{template "base/navbar.tpl" .}}
 
 		<div>
 			<table class="table table-bordered">
@@ -68,6 +68,6 @@
 			</ul>
 		</div>
 		
-		{{template "base/footer.tpl" .}}
+	{{template "base/footer.tpl" .}}
 	</body>
 </html>

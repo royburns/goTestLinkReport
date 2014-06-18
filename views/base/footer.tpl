@@ -1,4 +1,4 @@
-  		<footer class="footer" style="background-color:#A9F16C">
+		<footer class="footer" style="background-color:#A9F16C">
 			<div class="container">
 				<div class="row">
 					<div class="hero-text">
