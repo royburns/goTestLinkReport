@@ -46,8 +46,9 @@ type v_testlink_testexecution_tree struct {
 }
 
 func InitDB() (err error) {
+	utils.LoadConfig("conf/app.conf")
 	// utils.LoadConfig("conf/app-local.conf")
-	utils.LoadConfig("conf/app-skytap.conf")
+	// utils.LoadConfig("conf/app-skytap.conf")
 
 	// appname = goTestLinkReport
 	// httpport = 8080
@@ -94,13 +95,21 @@ func InitDB() (err error) {
 		return fmt.Errorf("models.init(failed to connect database): %v\n", err)
 	}
 
-	orm.ShowSQL = true
-	orm.ShowInfo = true
-	orm.ShowDebug = true
+	// orm.ShowSQL = true
+	// orm.ShowInfo = true
+	// orm.ShowDebug = true
 	orm.ShowWarn = true
 	orm.ShowErr = true
 	fmt.Println("success!")
 	return orm.Sync(tables...)
+}
+
+func GetExecutionCount() int64 {
+	count, err := orm.Count(new(v_testlink_testexecution_tree))
+	if err != nil {
+		beego.Error("models.GetExecutionCount() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
+	}
+	return count
 }
 
 func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, error) {
