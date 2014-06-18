@@ -3,28 +3,51 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"time"
 
 	"github.com/Unknwon/gowalker/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 )
 
-type Report struct {
-	Id       int64
-	Function string `xorm:"VARCHAR(64)"`
-	Middle   string `xorm:"VARCHAR(64)"`
-	Casename string `xorm:"VARCHAR(64)"`
-	OS       string `xorm:"VARCHAR(64) OS"`
-	Platform string `xorm:"VARCHAR(64)"`
-}
-
 var (
 	orm    *xorm.Engine
 	tables []interface{}
 )
 
+type v_auto_last_execution struct {
+	TestPlan_Name string `xorm:"VARCHAR(100) 'TestPlan_Name'"`
+	// testplan_id       int16     `xorm:"INT 'testplan_id'"`
+	// tcversion_number  int16     `xorm:"INT 'tcversion_number'"`
+	// tcversion_id      int16     `xorm:"INT 'tcversion_id'"`
+	Platforms_Name string `xorm:"VARCHAR(100) 'Platforms_Name'"`
+	// notes             string    `xorm:"TEXT 'notes'"`
+	LastExecutionTime time.Time `xorm:"DATETIME 'LastExecutionTime'"`
+	ExecutionStatus   int16     `xorm:"INT 'ExecutionStatus'"`
+	CaseSuite         string    `xorm:"VARCHAR(100) 'CaseSuite'"`
+	CaseName          string    `xorm:"VARCHAR(100) 'CaseName'"`
+	BuildName         string    `xorm:"VARCHAR(100) 'BuildName'"`
+}
+
+type v_testlink_testexecution_tree struct {
+	TestPlan    string    `xorm:"VARCHAR(100) 'TestPlan'"`
+	Platform    string    `xorm:"VARCHAR(100) 'Platform'"`
+	ToadModule  string    `xorm:"VARCHAR(100) 'ToadModule'"`
+	SubModule   string    `xorm:"VARCHAR(403) 'SubModule'"`
+	Testcase_id int       `xorm:"INT 'testcase_id'"`
+	TestCase    string    `xorm:"VARCHAR(100) 'TestCase'"`
+	Status      byte      `xorm:"CHAR(1) 'status'"`
+	Build       string    `xorm:"VARCHAR(100) 'Build'"`
+	LasTimeRun  time.Time `xorm:"DATETIME 'LasTimeRun'"`
+	Notes       string    `xorm:"TEXT 'notes'"`
+	Tester      string    `xorm:"VARCHAR(30) 'Tester'"`
+
+	// TestSuite string `xorm:"VARCHAR(100) 'TestSuite'"`
+}
+
 func InitDB() (err error) {
-	utils.LoadConfig("conf/app.conf")
+	// utils.LoadConfig("conf/app-local.conf")
+	utils.LoadConfig("conf/app-skytap.conf")
 
 	// appname = goTestLinkReport
 	// httpport = 8080
@@ -78,11 +101,17 @@ func InitDB() (err error) {
 	orm.ShowErr = true
 	fmt.Println("success!")
 	return orm.Sync(tables...)
-
 }
 
-func GetAllReport(count int, start int) ([]Report, error) {
-	var rs []Report
-	err := orm.Limit(count, start).Asc("Id").Find(&rs)
+func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, error) {
+	var rs []v_auto_last_execution
+	err := orm.Limit(count, start).Asc("TestPlan_Name").Find(&rs)
+	return rs, err
+}
+
+func Get_v_testlink_testexecution_tree(count int, start int) ([]v_testlink_testexecution_tree, error) {
+	var rs []v_testlink_testexecution_tree
+	// err := orm.Limit(count, start).Asc("ToadModule").Find(&rs)
+	err := orm.Limit(count, start).Find(&rs)
 	return rs, err
 }
