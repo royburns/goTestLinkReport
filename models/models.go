@@ -36,7 +36,7 @@ type v_testlink_testexecution_tree struct {
 	SubModule   string    `xorm:"VARCHAR(403) 'SubModule'"`
 	Testcase_id int       `xorm:"INT 'testcase_id'"`
 	TestCase    string    `xorm:"VARCHAR(100) 'TestCase'"`
-	Status      byte      `xorm:"CHAR(1) 'status'"`
+	Status      string    `xorm:"CHAR(1) 'status'"`
 	Build       string    `xorm:"VARCHAR(100) 'Build'"`
 	LasTimeRun  time.Time `xorm:"DATETIME 'LasTimeRun'"`
 	Notes       string    `xorm:"TEXT 'notes'"`
@@ -104,6 +104,14 @@ func InitDB() (err error) {
 	return orm.Sync(tables...)
 }
 
+func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, error) {
+	var rs []v_auto_last_execution
+	err := orm.Limit(count, start).Asc("TestPlan_Name").Find(&rs)
+	return rs, err
+}
+
+// process the table "v_testlink_testexecution_tree"
+//
 func GetExecutionCount() int64 {
 	count, err := orm.Count(new(v_testlink_testexecution_tree))
 	if err != nil {
@@ -112,10 +120,15 @@ func GetExecutionCount() int64 {
 	return count
 }
 
-func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, error) {
-	var rs []v_auto_last_execution
-	err := orm.Limit(count, start).Asc("TestPlan_Name").Find(&rs)
-	return rs, err
+func GetTestPlans(table string) []map[string][]byte {
+	// sql := "SELECT DISTINCT ?.TestPlan FROM testlink.? ?"
+	sql := fmt.Sprintf("SELECT DISTINCT %s.TestPlan FROM testlink.%s %s", table, table, table)
+	testplans, err := orm.Query(sql)
+	// orm.Distinct("TestPlan")
+	if err != nil {
+		beego.Error("models.GetTestPlans() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
+	}
+	return testplans
 }
 
 func Get_v_testlink_testexecution_tree(count int, start int) ([]v_testlink_testexecution_tree, error) {

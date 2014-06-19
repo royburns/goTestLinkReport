@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/royburns/goTestLinkReport/models"
 	"strconv"
+	// "strings"
 )
 
 type MainController struct {
@@ -33,16 +34,20 @@ func (this *MainController) Get() {
 		this.Data["Next"] = pn + 10
 	}
 
-	// this.Data["IndexPkgs"] = models.GetIndexPkgs(pn)
+	// Get TestPlans
+	testplans := make(map[int]string)
+	res := models.GetTestPlans("v_testlink_testexecution_tree")
+	for key, item := range res {
+		testplans[key] = string(item["TestPlan"])
+	}
+	this.Data["TestPlans"] = testplans
 
 	// Calculate page list.
 	this.Data["PageList"] = calPageList(pn, maxPageNum)
 
-	// Set properties
-	// this.Data["IndexStats"] = indexStats
-
 	// 100, (page-1)*100
-	testexecution_tree, err := models.Get_v_testlink_testexecution_tree(100, (pn-1)*100)
+	pagenum := 100
+	testexecution_tree, err := models.Get_v_testlink_testexecution_tree(pagenum, (pn-1)*pagenum)
 
 	if err != nil {
 		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
