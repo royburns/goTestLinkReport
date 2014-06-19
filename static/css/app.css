@@ -1,10 +1,10 @@
 @font-face {
   font-family: "responsivenav";
-  src:url("../icons/responsivenav.eot");
-  src:url("../icons/responsivenav.eot?#iefix") format("embedded-opentype"),
-    url("../icons/responsivenav.ttf") format("truetype"),
-    url("../icons/responsivenav.woff") format("woff"),
-    url("../icons/responsivenav.svg#responsivenav") format("svg");
+  src:url("../fonts/responsivenav.eot");
+  src:url("../fonts/responsivenav.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/responsivenav.ttf") format("truetype"),
+    url("../fonts/responsivenav.woff") format("woff"),
+    url("../fonts/responsivenav.svg#responsivenav") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -33,7 +33,7 @@ body {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  background: #444 url("debut_dark.png") repeat;
+  background: #444 url("../img/debut_dark.png") repeat;
   color: #666;
   font: normal 100%/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

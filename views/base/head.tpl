@@ -2,6 +2,7 @@
 		<title>Report</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
+		<link href="/static/img/fluidicon.png" rel="shortcut icon" type="image/x-icon" />
 		<link href="/static/css/flat-ui.css" rel="stylesheet" />
 		<link href="/static/css/app.css" rel="stylesheet" />
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />
@@ -23,6 +24,7 @@
 				font-size: 14px;
 				line-height: 20px;
 				color: rgb(51, 51, 51);
+				background: #444;
 				background-color: rgb(255, 255, 255);
 			}
 
@@ -70,7 +72,24 @@
 			}
 
 			.table.hovered tbody tr:hover {
-			background-color: rgba(51, 255, 153, 0.1);
+				background-color: rgba(51, 255, 153, 0.1);
+			}
+			.table td {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			.table .td6 {
+				width: 15%;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			.table .td10 {
+				width: 5%;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
 			}
 
 			.left-col {
