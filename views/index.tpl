@@ -7,9 +7,12 @@
 	{{template "base/header.tpl" .}}
 	{{template "base/navbar.tpl" .}}
 
-		<div>
-			
-			<div class="row" align="middle">
+			<div class="row ">
+				<div class="navbar navbar-inverse col-lg-2">
+					<div class="navbar-nav">
+					</div>
+				</div>
+
 				<div class="navbar navbar-inverse col-lg-10" >
 					<div class="navbar-nav">
 						<div class="container">
@@ -65,28 +68,53 @@
 				<div class="col-lg-2">
 					<div class="left-nav hovered">
 						<div class="clearfix">
-							<ul class="nav pinned">
-								{{range .TestPlans}}
-								<li class="active">
-									{{.}}
-								</li>
-								{{end}}
-								<label class="checkbox" for="checkbox2">
-									<input type="checkbox" checked="checked" value="" id="checkbox2">
-									Checked
-								</label>
-							</ul>
+							<div class="btn-group" data-toggle="buttons">
+								<ul class="nav pinned">
+
+									{{range .TestPlans}}
+									<li>
+										<label class="btn ">
+											<input type="checkbox">{{.}}
+										</label>
+									</li>
+									{{end}}
+
+									<label class="checkbox" for="checkbox1">
+										<input type="checkbox" value="" id="checkbox1">
+										Unchecked
+									</label>
+									<label class="checkbox" for="checkbox2">
+										<input type="checkbox" checked="checked" value="" id="checkbox2">
+										Checked
+									</label>
+									<label class="checkbox" for="checkbox3">
+										<input type="checkbox" value="" id="checkbox3" disabled="">
+										Disabled unchecked
+									</label>
+								</ul>
+							</div>
+
+							<!--
+								<ul class="nav pinned">
+									{{range .TestPlans}}
+									<li>
+										<a>{{.}}</a>
+									</li>
+									{{end}}
+								</ul>
+							-->
+
 						</div>
 					</div>
 				</div>
 
 				<div class="col-lg-10">
-					<table class="table table-bordered table-condensed hovered" name="report-table">
+					<table class="table table-bordered table-condensed" name="report-table">
 						<thead>
 							<tr>
 								<th>
 									<div class="btn-group">
-										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+										<button type="button" class="btn btn-success btn-large dropdown-toggle" data-toggle="dropdown">
 											TestPlan
 											<span class="caret"></span>
 										</button>
@@ -105,19 +133,41 @@
 										Platform
 									</label>
 								</th>
-								<th>ToadModule</th>
-								<th>SubModule</th>
-								<th>Testcase_id</th>
-								<th>TestCase</th>
-								<th>Status</th>
-								<th>Build</th>
-								<th>LasTimeRun</th>
-								<th>Notes</th>
-								<th>Tester</th>
+								<th>
+									<a href="#" class="btn btn-large btn-block dropdown-toggle">
+										ToadModule
+									</a>
+								</th>
+								<th>
+									<a href="#" class="btn btn-large btn-block">
+									SubModule
+									</a>
+								</th>
+								<th>
+									Testcase_id
+								</th>
+								<th>
+									TestCase
+								</th>
+								<th>
+									Status
+								</th>
+								<th>
+									Build
+								</th>
+								<th>
+									LasTimeRun
+								</th>
+								<th>
+									Notes
+								</th>
+								<th>
+									Tester
+								</th>
 							</tr>
 						</thead>
 
-						<tbody>
+						<tbody class="hovered">
 							{{range .TestExecutionTree}}
 							<tr 
 							{{if eq .Status "p"}} class="success" {{end}}
@@ -129,11 +179,15 @@
 								<td>{{.ToadModule}}</td>
 								<td>.SubModule</td>
 								<td>{{.Testcase_id}}</td>
-								<td width="15%">{{.TestCase}}</td>
+								<td data-toggle="tooltip" title="{{.TestCase}}">
+									{{.TestCase}}
+								</td>
 								<td>{{.Status}}</td>
 								<td>{{.Build}}</td>
 								<td>{{.LasTimeRun}}</td>
-								<td class="td10">{{.Notes}}</td>
+								<td data-toggle="tooltip" title="{{.Notes}}">
+									{{.Notes}}
+								</td>
 								<td>{{.Tester}}</td>
 							</tr>
 							{{end}}
@@ -169,9 +223,6 @@
 
 		</div>
 
-
-		<script src="/static/js/app.js" type="text/javascript" charset="utf-8" async defer></script>
-
 		<!-- Pin all the things! -->
 		<script>
 			$(".pinned").pin({containerSelector: ".row", minWidth: 940});
@@ -180,6 +231,8 @@
 
 		{{define "home_js"}}
 		<script>
+
+			// Modify the column of the report grid.
 			(function () {
 				var tables = document.getElementsByName("report-table");
 				var now = new Date();
@@ -187,17 +240,12 @@
 				for (var n = 0; n < tables.length; n++) {
 					var table = tables[n];
 					var items = table.getElementsByTagName("tr");
-					// alert(items.length);
 					for (var i = 1; i < items.length; i++) {
 						// Limit length.
-						// alert(items[i].cells.length);
-						// alert(items[i].cells[0].innerHTML);
 						for (var j = 0; j <= items[i].cells.length; j++) {
 							var len = 32;
-							// alert(j);
-							// alert(items[i].cells[j].innerHTML)
 							if (j ==  5) {
-								len = 32;
+								len = 40;
 								if (items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
 									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + "...";
 								};
@@ -209,12 +257,14 @@
 								};
 							};
 							if (j == 9) {
-								len = 10;
+								len = 12;
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
 								if (items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
+									// alert(items[i].cells[j].innerHTML);
+									// items[i].cells[j].attr("title").value = items[i].cells[j].innerHTML;
 									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + "...";
 								};
 							};
-							
 						};
 						// var s = table.rows[i].cells[0].getElementsByTagName("td")[0];
 						// alert(s);
@@ -227,6 +277,11 @@
 						// table.rows[i].cells[1].innerHTML = d.toLocaleString();
 					}
 				}
+			})();
+
+			// ...
+			(function () {
+				// var tooltip = $.scojs_tooltip('#trigger');
 			})();
 		</script>
 		{{end}}

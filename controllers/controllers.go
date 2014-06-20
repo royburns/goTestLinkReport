@@ -47,7 +47,7 @@ func (this *MainController) Get() {
 
 	// 100, (page-1)*100
 	pagenum := 100
-	testexecution_tree, err := models.Get_v_testlink_testexecution_tree(pagenum, (pn-1)*pagenum)
+	testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
 
 	if err != nil {
 		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
@@ -63,8 +63,9 @@ func (this *MainController) Get() {
 }
 
 type page struct {
-	IsActive bool
-	PageNum  int
+	IsActive  bool
+	TestPlans string
+	PageNum   int
 }
 
 // calPageList returns page lists.

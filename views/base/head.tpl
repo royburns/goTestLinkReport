@@ -3,17 +3,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
 		<link href="/static/img/fluidicon.png" rel="shortcut icon" type="image/x-icon" />
-		<link href="/static/css/flat-ui.css" rel="stylesheet" />
+		
+
 		<link href="/static/css/app.css" rel="stylesheet" />
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" />
-
-		<script src="/static/js/jquery-1.11.1.min.js"></script>
-		<script src="/static/js/bootstrap.min.js"></script>
-		<script src="/static/js/responsive-nav.min.js"></script>
-		<script src="/static/js/jquery.pin.min.js"></script>
-
+		<link href="/static/css/flat-ui.css" rel="stylesheet" />
+		
+		
 		<style type="text/css">
 			body {
 				width: 95%;
@@ -105,7 +103,7 @@
 			.left-nav .left-col { width: 20%; }
 			.left-nav .right-col { width: 80%; }
 			.left-nav .nav {
-				margin: 128px 0 0;
+				margin: 64px 0 0;
 				padding: 10px 20px;
 				list-style: none;
 				box-shadow: 5px 5px 7px rgba(33,33,33,.7);
