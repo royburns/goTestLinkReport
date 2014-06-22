@@ -10,6 +10,7 @@
 			<div class="row ">
 				<div class="navbar navbar-inverse col-lg-2">
 					<div class="navbar-nav">
+						...
 					</div>
 				</div>
 
@@ -94,7 +95,7 @@
 								</ul>
 							</div>
 
-							<!--
+							
 								<ul class="nav pinned">
 									{{range .TestPlans}}
 									<li>
@@ -102,7 +103,7 @@
 									</li>
 									{{end}}
 								</ul>
-							-->
+							
 
 						</div>
 					</div>

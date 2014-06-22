@@ -10,8 +10,9 @@
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" />
 		<link href="/static/css/flat-ui.css" rel="stylesheet" />
+		<link href="/static/css/jquery.dataTables.css" rel="stylesheet" />
 		
-		
+
 		<style type="text/css">
 			body {
 				width: 95%;
@@ -51,7 +52,7 @@
 			}
 
 			.container {
-				width: 940px;
+				width: 90%;
 				margin-right: auto;
 				margin-left: auto;
 			}

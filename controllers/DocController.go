@@ -8,11 +8,11 @@ import (
 	// "strings"
 )
 
-type MainController struct {
+type DocController struct {
 	beego.Controller
 }
 
-func (this *MainController) Get() {
+func (this *DocController) Get() {
 	this.Data["IsIndex"] = true
 
 	// Calculate pages.
@@ -59,35 +59,5 @@ func (this *MainController) Get() {
 	this.Data["Email"] = "roy.burns@163.com"
 	this.Data["TestExecutionTree"] = testexecution_tree
 
-	this.TplNames = "index.tpl"
-}
-
-type page struct {
-	IsActive  bool
-	TestPlans string
-	PageNum   int
-}
-
-// calPageList returns page lists.
-func calPageList(p, maxPageNum int) []*page {
-	listSize := 15
-	hls := listSize / 2
-	pl := make([]*page, 0, listSize)
-
-	start, end := p-hls, p+hls
-	if p < hls+1 {
-		start, end = 1, listSize
-	}
-
-	if end > maxPageNum {
-		end = maxPageNum
-	}
-
-	for i := start; i <= end; i++ {
-		pl = append(pl, &page{
-			IsActive: i == p,
-			PageNum:  i,
-		})
-	}
-	return pl
+	this.TplNames = "doc.tpl"
 }

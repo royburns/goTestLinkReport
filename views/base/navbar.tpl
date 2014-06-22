@@ -26,6 +26,7 @@
 										<li><a href="#">One more separated link</a></li>
 							</ul>
 						</li> -->
+						<li><a href="/test">test</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="https://github.com/royburns/goTestLinkReport">Github</a></li>
