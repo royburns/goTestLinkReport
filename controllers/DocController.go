@@ -13,10 +13,25 @@ type DocController struct {
 }
 
 func (this *DocController) Get() {
-	this.Data["IsIndex"] = true
+	// ExecutionsTableHeader := []string{
+	// 	"TestPlan",
+	// 	"Platform",
+	// 	"ToadModule",
+	// 	"SubModule",
+	// 	"Testcase_id",
+	// 	"TestCase",
+	// 	"Status",
+	// 	"Build",
+	// 	"LasTimeRun",
+	// 	"Notes",
+	// 	"Tester",
+	// 	// "TestSuite",
+	// }
+
+	ExecutionsTableHeader := models.GetExectutionTableHeader()
 
 	// Calculate pages.
-	pagenum := 100
+	pagenum := 200
 	pn, err := strconv.Atoi(this.Input().Get("p"))
 	maxPageNum := int(models.GetExecutionCount()/int64(pagenum)) + 1
 	if err != nil || pn > maxPageNum {
@@ -58,6 +73,8 @@ func (this *DocController) Get() {
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 	this.Data["TestExecutionTree"] = testexecution_tree
+	this.Data["TableHeader"] = ExecutionsTableHeader
+	this.Data["IsIndex"] = true
 
 	this.TplNames = "doc.tpl"
 }

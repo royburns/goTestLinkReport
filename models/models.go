@@ -8,12 +8,14 @@ import (
 	"github.com/Unknwon/gowalker/utils"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
+	"reflect"
 	"strings"
 )
 
 var (
-	orm    *xorm.Engine
-	tables []interface{}
+	orm                   *xorm.Engine
+	tables                []interface{}
+	ExecutionsTableHeader []string
 )
 
 type v_auto_last_execution struct {
@@ -44,6 +46,11 @@ type v_testlink_testexecution_tree struct {
 	Tester      string    `xorm:"VARCHAR(30) 'Tester'"`
 
 	// TestSuite string `xorm:"VARCHAR(100) 'TestSuite'"`
+}
+
+func GetExectutionTableHeader() []string {
+	var v v_testlink_testexecution_tree
+	return GetFieldsArray(v)
 }
 
 func InitDB() (err error) {
@@ -162,4 +169,15 @@ func GetAllExecutions(count int, start int) ([]v_testlink_testexecution_tree, er
 	var rs []v_testlink_testexecution_tree
 	err := orm.Limit(count, start).Find(&rs)
 	return rs, err
+}
+
+func GetFieldsArray(obj interface{}) []string {
+	var ret []string
+	typ := reflect.TypeOf(obj)
+
+	for i := 0; i < typ.NumField(); i++ {
+		ret = append(ret, typ.Field(i).Name)
+	}
+
+	return ret
 }

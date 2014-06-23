@@ -17,14 +17,33 @@
 
 		<!-- Report Grid -->
 		<script type="text/javascript" language="javascript" class="init">
-			$(document).ready(function() {
-				$('#report-table').dataTable( {
-					"pagingType": "full_numbers",
-					"paging":   false,
-					//"aLengthMenu": [ 10, 25, 50, 100 , -1],
-					"aLengthMenu": [ 100 , -1],
+		$(document).ready(function() {
+			// settings
+			$('#report-table').dataTable({
+				"pagingType": "full_numbers",
+				"paging":   true,
+				//"aLengthMenu": [ 10, 25, 50, 100 , -1]
+				"aLengthMenu": [ 50, 100 , -1],
+			});
+
+			//
+			var table = $('#report-table').DataTable();
+			$("#report-table tfoot th").each(function(i) {
+				var select = $('<select><option value=""></option></select>')
+					.appendTo($(this).empty())
+					.on('change', function() {
+						table.column(i)
+							.search( '^'+$(this).val()+'$', true, false )
+							.draw();
+				});
+
+				table.column(i).data().unique().sort().each(function(d, j) {
+					select.append('<option value="' + d + '">' + d + '</option>')
 				} );
-			} );
+			});
+
+
+		});
 		</script>
 		<!-- Report Grid -->
 

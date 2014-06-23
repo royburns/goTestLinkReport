@@ -6,46 +6,61 @@
 	<body class="header">
 	{{template "base/header.tpl" .}}
 	{{template "base/navbar.tpl" .}}
-			
-			<div class="row container" align="middle">
 
-				<div >
-					<table class="table table-bordered table-condensed" id="report-table" name="report-table" align="middle">
+		<div class="row">
+
+			<div class="col-lg-2">
+				<div class="left-nav hovered">
+					<div class="clearfix">
+						<div class="btn-group" data-toggle="buttons">
+							<ul class="nav pinned">
+
+								{{range .TestPlans}}
+								<li>
+									<label class="btn ">
+										<input type="checkbox">{{.}}
+									</label>
+								</li>
+								{{end}}
+
+								<label class="checkbox" for="checkbox1">
+									<input type="checkbox" value="" id="checkbox1">
+									Unchecked
+								</label>
+								<label class="checkbox" for="checkbox2">
+									<input type="checkbox" checked="checked" value="" id="checkbox2">
+									Checked
+								</label>
+								<label class="checkbox" for="checkbox3">
+									<input type="checkbox" value="" id="checkbox3" disabled="">
+									Disabled unchecked
+								</label>
+							</ul>
+						</div>
+
+						
+							<ul class="nav pinned">
+								{{range .TestPlans}}
+								<li>
+									<a>{{.}}</a>
+								</li>
+								{{end}}
+							</ul>
+						
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-10" >
+
+				<div class="container">
+					<table class="table table-bordered table-condensed" id="report-table" name="report-table">
 						<thead>
 							<tr>
-								<th>
-									TestPlan
-								</th>
-								<th>
-									Platform
-								</th>
-								<th>
-									ToadModule
-								</th>
-								<th>
-									SubModule
-								</th>
-								<th>
-									Testcase_id
-								</th>
-								<th>
-									TestCase
-								</th>
-								<th>
-									Status
-								</th>
-								<th>
-									Build
-								</th>
-								<th>
-									LasTimeRun
-								</th>
-								<th>
-									Notes
-								</th>
-								<th>
-									Tester
-								</th>
+								{{range .TableHeader}}
+								<th>{{ . }}</th>
+								{{end}}
 							</tr>
 						</thead>
 
@@ -64,7 +79,10 @@
 								<td data-toggle="tooltip" title="{{.TestCase}}">
 									{{.TestCase}}
 								</td>
-								<td>{{.Status}}</td>
+								<td>
+									{{if eq .Status ""}} {null} {{end}}
+									{{.Status}}
+								</td>
 								<td>{{.Build}}</td>
 								<td>{{.LasTimeRun}}</td>
 								<td data-toggle="tooltip" title="{{.Notes}}">
@@ -74,36 +92,45 @@
 							</tr>
 							{{end}}
 						</tbody>
+
+						<tfoot>
+							<tr>
+								{{range .TableHeader}}
+								<th>{{ . }}</th>
+								{{end}}
+							</tr>
+						</tfoot> 
 						
 					</table>
 				</div>
+				
 			</div>
-
-			<div class="row" align="middle">
-				<ul class="pagination">
-					<li class="previous">
-						<a href="/doc/?p={{.Prev}}">Prev</a>
-					</li>
-
-					{{range .PageList}}
-					<li {{if .IsActive}} class="active" {{end}}>
-						{{if .IsActive}}
-						<a href="#_buttom">{{.PageNum}}</a>
-						{{else}}
-						<a href="/doc/?p={{.PageNum}}">{{.PageNum}}</a>
-						{{end}}
-					</li>
-					{{end}}
-
-					<li class="next">
-						<a href="/doc/?p={{.Next}}">Next</a>
-					</li>
-				</ul>
-			</div>
-
-			{{template "home_js"}}
 
 		</div>
+
+		<div class="row" align="center">
+			<ul class="pagination">
+				<li class="previous">
+					<a href="/doc/?p={{.Prev}}">Prev</a>
+				</li>
+
+				{{range .PageList}}
+				<li {{if .IsActive}} class="active" {{end}}>
+					{{if .IsActive}}
+					<a href="#_buttom">{{.PageNum}}</a>
+					{{else}}
+					<a href="/doc/?p={{.PageNum}}">{{.PageNum}}</a>
+					{{end}}
+				</li>
+				{{end}}
+
+				<li class="next">
+					<a href="/doc/?p={{.Next}}">Next</a>
+				</li>
+			</ul>
+		</div>
+
+		{{template "home_js"}}
 
 		<!-- Pin all the things! -->
 		<script>

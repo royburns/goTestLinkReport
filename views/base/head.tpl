@@ -5,12 +5,13 @@
 		<link href="/static/img/fluidicon.png" rel="shortcut icon" type="image/x-icon" />
 		
 
-		<link href="/static/css/app.css" rel="stylesheet" />
+		
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" />
 		<link href="/static/css/flat-ui.css" rel="stylesheet" />
 		<link href="/static/css/jquery.dataTables.css" rel="stylesheet" />
+		<link href="/static/css/app.css" rel="stylesheet" />
 		
 
 		<style type="text/css">
@@ -77,6 +78,14 @@
 				text-overflow: ellipsis;
 				overflow: hidden;
 				white-space: nowrap;
+			}
+			.table-condensed > thead > tr > th,
+			.table-condensed > tbody > tr > th,
+			.table-condensed > tfoot > tr > th,
+			.table-condensed > thead > tr > td,
+			.table-condensed > tbody > tr > td,
+			.table-condensed > tfoot > tr > td {
+				padding: 5px;
 			}
 			.table .td6 {
 				width: 15%;
