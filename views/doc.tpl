@@ -54,7 +54,7 @@
 
 			<div class="col-lg-10" >
 
-				<div class="container">
+				<div >
 					<table class="table table-bordered table-condensed" id="report-table" name="report-table">
 						<thead>
 							<tr>
