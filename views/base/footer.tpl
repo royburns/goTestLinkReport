@@ -24,6 +24,14 @@
 				"paging":   true,
 				//"aLengthMenu": [ 10, 25, 50, 100 , -1]
 				"aLengthMenu": [ 50, 100 , -1],
+				"width": "80%",
+
+				//.table-condensed
+				"padding": 5,
+				"text-overflow": "ellipsis",
+				"overflow": "hidden",
+				"white-space": "nowrap",
+				"margin-left": 10,
 			});
 
 			//

@@ -52,6 +52,9 @@
 				text-rendering: optimizelegibility;
 			}
 
+			div.container {
+				width: 90%;
+			}
 			.container {
 				width: 90%;
 				margin-right: auto;
@@ -113,8 +116,8 @@
 			.left-nav .left-col { width: 20%; }
 			.left-nav .right-col { width: 80%; }
 			.left-nav .nav {
-				margin: 64px 0 0;
-				padding: 10px 20px;
+				margin: 136px 0 0;
+				padding: 5px 10px;
 				list-style: none;
 				box-shadow: 5px 5px 7px rgba(33,33,33,.7);
 				background: rgba(4, 18, 27, 0.88);        

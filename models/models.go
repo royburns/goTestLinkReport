@@ -13,9 +13,8 @@ import (
 )
 
 var (
-	orm                   *xorm.Engine
-	tables                []interface{}
-	ExecutionsTableHeader []string
+	orm    *xorm.Engine
+	tables []interface{}
 )
 
 type v_auto_last_execution struct {
