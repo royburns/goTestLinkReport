@@ -13,7 +13,8 @@ type MainController struct {
 }
 
 func (this *MainController) Get() {
-	this.Data["IsIndex"] = true
+
+	ExecutionsTableHeader := models.GetExectutionTableHeader()
 
 	// Calculate pages.
 	pagenum := 100
@@ -55,9 +56,11 @@ func (this *MainController) Get() {
 		beego.Debug("Success!!!")
 	}
 
+	this.Data["TableHeader"] = ExecutionsTableHeader
+	this.Data["TestExecutionTree"] = testexecution_tree
+	this.Data["IsIndex"] = true
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
-	this.Data["TestExecutionTree"] = testexecution_tree
 
 	this.TplNames = "index.tpl"
 }

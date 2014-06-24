@@ -109,7 +109,7 @@ a:hover {
 
 .nav-collapse {
   position: absolute;
-  width: 24%;
+  width: 20%;
   top: 2em;
   left: 0;
 }
@@ -229,4 +229,93 @@ a:hover {
 @media screen and (min-width: 76em) {
   .nav-collapse { width: 18em }
   .main { width: auto; left: 18em }
+}
+
+.left-col {
+  float: left;
+  width: 70%;
+  padding-right: 10px;
+}
+.right-col {
+  float: left;
+  width: 30%;
+  padding-left: 10px;
+}
+.left-nav .left-col { width: 12%; }
+.left-nav .right-col { width: 88%; }
+.left-nav .nav {
+  margin: 66px 0 0;
+  padding: 5px 10px;
+  list-style: none;
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  background: rgba(4, 18, 27, 0.88);        
+  border-radius: 3px;
+}
+.nav li {
+  /*font-size: 10px;*/
+  color: #FFFFFF;
+  margin-bottom: 5px; 
+}
+.left-nav.hovered li:hover {
+  background-color: rgba(51, 255, 153, 0.1);
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+.clearfix:after {
+  clear: both;
+}
+
+.table.hovered tbody tr:hover {
+  background-color: rgba(51, 255, 153, 0.1);
+}
+.table td {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  padding: 5px;
+}
+.table .td6 {
+  width: 15%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.table .td10 {
+  width: 5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.table > thead > tr > td.nostatus,
+.table > tbody > tr > td.nostatus,
+.table > tfoot > tr > td.nostatus,
+.table > thead > tr > th.nostatus,
+.table > tbody > tr > th.nostatus,
+.table > tfoot > tr > th.nostatus,
+.table > thead > tr.nostatus > td,
+.table > tbody > tr.nostatus > td,
+.table > tfoot > tr.nostatus > td,
+.table > thead > tr.nostatus > th,
+.table > tbody > tr.nostatus > th,
+.table > tfoot > tr.nostatus > th {
+  background-color: #cccccc;
+}
+.table-hover > tbody > tr > td.nostatus:hover,
+.table-hover > tbody > tr > th.nostatus:hover,
+.table-hover > tbody > tr.nostatus:hover > td,
+.table-hover > tbody > tr:hover > .nostatus,
+.table-hover > tbody > tr.nostatus:hover > th {
+  background-color: #999999;
 }

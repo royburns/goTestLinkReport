@@ -52,6 +52,11 @@ func GetExectutionTableHeader() []string {
 	return GetFieldsArray(v)
 }
 
+func GetExectutionTableCaption() string {
+	var v v_testlink_testexecution_tree
+	return GetFieldsString(v)
+}
+
 func InitDB() (err error) {
 	utils.LoadConfig("conf/app.conf")
 	// utils.LoadConfig("conf/app-local.conf")
@@ -179,4 +184,15 @@ func GetFieldsArray(obj interface{}) []string {
 	}
 
 	return ret
+}
+
+func GetFieldsString(obj interface{}) string {
+	var ret []string
+	typ := reflect.TypeOf(obj)
+
+	for i := 0; i < typ.NumField(); i++ {
+		ret = append(ret, typ.Field(i).Name)
+	}
+
+	return strings.Join(ret, " ")
 }

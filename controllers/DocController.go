@@ -13,22 +13,24 @@ type DocController struct {
 }
 
 func (this *DocController) Get() {
-	// ExecutionsTableHeader := []string{
-	// 	"TestPlan",
-	// 	"Platform",
-	// 	"ToadModule",
-	// 	"SubModule",
-	// 	"Testcase_id",
-	// 	"TestCase",
-	// 	"Status",
-	// 	"Build",
-	// 	"LasTimeRun",
-	// 	"Notes",
-	// 	"Tester",
-	// 	// "TestSuite",
-	// }
 
 	ExecutionsTableHeader := models.GetExectutionTableHeader()
+	ExecutionsTableCaption := models.GetExectutionTableCaption()
+
+	ExecutionsTableHeader = []string{
+		// "TestPlan",
+		"Platform",
+		"ToadModule",
+		"SubModule",
+		"Testcase_id",
+		"TestCase",
+		"Status",
+		"Build",
+		"LasTimeRun",
+		"Notes",
+		"Tester",
+		// "TestSuite",
+	}
 
 	// Calculate pages.
 	pagenum := 200
@@ -70,11 +72,12 @@ func (this *DocController) Get() {
 		beego.Debug("Success!!!")
 	}
 
+	this.Data["TableCaption"] = ExecutionsTableCaption
+	this.Data["TableHeader"] = ExecutionsTableHeader
+	this.Data["TestExecutionTree"] = testexecution_tree
+	this.Data["IsIndex"] = true
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
-	this.Data["TestExecutionTree"] = testexecution_tree
-	this.Data["TableHeader"] = ExecutionsTableHeader
-	this.Data["IsIndex"] = true
 
 	this.TplNames = "doc.tpl"
 }

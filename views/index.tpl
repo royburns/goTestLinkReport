@@ -83,39 +83,12 @@
 				</div>
 
 				<div class="col-lg-10">
-					<table class="table table-bordered table-condensed hovered" name="report-table">
+					<table class="table table-bordered table-condensed table-hover" name="report-table">
 						<thead>
 							<tr>
-								<th>
-									<div class="btn-group">
-										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-											TestPlan
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">Action</a></li>
-											<li><a href="#">Another action</a></li>
-											<li><a href="#">Something else here</a></li>
-											<li class="divider"></li>
-											<li><a href="#">Separated link</a></li>
-										</ul>
-									</div>
-								</th>
-								<th>
-									<label class="btn btn-primary">
-										<input type="checkbox">
-										Platform
-									</label>
-								</th>
-								<th>ToadModule</th>
-								<th>SubModule</th>
-								<th>Testcase_id</th>
-								<th>TestCase</th>
-								<th>Status</th>
-								<th>Build</th>
-								<th>LasTimeRun</th>
-								<th>Notes</th>
-								<th>Tester</th>
+								{{range .TableHeader}}
+								<th>{{ . }}</th>
+								{{end}}
 							</tr>
 						</thead>
 
@@ -140,6 +113,14 @@
 							</tr>
 							{{end}}
 						</tbody>
+
+						<tfoot>
+							<tr>
+								{{range .TableHeader}}
+								<th>{{ . }}</th>
+								{{end}}
+							</tr>
+						</tfoot> 
 						
 					</table>
 				</div>
@@ -167,60 +148,9 @@
 				</ul>
 			</div>
 
-			{{template "home_js"}}
-
 		</div>
 
-		<!-- Pin all the things! -->
-		<script>
-			$(".pinned").pin({containerSelector: ".row", minWidth: 940});
-			alert("...");
-		</script>
-		<!-- Pin all the things! -->
-
-		{{define "home_js"}}
-		<script>
-
-			// Modify the column of the report grid.
-			(function () {
-				var tables = document.getElementsByName("report-table");
-				var now = new Date();
-				// var len = 100;
-				for (var n = 0; n < tables.length; n++) {
-					var table = tables[n];
-					var items = table.getElementsByTagName("tr");
-					for (var i = 1; i < items.length; i++) {
-						// Limit length.
-						for (var j = 0; j <= items[i].cells.length; j++) {
-							var len = 32;
-							
-							if (j ==  5) {
-								len = 40;
-								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
-								if (items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
-									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + "...";
-								};
-							};
-							if (j == 8) {
-								len = 19;
-								if (items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
-									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len);
-								};
-							};
-							if (j == 9) {
-								len = 12;
-								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
-								if (items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
-									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + "...";
-								};
-							};
-						};
-					};
-				};
-			})();
-
-		</script>
-		{{end}}
+		{{template "home_js"}}
 
 	{{template "base/footer.tpl" .}}
 	</body>
