@@ -41,20 +41,23 @@
 								{{range .TestExecutionTree}}
 								<tr 
 								{{if eq .Status "p"}} class="success" {{end}}
-								{{if eq .Status ""}} class="nostatus" {{end}}
 								{{if eq .Status "f"}} class="danger" {{end}}
+								{{if eq .Status ""}} class="nostatus" {{end}}
 								>
 									<!-- <td>{{.TestPlan}}</td> -->
 									<td>{{.Platform}}</td>
 									<td>{{.ToadModule}}</td>
-									<td>{{.SubModule}}</td>
+									<td data-toggle="tooltip" title="{{.SubModule}}">
+										{{.SubModule}}
+									</td>
 									<td>{{.Testcase_id}}</td>
 									<td data-toggle="tooltip" title="{{.TestCase}}">
 										{{.TestCase}}
 									</td>
 									<td>
-										{{if eq .Status ""}} {null} {{end}}
-										{{.Status}}
+										{{if eq .Status "p"}} {pass} {{end}}
+										{{if eq .Status "f"}} {failed} {{end}}
+										{{if eq .Status ""}} {not run} {{end}}
 									</td>
 									<td>{{.Build}}</td>
 									<td>{{.LasTimeRun}}</td>
