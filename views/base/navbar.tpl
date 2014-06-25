@@ -13,7 +13,7 @@
 				<div class="collapse navbar-collapse" id="bs-navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/doc">Doc</a></li> <!-- can use js to control active class -->
+						<li><a href="/plan">Plan</a></li> <!-- can use js to control active class -->
 						<!-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 							 <ul class="dropdown-menu">
@@ -26,6 +26,7 @@
 										<li><a href="#">One more separated link</a></li>
 							</ul>
 						</li> -->
+						<li><a href="/report">Report</a></li>
 						<li><a href="/test">test</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

@@ -8,14 +8,13 @@ import (
 	// "strings"
 )
 
-type DocController struct {
+type ReportController struct {
 	beego.Controller
 }
 
-func (this *DocController) Get() {
+func (this *ReportController) Get() {
 
 	ExecutionsTableHeader := models.GetExectutionTableHeader()
-	ExecutionsTableCaption := models.GetExectutionTableCaption()
 
 	ExecutionsTableHeader = []string{
 		// "TestPlan",
@@ -32,39 +31,34 @@ func (this *DocController) Get() {
 		// "TestSuite",
 	}
 
-	// Calculate pages.
-	pagenum := 200
-	pn, err := strconv.Atoi(this.Input().Get("p"))
-	maxPageNum := int(models.GetExecutionCount()/int64(pagenum)) + 1
-	if err != nil || pn > maxPageNum {
-		pn = 1
-	}
-
-	if pn < 10 {
-		this.Data["Prev"] = 1
-	} else {
-		this.Data["Prev"] = pn - 10
-	}
-
-	if pn > maxPageNum-10 {
-		this.Data["Next"] = maxPageNum
-	} else {
-		this.Data["Next"] = pn + 10
+	maxTPNum := 10000
+	testplan := this.Input().Get("testplan")
+	testexecution_where, err := models.GetAllExecutionsWhere(testplan)
+	tpCount := len(testexecution_where)
+	if err != nil || tpCount > maxTPNum {
+		testplan = ""
 	}
 
 	// Get TestPlans
 	testplans := make(map[int]string)
-	res := models.GetTestPlans("v_testlink_testexecution_tree")
+	res := models.GetAllTestPlans("v_testlink_testexecution_tree")
 	for key, item := range res {
 		testplans[key] = string(item["TestPlan"])
 	}
-	this.Data["TestPlans"] = testplans
 
-	// Calculate page list.
-	this.Data["PageList"] = calPageList(pn, maxPageNum)
+	var tp []TestPlan
+	res = models.GetAllTestPlansAndCount()
+	for _, item := range res {
+		name := string(item["TestPlan"])
+		count, _ := strconv.Atoi(string(item["COUNT(*)"]))
+		tp = append(tp, TestPlan{
+			Name:  name,
+			Count: count,
+		})
+	}
 
 	// 100, (page-1)*100
-	testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
+	// testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
 
 	if err != nil {
 		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
@@ -72,12 +66,18 @@ func (this *DocController) Get() {
 		beego.Debug("Success!!!")
 	}
 
-	this.Data["TableCaption"] = ExecutionsTableCaption
+	this.Data["TestPlans"] = tp
 	this.Data["TableHeader"] = ExecutionsTableHeader
-	this.Data["TestExecutionTree"] = testexecution_tree
+	this.Data["TestExecutionTree"] = testexecution_where
+
 	this.Data["IsIndex"] = true
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
-	this.TplNames = "doc.tpl"
+	this.TplNames = "report.tpl"
+}
+
+type TestPlan struct {
+	Name  string
+	Count int
 }

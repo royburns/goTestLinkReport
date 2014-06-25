@@ -8,62 +8,10 @@
 	{{template "base/navbar.tpl" .}}
 		<div>
 
-			<div class="row ">
-				<div class="navbar navbar-inverse col-lg-2">
-					<div class="navbar-nav">
-						...
-					</div>
-				</div>
+			<div class="">
+				
+				
 
-				<div class="navbar navbar-inverse col-lg-10" >
-					<div class="navbar-nav">
-						<div class="container">
-							<button type="button" class="btn btn-link" data-toggle="collapse" data-target=".nav-collapse">
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-
-							<div class="nav-collapse collapse">
-								<ul class="nav">
-									<li>
-										<a href="#">
-											Menu Item
-											<span class="navbar-unread">1</span>
-										</a>
-									</li>
-									<li class="active">
-										<a href="#">
-											Messages
-											<span class="navbar-unread">1</span>
-										</a>
-										<ul>
-											<li>
-												<a href="#">Element One</a>
-											</li>
-											<li>
-												<a href="#">Sub menu</a>
-												<ul>
-													<li><a href="#">Element One</a></li>
-													<li><a href="#">Element Two</a></li>
-													<li><a href="#">Element Three</a></li>
-												</ul> 
-											</li>
-											<li><a href="#">Element Three</a></li>
-										</ul> 
-									</li>
-									<li>
-										<a href="#">
-											About Us
-											<span class="navbar-unread">1</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-
-						</div>
-					</div>
-				</div>
 			</div>
 			
 			<div class="row">

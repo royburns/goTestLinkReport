@@ -12,12 +12,27 @@
 			<div class="row">
 				<div class="left-nav" >
 					<div class="left-col">
-						<div class=" hovered">
+						<div class="hovered">
+
+							<ul class="nav pinned">
+
+								{{range .TestPlans}}
+								<li class="active">
+									<a href="/report/?testplan={{.Name}}" class="">
+										{{.Name}}
+										<span class="nav-unread">{{.Count}}</span>
+									</a>
+								</li>
+								{{end}}
+
+							</ul>
 
 							<ul class="nav pinned">
 								{{range .TestPlans}}
 								<li>
-									{{.}}
+									<!-- <a href="/report/?testplan={{.Name}}"> -->
+										{{.Name}}
+									<!-- </a> -->
 								</li>
 								{{end}}
 							</ul>
@@ -80,28 +95,6 @@
 						</table>
 					</div>
 				</div>
-			</div>
-
-			<div class="row" align="center">
-				<ul class="pagination">
-					<li class="previous">
-						<a href="/doc/?p={{.Prev}}">Prev</a>
-					</li>
-
-					{{range .PageList}}
-					<li {{if .IsActive}} class="active" {{end}}>
-						{{if .IsActive}}
-						<a href="#_buttom">{{.PageNum}}</a>
-						{{else}}
-						<a href="/doc/?p={{.PageNum}}">{{.PageNum}}</a>
-						{{end}}
-					</li>
-					{{end}}
-
-					<li class="next">
-						<a href="/doc/?p={{.Next}}">Next</a>
-					</li>
-				</ul>
 			</div>
 
 		</div>

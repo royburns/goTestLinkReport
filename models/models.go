@@ -110,7 +110,7 @@ func InitDB() (err error) {
 	// orm.ShowSQL = true
 	// orm.ShowInfo = true
 	// orm.ShowDebug = true
-	orm.ShowWarn = true
+	// orm.ShowWarn = true
 	orm.ShowErr = true
 	fmt.Println("success!")
 	return orm.Sync(tables...)
@@ -122,9 +122,9 @@ func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, e
 	return rs, err
 }
 
-func GetTestPlans(table string) []map[string][]byte {
+func GetAllTestPlans(table string) []map[string][]byte {
 	// sql := "SELECT DISTINCT ?.TestPlan FROM testlink.? ?"
-	sql := fmt.Sprintf("SELECT DISTINCT %s.TestPlan FROM testlink.%s %s", table, table, table)
+	sql := fmt.Sprintf("select distinct %s.TestPlan FROM testlink.%s %s order by %s.TestPlan asc", table, table, table, table)
 	testplans, err := orm.Query(sql)
 	// orm.Distinct("TestPlan")
 	if err != nil {
@@ -133,21 +133,19 @@ func GetTestPlans(table string) []map[string][]byte {
 	return testplans
 }
 
-func GetExecutionCountWhere(where []string) int64 {
-	sql := "select * from v_testlink_testexecution_tree"
-	if len(where) > 0 {
-		str := strings.Join(where, ",")
-		sql = fmt.Sprintf("%s where in (%s)", sql, str)
-	}
-	count, err := orm.Sql(sql).Count(new(v_testlink_testexecution_tree))
+func GetAllTestPlansAndCount() []map[string][]byte {
+	// select TestPlan, COUNT(*) FROM v_testlink_testexecution_tree group by TestPlan;
+	sql := "select TestPlan, COUNT(*) FROM v_testlink_testexecution_tree group by TestPlan;"
+	testplans, err := orm.Query(sql)
+	// orm.Distinct("TestPlan")
 	if err != nil {
-		beego.Error("models.GetExecutionCountWhere() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
+		beego.Error("models.GetTestPlans() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
 	}
-	return count
+	return testplans
 }
 
-// process the table "v_testlink_testexecution_tree"
-//
+// Process the table "v_testlink_testexecution_tree"
+// Get all executions count
 func GetExecutionCount() int64 {
 	count, err := orm.Count(new(v_testlink_testexecution_tree))
 	if err != nil {
@@ -156,25 +154,86 @@ func GetExecutionCount() int64 {
 	return count
 }
 
-// 	select TestSuite, TestPlan, Platform, ToadModule, SubModule, TestCase, status, Build, LasTimeRun, notes, Tester, testcase_id FROM v_testlink_testexecution_tree
-// where TestPlan in( 'TDP_DB_Plan', '')
-func GetAllExecutionsWhere(count int, start int, where []string) ([]v_testlink_testexecution_tree, error) {
-	var rs []v_testlink_testexecution_tree
+func GetExecutionCountWhere(where string) int64 {
+	count := int64(0)
+	var err error
+	sql := "select * from v_testlink_testexecution_tree"
+	if len(where) > 0 {
+		sql = fmt.Sprintf("%s where v_testlink_testexecution_tree.TestPlan in ('%s')", sql, where)
+		count, err = orm.Sql(sql).Count(new(v_testlink_testexecution_tree))
+		// count, err=orm.
+		if err != nil {
+			beego.Error("models.GetExecutionCountWhere() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
+			return count
+		}
+	}
+
+	return count
+}
+
+func GetExecutionCountWheres(where []string) int64 {
+	count := int64(0)
+	var err error
 	sql := "select * from v_testlink_testexecution_tree"
 	if len(where) > 0 {
 		str := strings.Join(where, ",")
-		sql = fmt.Sprintf("%s where in (%s)", sql, str)
+		sql = fmt.Sprintf("%s where v_testlink_testexecution_tree.TestPlan in ('%s')", sql, str)
+		count, err = orm.Sql(sql).Count(new(v_testlink_testexecution_tree))
+		if err != nil {
+			beego.Error("models.GetExecutionCountWheres() -> Failed to count table v_testlink_testexecution_tree: ", err.Error())
+		}
 	}
-	err := orm.Sql(sql).Limit(count, start).Find(&rs)
-	return rs, err
+
+	return count
 }
 
+// Get all executions
+// 	select TestSuite, TestPlan, Platform, ToadModule, SubModule, TestCase, status, Build, LasTimeRun, notes, Tester, testcase_id FROM v_testlink_testexecution_tree
+// where TestPlan in( 'TDP_DB_Plan', '')
 func GetAllExecutions(count int, start int) ([]v_testlink_testexecution_tree, error) {
 	var rs []v_testlink_testexecution_tree
 	err := orm.Limit(count, start).Find(&rs)
 	return rs, err
 }
 
+func GetExecutionsWhere(count int, start int, where string) ([]v_testlink_testexecution_tree, error) {
+	rs := []v_testlink_testexecution_tree{}
+	var err error
+	sql := "select * from v_testlink_testexecution_tree"
+	if len(where) > 0 {
+		sql = fmt.Sprintf("%s where v_testlink_testexecution_tree.TestPlan in ('%s')", sql, where)
+		err = orm.Sql(sql).Limit(count, start).Asc("ToadModule").Find(&rs)
+	}
+
+	return rs, err
+}
+
+func GetAllExecutionsWhere(where string) ([]v_testlink_testexecution_tree, error) {
+	rs := []v_testlink_testexecution_tree{}
+	var err error
+	sql := "select * from v_testlink_testexecution_tree"
+	if len(where) > 0 {
+		sql = fmt.Sprintf("%s where v_testlink_testexecution_tree.TestPlan in ('%s')", sql, where)
+		err = orm.Sql(sql).Asc("ToadModule").Find(&rs)
+	}
+
+	return rs, err
+}
+
+func GetAllExecutionsWheres(count int, start int, where []string) ([]v_testlink_testexecution_tree, error) {
+	var rs []v_testlink_testexecution_tree
+	var err error
+	sql := "select * from v_testlink_testexecution_tree"
+	if len(where) > 0 {
+		str := strings.Join(where, ",")
+		sql = fmt.Sprintf("%s where v_testlink_testexecution_tree.TestPlan in ('%s')", sql, str)
+		err = orm.Sql(sql).Limit(count, start).Asc("ToadModule").Find(&rs)
+	}
+
+	return rs, err
+}
+
+// Convert fields of a struct into an array
 func GetFieldsArray(obj interface{}) []string {
 	var ret []string
 	typ := reflect.TypeOf(obj)
@@ -186,6 +245,7 @@ func GetFieldsArray(obj interface{}) []string {
 	return ret
 }
 
+// Convert fields of a struct into a string
 func GetFieldsString(obj interface{}) string {
 	var ret []string
 	typ := reflect.TypeOf(obj)

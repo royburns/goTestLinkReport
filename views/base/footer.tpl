@@ -26,7 +26,7 @@
 
 		<!-- Pin all the things! -->
 		<script>
-			$(".pinned").pin({containerSelector: ".row", minWidth: 940});
+			$(".pinned").pin({containerSelector: ".row", minWidth: 1080});
 		</script>
 		<!-- Pin all the things! -->
 
