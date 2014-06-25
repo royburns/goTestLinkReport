@@ -13,6 +13,10 @@
 
         </div>
         
+        {{template "home_js"}}
+
+        {{template "report_table"}}
+        
     {{template "base/footer.tpl" .}}
     </body>
 </html>

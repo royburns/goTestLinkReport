@@ -1,19 +1,7 @@
 
 		<!-- Load JS here for greater good -->
 		
-		<script src="/static/js/jquery-1.11.1.min.js"></script>
-		<script src="/static/js/bootstrap.min.js"></script>
-		<script src="/static/js/responsive-nav.min.js"></script>
-		<script src="/static/js/jquery.pin.min.js"></script>
-		<script src="/static/js/sco.tooltip.js"></script>
-		<script src="/static/js/flatui-checkbox.js"></script>
-		<script src="/static/js/app.js"></script>
-
-		<script src="/static/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="/static/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="/static/js/bootstrap-select.js"></script>
-		<script src="/static/js/bootstrap-switch.js"></script>
-		<script src="/static/js/jquery.dataTables.js"></script>
+		<!-- JS files -->
 
 		<!-- NavBar! -->
 		<script>
@@ -80,18 +68,21 @@
 		{{end}}
 
 		<!-- Report Grid -->
+		{{define "report_table"}}
 		<script type="text/javascript" language="javascript" class="init">
 		$(document).ready(function() {
 			// alert("...");
 			// settings
 			$('#report-table').dataTable({
 
+				stateSave: true,
+
 				// paging
 				"pagingType": "full_numbers",
 				"paging": true,
-				//"aLengthMenu": [ 10, 25, 50, 100 , -1]
+				//"aLengthMenu": [ 10, 25, 50, 100 , -1],
 				// "aLengthMenu": [ 50, 100 , -1],
-				"lengthMenu": [[100, 200, -1], [100, 200, "All"]],
+				"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
 				// "width": "80%",
 
 				// "scrollY": "200px",
@@ -133,6 +124,7 @@
 
 		});
 		</script>
+		{{end}}
 		<!-- Report Grid -->
 
 		<footer class="footer" style="background-color:#A9F16C">

@@ -19,23 +19,23 @@
 								{{range .TestPlans}}
 								<li class="active">
 									<a href="/report/?testplan={{.Name}}" class="">
-										{{.Name}}
-										<span class="nav-unread">{{.Count}}</span>
+										{{.Name}} [{{.Count}}]
+										<!-- <span class="nav-unread">{{.Count}}</span> -->
 									</a>
 								</li>
 								{{end}}
 
 							</ul>
 
-							<ul class="nav pinned">
+							<!-- <ul class="nav pinned">
 								{{range .TestPlans}}
 								<li>
-									<!-- <a href="/report/?testplan={{.Name}}"> -->
+									<a href="/report/?testplan={{.Name}}">
 										{{.Name}}
-									<!-- </a> -->
+									</a>
 								</li>
 								{{end}}
-							</ul>
+							</ul> -->
 
 						</div>
 					</div>
@@ -100,6 +100,8 @@
 		</div>
 		
 		{{template "home_js"}}
+
+		{{template "report_table"}}
 		
 	{{template "base/footer.tpl" .}}
 	</body>

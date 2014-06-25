@@ -27,7 +27,9 @@
 							</ul>
 						</li> -->
 						<li><a href="/report">Report</a></li>
-						<li><a href="/test">test</a></li>
+						<li><a href="/statistics">Statistics</a></li>
+						<!-- <li><a href="/test">test</a></li> -->
+						<li><a href="/about">About</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="https://github.com/royburns/goTestLinkReport">Github</a></li>

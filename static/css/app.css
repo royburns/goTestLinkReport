@@ -231,6 +231,11 @@ a:hover {
   .main { width: auto; left: 18em }
 }
 
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 .left-col {
   float: left;
   width: 70%;
