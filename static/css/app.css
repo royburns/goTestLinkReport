@@ -263,8 +263,16 @@ a:hover {
   padding: 2px 4px 2px 4px;
   margin-bottom: 2px; 
 }*/
+.nav > li > a {
+    padding: 5px 10px;
+    /*color: #16a085;*/
+}
 .left-nav.hovered li:hover {
   background-color: rgba(51, 255, 153, 0.1);
+}
+.nav > li > a:hover {
+    color: #16a085;
+    background-color: transparent;
 }
 
 .nav-unread {
@@ -297,14 +305,27 @@ a:hover {
   clear: both;
 }
 
+.table {
+  margin-bottom: 20px;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
 .table.hovered tbody tr:hover {
   background-color: rgba(51, 255, 153, 0.1);
 }
 .table td {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  /*width: 10% !important;*/
+  /*max-width: 10% !important;*/
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  padding: 5px 6px !important;
 }
+.table .td5 {
+  width: 80px !important;
+}
+
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
 .table-condensed > tfoot > tr > th,
@@ -312,18 +333,6 @@ a:hover {
 .table-condensed > tbody > tr > td,
 .table-condensed > tfoot > tr > td {
   padding: 5px;
-}
-.table .td6 {
-  width: 15%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.table .td10 {
-  width: 5%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .table > thead > tr > td.nostatus,
@@ -346,4 +355,11 @@ a:hover {
 .table-hover > tbody > tr:hover > .nostatus,
 .table-hover > tbody > tr.nostatus:hover > th {
   background-color: #999999;
+}
+
+select /*option*/ {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

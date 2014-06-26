@@ -42,8 +42,8 @@
 
 					<div class="right-col">
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
-						<table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%" style="table-layout:auto;white-space:nowrap;">
-							<caption>{{.TableCaption}}</caption>
+						<table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%" style="table-layout:fixed;">
+							
 							<thead>
 								<tr>
 									{{range .TableHeader}}
@@ -69,7 +69,7 @@
 									<td data-toggle="tooltip" title="{{.TestCase}}">
 										{{.TestCase}}
 									</td>
-									<td>
+									<td class="td5">
 										{{if eq .Status "p"}} {pass} {{end}}
 										{{if eq .Status "f"}} {failed} {{end}}
 										{{if eq .Status ""}} {not run} {{end}}

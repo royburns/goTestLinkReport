@@ -89,6 +89,7 @@
 				// "scrollCollapse": true,
 
 				//.table-condensed
+				"autoWidth": true,
 				"padding": 5,
 				"text-overflow": "ellipsis",
 				"overflow": "hidden",
@@ -96,31 +97,50 @@
 				"margin-left": 10,
 
 				// set column visible
-				// "columnDefs": [
-				// 	{
-				// 		"targets": [ 0 ],
-				// 		"visible": false,
-				// 		"searchable": false
-				// 	},
-				// ],
+				"columnDefs": [
+					{
+						// "targets": [ 0 ],
+						// "visible": false,
+						// "searchable": false
+						
+						// "targets": [5],
+						// "createdCell": function (td, cellData, rowData, row, col) {
+						// 	if ( cellData == "Status" ) {
+						// 		$(td).css('color', 'blue')
+						// 	}
+						// }
+					},
+				],
+
+			});
+
+			// set the table head's width
+			var table = $('#report-table').DataTable();
+			$("#report-table thead th").each(function(i) {
+				// var select = $('<select><option value="[ALL]">[ALL]</option></select>');
 			});
 
 			// set the table root as selection
 			var table = $('#report-table').DataTable();
 			$("#report-table tfoot th").each(function(i) {
-				var select = $('<select><option value=""></option></select>')
+				var select = $('<select><option value="[ALL]">[ALL]</option></select>')
 					.appendTo($(this).empty())
 					.on('change', function() {
-						table.column(i)
-							.search( '^'+$(this).val()+'$', true, false )
-							.draw();
+						if ($(this).val() && $(this).val() != "[ALL]") {
+							table.column(i)
+								.search( '^'+$(this).val()+'$', true, false )
+								.draw();
+						} else{
+							table.column(i)
+								.search( '', true, false )
+								.draw();
+						};
 				});
 
 				table.column(i).data().unique().sort().each(function(d, j) {
 					select.append('<option value="' + d + '">' + d + '</option>')
 				} );
 			});
-
 
 		});
 		</script>
