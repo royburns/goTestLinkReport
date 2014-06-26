@@ -20,7 +20,7 @@
 								<li class="active">
 									<a href="/report/?testplan={{.Name}}" class="">
 										{{.Name}} [{{.Count}}]
-										<!-- <span class="nav-unread">{{.Count}}</span> -->
+										<span class="nav-unread">{{.Count}}</span>
 									</a>
 								</li>
 								{{end}}

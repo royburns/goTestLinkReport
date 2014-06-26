@@ -257,6 +257,10 @@ a:hover {
   background: rgba(4, 18, 27, 0.88);        
   border-radius: 3px;
 }
+.left-nav .hovered li:hover {
+  background-color: rgba(51, 255, 153, 0.1);
+}
+
 /*.nav li {
   font-size: 12px;
   color: #FFFFFF;
@@ -267,15 +271,12 @@ a:hover {
     padding: 5px 10px;
     /*color: #16a085;*/
 }
-.left-nav.hovered li:hover {
-  background-color: rgba(51, 255, 153, 0.1);
-}
 .nav > li > a:hover {
-    color: #16a085;
-    background-color: transparent;
+  color: #16a085;
+  background-color: transparent;
 }
 
-.nav-unread {
+/*.nav-unread {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   background-color: #1abc9c;
   border-radius: 50%;
@@ -290,12 +291,29 @@ a:hover {
   top: 35%;
   width: 6px;
   z-index: 10;
-}
-/*.nav-unread {
-  background-color: #ffffff;
+}*/
+.nav-unread {
+  background-color: #e74c3c;
+  border-radius: 30px;
+  color: white;
   display: none;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  min-width: 8px;
+  padding: 0 5px;
+  position: absolute;
+  right: -7px;
+  text-align: center;
+  text-shadow: none;
+  top: 8px;
+  z-index: 10;
 }
-*/
+
+.active .navbar-unread {
+    display: block;
+}
+
 .clearfix:before,
 .clearfix:after {
   content: " "; /* 1 */
