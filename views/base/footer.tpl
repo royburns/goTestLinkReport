@@ -3,6 +3,14 @@
 		
 		<!-- JS files -->
 
+		<!-- Test! -->
+		<script>
+			$(function(){
+				//
+			})
+		</script>
+		<!-- Test! -->
+
 		<!-- NavBar! -->
 		<script>
 			$(function(){
@@ -35,29 +43,46 @@
 							var len = 0, dots = "";
 							// alert("...");
 
-							switch(j)
-							{
-								case 2:
-									len = 12;dots="...";
-									break;
-								case 4:
-									len = 32;dots="...";
-									break;
-								case 7:
-									len = 19;dots="";
-									break;
-								case 8:
-									len = 10;dots="...";
-									break;
-								default:
-									break;
-							}
-							
 							if (items[i].cells[j]) {
 								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
-							};
-							if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
-								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
+								switch(j)
+								{
+									case 2:
+										len = 12;dots="...";
+										break;
+									case 4:
+										len = 32;dots="...";
+										break;
+									case 7:
+										len = 19;dots="";
+										break;
+									case 8:
+										len = 10;dots="...";
+										break;
+									default:
+										break;
+								}
+
+								if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
+									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
+								};
+
+								switch(j)
+								{
+									case 8:
+										// Add a link for string like "QAT-123"
+										var str = items[i].cells[j].innerHTML.match(/\w+-\d+/);
+										if (str != null) {
+											var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str + "\">" + str + "</a>";
+											// var str1 = "<a href=\"https://jira.mel.software.dell.com\/browse\/" + str + "\"\>" + str + "\<\/a\>";
+											items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str, 
+												str1);
+										};
+										
+										break;
+									default:
+										break;
+								}
 							};
 						};
 					};
@@ -75,7 +100,7 @@
 			// settings
 			$('#report-table').dataTable({
 
-				stateSave: true,
+				stateSave: false,
 
 				// paging
 				"pagingType": "full_numbers",

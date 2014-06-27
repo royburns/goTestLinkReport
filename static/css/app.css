@@ -343,6 +343,11 @@ a:hover {
 .table .td5 {
   width: 80px !important;
 }
+.table tbody tr td a {
+  color: blue;
+  text-decoration: underline;
+  font-style: italic;
+}
 
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
