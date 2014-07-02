@@ -4,14 +4,11 @@
 {{template "base/head.tpl" .}}
 	
 	<body class="header">
-	{{template "base/header.tpl" .}}
-	{{template "base/navbar.tpl" .}}
+		<!-- {{template "base/header.tpl" .}} -->
+		{{template "base/navbar.tpl" .}}
 		<div>
 
 			<div class="">
-				
-				
-
 			</div>
 			
 			<div class="row">
@@ -99,7 +96,9 @@
 		</div>
 
 		{{template "home_js"}}
+		{{template "report_table"}}
+		{{template "base/js.tpl" .}}
 
-	{{template "base/footer.tpl" .}}
+		{{template "base/footer.tpl" .}}
 	</body>
 </html>

@@ -9,5 +9,5 @@ type TestController struct {
 }
 
 func (this *TestController) Get() {
-	this.TplNames = "alt_pagination.tpl"
+	this.TplNames = "test footbar.tpl"
 }
