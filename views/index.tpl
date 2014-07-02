@@ -3,16 +3,20 @@
 <html>
 {{template "base/head.tpl" .}}
 	
-	<body class="header">
+	<body>
 		<!-- {{template "base/header.tpl" .}} -->
 		{{template "base/navbar.tpl" .}}
-		<div>
 
-			<div class="">
+		<div class="container">
+
+			<div class="row">
+				<p align="middle" style="color:red">
+					<strong>This page will show the info of the database of TestLink.</strong>
+				</p>
 			</div>
 			
 			<div class="row">
-				<div class="col-lg-2">
+				<!-- <div class="col-lg-2">
 					<div class="left-nav hovered">
 						<div class="clearfix">
 							<ul class="nav pinned">
@@ -25,9 +29,9 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="col-lg-10">
+				<div class="col-lg-12">
 					<table class="table table-bordered table-condensed table-hover" name="report-table">
 						<thead>
 							<tr>
@@ -47,7 +51,7 @@
 								<td>{{.TestPlan}}</td>
 								<td>{{.Platform}}</td>
 								<td>{{.ToadModule}}</td>
-								<td>.SubModule</td>
+								<td>{{.SubModule}}</td>
 								<td>{{.Testcase_id}}</td>
 								<td>{{.TestCase}}</td>
 								<td>{{.Status}}</td>

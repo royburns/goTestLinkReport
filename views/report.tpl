@@ -4,9 +4,10 @@
 {{template "base/head.tpl" .}}
 	
 	<body >
-	<!-- {{template "base/header.tpl" .}} -->
-	{{template "base/navbar.tpl" .}}
+		<!-- {{template "base/header.tpl" .}} -->
+		{{template "base/navbar.tpl" .}}
 
+		
 		<div class="container">
 
 			<div class="row">
@@ -41,6 +42,10 @@
 					</div>
 
 					<div class="right-col">
+						<div class="hideloading"></div>
+						<div class="showloading well well-large well-transparent lead" id="loading">
+							<i class="icon-spinner icon-spin"></i> The report is loading...
+						</div>
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
 						<table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%" style="table-layout:fixed;">
 							
@@ -122,8 +127,10 @@
 
 		</div>
 		
+		{{template "showloading"}}
 		{{template "home_js"}}
 		{{template "report_table"}}
+		{{template "hideloading"}}
 		{{template "base/js.tpl" .}}
 
 		{{template "base/footer.tpl" .}}

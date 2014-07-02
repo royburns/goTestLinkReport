@@ -15,7 +15,7 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/plan">Plan</a></li> <!-- can use js to control active class -->
+						<li><a href="#">Plan</a></li> <!-- can use js to control active class -->
 						<!-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 							 <ul class="dropdown-menu">
@@ -29,8 +29,8 @@
 							</ul>
 						</li> -->
 						<li><a href="/report">Report</a></li>
-						<li><a href="/statistics">Statistics</a></li>
-						<li><a href="/test">test</a></li>
+						<li><a href="#">Statistics</a></li>
+						<!-- <li><a href="/test">test</a></li> -->
 						<li><a href="/about">About</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

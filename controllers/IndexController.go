@@ -17,7 +17,7 @@ func (this *IndexController) Get() {
 	ExecutionsTableHeader := models.GetExectutionTableHeader()
 
 	// Calculate pages.
-	pagenum := 100
+	pagenum := 20
 	pn, err := strconv.Atoi(this.Input().Get("p"))
 	maxPageNum := int(models.GetExecutionCount()/int64(pagenum)) + 1
 	if err != nil || pn > maxPageNum {

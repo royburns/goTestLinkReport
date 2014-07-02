@@ -3,6 +3,34 @@
 		
 		<!-- JS files -->
 
+		<!-- loading iocn -->
+		{{define "showloading"}}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				// var h = $(document).height();
+				// $(".overlay").css({"height": h });
+
+				// alert("show loading");
+				$(".hideloading").css({'display':'block','opacity':'0.8'});
+				$(".showloading").stop(true).animate({'margin-top':'300px','opacity':'1'},200);
+				
+			});
+		</script>
+		{{end}}
+
+		{{define "hideloading"}}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				// var h = $(document).height();
+				// $(".overlay").css({"height": h });
+
+				$(".showloading").stop(true).animate({'margin-top':'250px','opacity':'0'},400);
+				$(".hideloading").css({'display':'none','opacity':'0'});
+			});
+		</script>
+		{{end}}
+		<!-- loading iocn -->
+
 		<!-- Test! -->
 		<script>
 			$(function(){
@@ -18,7 +46,9 @@
 		<!-- NavBar! -->
 		<script>
 			$(function(){
+				// alert(location.pathname);
 				var select = "a[href=\\"+location.pathname+"]";
+				// alert(select);
 				$(select).parent("li").addClass("active");
 			})
 		</script>
