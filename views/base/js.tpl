@@ -24,6 +24,7 @@
 				// var h = $(document).height();
 				// $(".overlay").css({"height": h });
 
+				// alert("hide loading");
 				$(".showloading").stop(true).animate({'margin-top':'250px','opacity':'0'},400);
 				$(".hideloading").css({'display':'none','opacity':'0'});
 			});
@@ -39,7 +40,7 @@
 				var str = "123123 ATE-123 fsdfsf ATE-456".match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
 				// alert(str.length);
 				// alert(str[0]);
-			})
+			});
 		</script>
 		<!-- Test! -->
 
@@ -50,7 +51,7 @@
 				var select = "a[href=\\"+location.pathname+"]";
 				// alert(select);
 				$(select).parent("li").addClass("active");
-			})
+			});
 		</script>
 		<!-- NavBar! -->
 
@@ -62,9 +63,13 @@
 
 		{{define "home_js"}}
 		<script>
-
 			// Modify the column of the report grid.
 			(function () {
+
+				// showloading();
+				$(".hideloading").css({'display':'block','opacity':'0.6'});
+				$(".showloading").stop(true).animate({'margin-top':'300px','opacity':'1'},200);
+
 				var tables = document.getElementsByName("report-table");
 				var now = new Date();
 				// var len = 100;
@@ -141,102 +146,108 @@
 		<!-- Report Grid -->
 		{{define "report_table"}}
 		<script type="text/javascript" language="javascript" class="init">
-		$(document).ready(function() {
-			// alert("...");
-			// settings
-			$('#report-table').dataTable({
+			$(document).ready(function() {
+				// alert("...");
+				// settings
+				$('#report-table').dataTable({
 
-				stateSave: false,
+					"stateSave": false,
 
-				// "dom": '<"top"i>rt<"bottom"flp><"clear">',
-				"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
-				// paging
-				"pagingType": "full_numbers",
-				"paging": true,
-				//"aLengthMenu": [ 10, 25, 50, 100 , -1],
-				// "aLengthMenu": [ 50, 100 , -1],
-				"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
-				// "width": "80%",
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					//"aLengthMenu": [ 10, 25, 50, 100 , -1],
+					// "aLengthMenu": [ 50, 100 , -1],
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+					// "width": "80%",
 
-				// "scrollY": "200px",
-				// "scrollCollapse": true,
+					// "scrollY": "200px",
+					// "scrollCollapse": true,
 
-				//.table-condensed
-				"autoWidth": true,
-				"padding": 5,
-				"text-overflow": "ellipsis",
-				"overflow": "hidden",
-				"white-space": "nowrap",
-				"margin-left": 10,
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
 
-				// set column visible
-				"columnDefs": [
-					{
-						// "targets": [ 0 ],
-						// "visible": false,
-						// "searchable": false
-						
-						// "targets": [5],
-						// "createdCell": function (td, cellData, rowData, row, col) {
-						// 	if ( cellData == "Status" ) {
-						// 		$(td).css('color', 'blue')
-						// 	}
-						// }
-					},
-				],
-
-			});
-
-			// set the table head's width
-			var table = $('#report-table').DataTable();
-			$("#report-table thead th").each(function(i) {
-				// alert(table.column(i).header().innerHTML); // Get the header name of every column.
-			});
-
-			// set the table root as selection
-			// var table = $('#report-table').DataTable();
-			$("#report-table tfoot th").each(function(i) {
-				// alert(i);
-				if (!table.column(i).bVisible) {
-					switch(i)
-					{
-						// The columns no need filter
-						case 7:
-						case 8: 
-							// alert("...");
-							break;
-						default:
-							var select = $('<select><option value="[ALL]">[ALL]</option></select>')
-							.appendTo($(this).empty())
-							.on('change', function() {
-								if ($(this).val() && $(this).val() != "[ALL]") {
-									table.column(i)
-										.search( '^'+$(this).val()+'$', true, false )
-										.draw();
-								} else if ($(this).val() == "[ALL]") {
-									table.column(i)
-										.search( "", true, false )
-										.draw();
-								} else {
-									alert($(this).val());
-									table.column(i)
-										.search( "", true, false )
-										.draw();
-								};
-							});
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
 							
-							//
-							table.column(i).data().unique().sort().each(function(d, j) {
-								select.append('<option value="' + d + '">' + d + '</option>')
-							} );
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
 
-							break;
+				});
+
+				// set the table head's width
+				var table = $('#report-table').DataTable();
+				// alert(table.bStateSave);
+				$("#report-table thead th").each(function(i) {
+					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+				});
+
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#report-table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							case 7:
+							case 8: 
+								// alert("...");
+								break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+
+								break;
+						};
 					};
-				};
-				
-			});
+					
+				});
 
-		});
+				// hideloading();
+				$(".showloading").stop(true).animate({'margin-top':'250px','opacity':'0'},400);
+				$(".hideloading").css({'display':'none','opacity':'0'});
+
+			});
 		</script>
 		{{end}}
 		<!-- Report Grid -->

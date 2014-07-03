@@ -127,10 +127,10 @@
 
 		</div>
 		
-		{{template "showloading"}}
+
 		{{template "home_js"}}
 		{{template "report_table"}}
-		{{template "hideloading"}}
+		
 		{{template "base/js.tpl" .}}
 
 		{{template "base/footer.tpl" .}}
