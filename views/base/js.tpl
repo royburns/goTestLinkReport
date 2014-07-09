@@ -38,6 +38,10 @@
 				// var str = "123123 123-123 fsdfsf".match(/[^\W]\w+-\d+[^\W]/);
 				// var str = "123123 ATE-123 fsdfsf ATE-456".match(/[^\W][a-z|A-Z]+-\d+[^\W]/);
 				var str = "123123 ATE-123 fsdfsf ATE-456".match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
+				var str1 = "123123 124.2342 fadf.123123".match(/[^\s][0-9]+[^\s]/g);
+				for (var i = str1.length - 1; i >= 0; i--) {
+					// alert(str1[i]);
+				};
 				// alert(str.length);
 				// alert(str[0]);
 			});
@@ -151,7 +155,7 @@
 				// settings
 				$('#report-table').dataTable({
 
-					"stateSave": false,
+					"stateSave": true,
 
 					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
@@ -251,3 +255,43 @@
 		</script>
 		{{end}}
 		<!-- Report Grid -->
+
+		{{define "plan_js"}}
+		<script>
+			// Modify the column of the report grid.
+			(function () {
+
+				var tables = document.getElementsByName("plan-table");
+				var now = new Date();
+				// var len = 100;
+				for (var n = 0; n < tables.length; n++) {
+					var table = tables[n];
+					var items = table.getElementsByTagName("tr");
+					for (var i = 1; i < items.length; i++) { // do not process the head
+						// Limit length.
+						for (var j = 0; j <= items[i].cells.length; j++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i].cells[j]) {
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+
+								var str = items[i].cells[j].innerHTML.match(/[^\W][0-9|\.]+[^\W]/g);
+								// alert(str);
+								if (str != null && str.length > 0) {
+									// alert(str.length);
+									for (var k = 0; k < str.length; k++) {
+										// alert(str[k]);
+										// var str1 = "[" + str[k] + "]";
+										var str1 = fmt.Sprintf("[%s]", str[k]);
+										// items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str[k], str1);
+									};
+								};
+							};
+						};
+					};
+				};
+			})();
+
+		</script>
+		{{end}}

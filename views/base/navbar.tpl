@@ -15,7 +15,7 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="#">Plan</a></li> <!-- can use js to control active class -->
+						<li><a href="/plan">Plan</a></li> <!-- can use js to control active class -->
 						<!-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
 							 <ul class="dropdown-menu">

@@ -8,6 +8,7 @@ import (
 
 func main() {
 	models.InitDB()
+	models.SetCacher()
 
 	beego.Run()
 }

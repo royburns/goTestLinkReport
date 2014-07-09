@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/astaxie/beego"
 	"github.com/royburns/goTestLinkReport/models"
-	"strconv"
+	// "strconv"
 	// "strings"
 )
 
@@ -12,67 +12,37 @@ type PlanController struct {
 	beego.Controller
 }
 
+type planinfo struct {
+	SprintName       string
+	RegressionDetail string
+	TotalTime        float32
+}
+
 func (this *PlanController) Get() {
 
-	ExecutionsTableHeader := models.GetExectutionTableHeader()
-
-	ExecutionsTableHeader = []string{
-		// "TestPlan",
-		"Platform",
-		"ToadModule",
-		"SubModule",
-		"Testcase_id",
-		"TestCase",
-		"Status",
-		"Build",
-		"LasTimeRun",
-		"Notes",
-		"Tester",
-		// "TestSuite",
-	}
-
-	// Calculate pages.
-	pagenum := 200
-	pn, err := strconv.Atoi(this.Input().Get("p"))
-	maxPageNum := int(models.GetExecutionCount()/int64(pagenum)) + 1
-	if err != nil || pn > maxPageNum {
-		pn = 1
-	}
-
-	if pn < 10 {
-		this.Data["Prev"] = 1
-	} else {
-		this.Data["Prev"] = pn - 10
-	}
-
-	if pn > maxPageNum-10 {
-		this.Data["Next"] = maxPageNum
-	} else {
-		this.Data["Next"] = pn + 10
-	}
+	// var ExecutionsTableHeader = []string{
+	// 	"ID",
+	// 	"ProductName",
+	// 	"RegressionDetail",
+	// 	"SprintName",
+	// 	"EstimatedTime",
+	// }
 
 	// Get TestPlans
-	testplans := make(map[int]string)
-	res := models.GetAllTestPlans("v_testlink_testexecution_tree")
+	sprintname := make(map[int]string)
+	res := models.GetAllSprintNames()
 	for key, item := range res {
-		testplans[key] = string(item["TestPlan"])
-	}
-	this.Data["TestPlans"] = testplans
-
-	// Calculate page list.
-	this.Data["PageList"] = calPageList(pn, maxPageNum)
-
-	// 100, (page-1)*100
-	testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
-
-	if err != nil {
-		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
-	} else {
-		beego.Debug("Success!!!")
+		sprintname[key] = string(item["SprintName"])
 	}
 
-	this.Data["TableHeader"] = ExecutionsTableHeader
-	this.Data["TestExecutionTree"] = testexecution_tree
+	var tp []interface{}
+	for i := 0; i < len(sprintname); i++ {
+		temp := models.GetAllPlansBySprintName(sprintname[i])
+		tp = append(tp, temp)
+	}
+
+	this.Data["TableHeader"] = sprintname
+	this.Data["TestPlanTree"] = tp
 	this.Data["IsIndex"] = true
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"

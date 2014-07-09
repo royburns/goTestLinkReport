@@ -349,3 +349,7 @@ body > .container {
   line-height: 30px;
   color: #34495e;
 }
+
+.p-number {
+  text-align: right;
+}

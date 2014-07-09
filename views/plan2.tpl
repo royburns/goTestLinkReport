@@ -2,12 +2,28 @@
 
 <html>
 {{template "base/head.tpl" .}}
+
+	<script type="text/javascript" class="init">
+
+	$(document).ready(function() {
+		alert("...")
+		$('#plan-table').dataTable( {
+			"processing": true,
+			"ajax": "/getplan",
+			"columns": [
+				{ "sprint4": "RegressionDetail" },
+				{ "sprint4": "TotalTime" },
+			]
+		} );
+	} );
+
+	</script>
 	
-	<body class="">
+	<body class="header">
 		<!-- {{template "base/header.tpl" .}} -->
 		{{template "base/navbar.tpl" .}}
 
-		<div class="container">
+		<div>
 
 			<div class="row">
 				<div class="" >
@@ -27,41 +43,8 @@
 
 					<div class="">
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
-						<table class="table table-bordered table-condensed table-hover table-striped" id="plan-table" name="plan-table" cellspacing="0" width="100%" style="table-layout:fixed;white-space:wrap;">
-
+						<table class="table table-bordered table-condensed table-hover table-striped" id="plan-table" name="plan-table" cellspacing="0" width="100%" style="table-layout:fixed;white-space:nowrap;">
 							
-								<thead>
-									<tr>
-										{{range .TableHeader}}
-											<th>{{ . }}</th>
-										{{end}}
-									</tr>
-								</thead>
-								
-								<tbody>
-									<tr>
-										{{range $key, $val := .TestPlanTree}}
-											{{range $key2, $val2 := $val}}
-											<th>
-												<table class="table table-condensed">
-												{{.Detail | str2html}}
-												</table>
-											</th>
-											{{end}}
-										{{end}}
-									</tr>
-								</tbody>
-
-								<tfoot>
-									<tr>
-										{{range $key, $val := .TestPlanTree}}
-											{{range $key2, $val2 := $val}}
-												<th>Total Time: {{.TotalTime}}</th>
-											{{end}}
-										{{end}}
-									</tr>
-								</tfoot>
-								
 						</table>
 					</div>
 				</div>
@@ -91,7 +74,8 @@
 
 		</div>
 		
-		{{template "plan_js"}}
+		{{template "home_js"}}
+		{{template "report_table"}}
 		{{template "base/js.tpl" .}}
 
 		{{template "base/footer.tpl" .}}

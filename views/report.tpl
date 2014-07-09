@@ -6,7 +6,6 @@
 	<body >
 		<!-- {{template "base/header.tpl" .}} -->
 		{{template "base/navbar.tpl" .}}
-
 		
 		<div class="container">
 
