@@ -64,7 +64,7 @@ func GetAllPlansBySprintName(sprintname string) plans {
 		// str := fmt.Sprintln(rs[i].RegressionDetail, rs[i].EstimatedTime)
 		// str := fmt.Sprintf("%s <a align=\"right\"> | %v</a>", rs[i].RegressionDetail, rs[i].EstimatedTime)
 		if rs[i].RegressionDetail != "" {
-			str := fmt.Sprintf("<tr> <th>%s</th> <th><a align=\"right\"> | %v</a></th> </tr>", rs[i].RegressionDetail, rs[i].EstimatedTime)
+			str := fmt.Sprintf("<tr> <th class=\"detail\">%s</th> <th class=\"plantime\"><a> | %v</a></th> </tr>", rs[i].RegressionDetail, rs[i].EstimatedTime)
 			detail = append(detail, str)
 			total += rs[i].EstimatedTime
 			// plans[rs[i].SprintName] = plans[rs[i].SprintName] + rs[i].EstimatedTime

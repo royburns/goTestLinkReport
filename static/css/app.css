@@ -350,6 +350,19 @@ body > .container {
   color: #34495e;
 }
 
-.p-number {
+.table .plan-table {
+  border-top: none;
+  margin-bottom: 0px;
+}
+
+.plantime {
+  color: #16a085;
   text-align: right;
+
+  /*margin-left: 80%;*/
+}
+
+.detail {
+  font-size: 14px;
+  font-weight: 200;
 }

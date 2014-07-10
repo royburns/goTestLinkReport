@@ -27,7 +27,7 @@
 
 					<div class="">
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
-						<table class="table table-bordered table-condensed table-hover table-striped" id="plan-table" name="plan-table" cellspacing="0" width="100%" style="table-layout:fixed;white-space:wrap;">
+						<table class="table table-bordered table-condensed table-hover table-striped" id="plan-table" name="plan-table" cellspacing="0" width="80%" style="table-layout:auto;white-space:nowrap;">
 
 							
 								<thead>
@@ -43,8 +43,10 @@
 										{{range $key, $val := .TestPlanTree}}
 											{{range $key2, $val2 := $val}}
 											<th>
-												<table class="table table-condensed">
-												{{.Detail | str2html}}
+												<table class="table plan-table table-condensed">
+													<tbody>
+														{{.Detail | str2html}}
+													</tbody>
 												</table>
 											</th>
 											{{end}}
@@ -56,7 +58,16 @@
 									<tr>
 										{{range $key, $val := .TestPlanTree}}
 											{{range $key2, $val2 := $val}}
-												<th>Total Time: {{.TotalTime}}</th>
+											<th>
+												<table class="table plan-table table-condensed">
+													<tbody>
+														<tr>
+															<th>Total Time: </th>
+															<th class="plantime "><a> | {{.TotalTime}}</a></th>
+														</tr>
+													</tbody>
+												</table>
+											</th>
 											{{end}}
 										{{end}}
 									</tr>
