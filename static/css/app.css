@@ -351,6 +351,7 @@ body > .container {
 }
 
 .table .plan-table {
+  width: 80%;
   border-top: none;
   margin-bottom: 0px;
 }
