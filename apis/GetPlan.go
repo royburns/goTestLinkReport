@@ -1,16 +1,12 @@
 package apis
 
 import (
-	// "fmt"
-	"github.com/astaxie/beego"
-	// "github.com/royburns/goTestLinkReport/models"
-	// "strconv"
-	// "strings"
+// "fmt"
+// "github.com/astaxie/beego"
+// "github.com/royburns/goTestLinkReport/models"
+// "strconv"
+// "strings"
 )
-
-type GetPlan struct {
-	beego.Controller
-}
 
 type plan struct {
 	SprintName string
@@ -30,7 +26,7 @@ type test struct {
 	data  []string
 }
 
-func (this *GetPlan) Get() {
+func (this *ApiController) GetPlan() {
 
 	p := new(plan)
 	p.SprintName = "sprint 4"

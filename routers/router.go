@@ -15,5 +15,5 @@ func init() {
 	beego.Router("/about", &controllers.AboutController{})
 	beego.Router("/plan", &controllers.PlanController{})
 
-	beego.Router("/api/getplan", &apis.GetPlan{})
+	beego.Router("/api/getplan", &apis.ApiController{}, "get:GetPlan")
 }

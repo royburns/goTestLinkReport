@@ -20,8 +20,8 @@
 		
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" />
-		<!-- <link href="/static/css/font-awesome.min.css"rel="stylesheet" > -->
-		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<link href="/static/css/font-awesome.min.css"rel="stylesheet" >
+		<!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />
 		<link href="/static/css/flat-ui.css" rel="stylesheet" />
 		<link href="/static/css/jquery.dataTables.css" rel="stylesheet" />
