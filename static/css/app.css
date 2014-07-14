@@ -371,3 +371,26 @@ body > .container {
   font-size: 14px;
   font-weight: 200;
 }
+
+.backToTop {
+  z-index: 1;
+  display: none;
+  width: 18px;
+  line-height: 1.2;
+  padding: 5px 0;
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  position: fixed;
+  _position: absolute;
+  right: 10px;
+  bottom: 100px;
+  _bottom: "auto";
+  cursor: pointer;
+  bottom: 20px;
+  right: 20px;
+  height: 38px;
+  width: 38px;
+  background: url("/static/img/top.png") no-repeat scroll 0% 0% transparent;
+}

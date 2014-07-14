@@ -65,14 +65,31 @@
 		</script>
 		<!-- Pin all the things! -->
 
+		{{define "backToTop"}}
+		<script>
+			var $backToTopTxt = "Back to Top", $backToTopEle = $('<div class="backToTop"></div>').appendTo($("body")).attr("title", $backToTopTxt).click(function () {
+					$("html, body").animate({ scrollTop: 0 }, 120);
+				}), $backToTopFun = function () {
+					var st = $(document).scrollTop(), winh = $(window).height();
+					(st > 0) ? $backToTopEle.show() : $backToTopEle.hide();
+					//IE6下的定位
+					if (!window.XMLHttpRequest) {
+						$backToTopEle.css("top", st + winh - 166);
+					}
+				};
+			$(window).bind("scroll", $backToTopFun);
+			$backToTopFun();
+		</script>
+		{{end}}
+
 		{{define "home_js"}}
 		<script>
 			// Modify the column of the report grid.
 			(function () {
 
 				// showloading();
-				$(".hideloading").css({'display':'block','opacity':'0.6'});
-				$(".showloading").stop(true).animate({'margin-top':'300px','opacity':'1'},200);
+				// $(".hideloading").css({'display':'block','opacity':'0.6'});
+				// $(".showloading").stop(true).animate({'margin-top':'300px','opacity':'1'},200);
 
 				var tables = document.getElementsByName("report-table");
 				var now = new Date();
@@ -248,8 +265,8 @@
 				});
 
 				// hideloading();
-				$(".showloading").stop(true).animate({'margin-top':'250px','opacity':'0'},400);
-				$(".hideloading").css({'display':'none','opacity':'0'});
+				// $(".showloading").stop(true).animate({'margin-top':'250px','opacity':'0'},400);
+				// $(".hideloading").css({'display':'none','opacity':'0'});
 
 			});
 		</script>

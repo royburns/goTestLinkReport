@@ -41,10 +41,10 @@
 					</div>
 
 					<div class="right-col">
-						<div class="hideloading"></div>
+						<!-- <div class="hideloading"></div>
 						<div class="showloading well well-large well-transparent lead" id="loading">
 							<i class="icon-spinner icon-spin"></i> The report is loading...
-						</div>
+						</div> -->
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
 						<table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%" style="table-layout:fixed;">
 							
@@ -129,7 +129,7 @@
 
 		{{template "home_js"}}
 		{{template "report_table"}}
-		
+		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 
 		{{template "base/footer.tpl" .}}
