@@ -19,9 +19,10 @@
 								{{range .TestPlans}}
 								<li class="active">
 									<a href="/report/?testplan={{.Name}}" class="">
-										{{.Name}} [{{.Count}}]
-										<span class="nav-unread">{{.Count}}</span>
+										{{.Name}}
+										<span class="badge">{{.Count}}</span>
 									</a>
+									
 								</li>
 								{{end}}
 
@@ -126,7 +127,6 @@
 
 		</div>
 		
-
 		{{template "home_js"}}
 		{{template "report_table"}}
 		{{template "backToTop"}}
