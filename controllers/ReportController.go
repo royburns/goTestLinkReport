@@ -34,6 +34,7 @@ func (this *ReportController) Get() {
 		// "TestSuite",
 	}
 
+	expiration := 60 * 60
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
 	if err != nil {
@@ -74,6 +75,7 @@ func (this *ReportController) Get() {
 			fmt.Println("Failed to marshal: ", err)
 		}
 		client.Set(key_tp, value)
+		client.Expire(key_tp, expiration)
 	} else {
 		fmt.Println("The plan is exists. We will unmarshal them.")
 		// var temp planinfo
@@ -138,6 +140,7 @@ func (this *ReportController) Get() {
 				fmt.Println("Failed to marshal: ", err)
 			}
 			client.Set(key, value)
+			client.Expire(key, expiration)
 		} else {
 			fmt.Println("The plan is exists. We will unmarshal them.")
 			// var temp planinfo

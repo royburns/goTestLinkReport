@@ -22,6 +22,7 @@ type planinfo struct {
 
 func (this *PlanController) Get() {
 
+	expiration := 60 * 60
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
 	if err != nil {
@@ -57,6 +58,7 @@ func (this *PlanController) Get() {
 			fmt.Println("Failed to marshal: ", err)
 		}
 		client.Set(key, value)
+		client.Expire(key, expiration)
 	} else {
 		fmt.Println("The plan is exists. We will unmarshal them.")
 		// var temp planinfo
