@@ -16,35 +16,24 @@
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
 						<li><a href="/plan">Plan</a></li> <!-- can use js to control active class -->
-						<!-- <li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-							 <ul class="dropdown-menu">
-										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
-							</ul>
-						</li> -->
 						<li><a href="/report">Report</a></li>
 						<li><a href="#">Statistics</a></li>
-						<!-- <li><a href="/test">test</a></li> -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Test<b class="caret"></b></a>
+							 <ul class="dropdown-menu">
+										<li><a href="#">TestRedis</a></li>
+										<!-- <li><a href="#">Another action</a></li> -->
+										<!-- <li><a href="#">Something else here</a></li> -->
+										<!-- <li class="divider"></li> -->
+										<!-- <li><a href="#">Separated link</a></li> -->
+										<!-- <li class="divider"></li> -->
+										<!-- <li><a href="#">One more separated link</a></li> -->
+							</ul>
+						</li>
 						<li><a href="/about">About</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="https://github.com/royburns/goTestLinkReport">Github</a></li>
-						<!-- <li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-							</ul>
-						</li> -->
 					</ul>
 				</div>
 			</div>

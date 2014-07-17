@@ -53,6 +53,7 @@ h1 {
 
 .container.plan {
   width: 80% !important;
+  padding-top: 85px;
 }
 
 .row {
