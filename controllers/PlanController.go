@@ -22,7 +22,7 @@ type planinfo struct {
 
 func (this *PlanController) Get() {
 
-	expiration := 60 * 60
+	expiration := int64(60 * 60)
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
 	if err != nil {
