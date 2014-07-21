@@ -100,8 +100,12 @@ a {
 a:active,
 a:hover {
   outline: 0;
+  /*background: none repeat scroll 0 0 rgba(0, 0, 0, 0);*/
+  /*background-color: #e74c3c;*/
 }
-
+a.active {
+  background-color: #e74c3c;
+}
 .showloading{
   position:fixed;
   top:0;
@@ -176,6 +180,10 @@ a:hover {
 .nav-collapse li:last-child a { border-bottom: 0 }
 .nav-toggle { display: none }
 */
+
+ul li .active {
+  background-color: red;
+}
 
 .left-col {
   float: left;

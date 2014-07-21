@@ -61,12 +61,17 @@ func (this *ReportController) Get() {
 		}
 
 		res = models.GetAllTestPlansAndCount()
-		for _, item := range res {
+		for index, item := range res {
 			name := string(item["TestPlan"])
 			count, _ := strconv.Atoi(string(item["COUNT(*)"]))
+			bActive := false
+			if index == 0 {
+				bActive = true
+			}
 			tp = append(tp, TestPlan{
-				Name:  name,
-				Count: count,
+				Name:   name,
+				Count:  count,
+				Active: bActive,
 			})
 		}
 
@@ -137,6 +142,7 @@ func (this *ReportController) Get() {
 }
 
 type TestPlan struct {
-	Name  string
-	Count int
+	Name   string
+	Count  int
+	Active bool
 }

@@ -326,7 +326,7 @@
 						"dataSrc": ""
 					},
 
-					// "deferRender": true
+					// "deferRender": true,
 					"columns": [
 						{ "data": "Platform" },
 						{ "data": "ToadModule" },
@@ -440,7 +440,7 @@
 
 			$(document).ready(function() {
 				// set the table root as selection
-				// var table = $('#report-table').DataTable();
+				var table = $('#report-table').DataTable();
 				$("#report-table tfoot th").each(function(i) {
 					// alert(i);
 					if (!table.column(i).bVisible) {

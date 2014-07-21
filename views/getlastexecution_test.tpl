@@ -15,29 +15,20 @@
 						<div class="hovered">
 
 							<ul class="nav pinned">
-
 								{{range .TestPlans}}
-								<li class="active">
-									<a href="/report/?testplan={{.Name}}" class="">
+								<li 
+								{{if eq .Active true}} class="active" {{end}}
+								name="plan" id="{{.Name}}">
+									<!-- <a href="/report/?testplan={{.Name}}" class="" onclick="GetLastExecution();"> -->
+									<a href="#" class="">
 										{{.Name}}
 										<span class="badge">{{.Count}}</span>
 									</a>
 									
 								</li>
 								{{end}}
-
 							</ul>
 
-							<!-- <ul class="nav pinned">
-								{{range .TestPlans}}
-								<li>
-									<a href="/report/?testplan={{.Name}}">
-										{{.Name}}
-									</a>
-								</li>
-								{{end}}
-							</ul> -->
-							
 						</div>
 					</div>
 
