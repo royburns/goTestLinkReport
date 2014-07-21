@@ -61,3 +61,12 @@ $(document).ready(function(){
     setupLabel();
 });
 
+function SendCmd()
+{
+    alert("...");
+};
+
+function GetLastExecution()
+{
+    //
+};

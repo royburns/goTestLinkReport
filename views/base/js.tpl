@@ -290,25 +290,197 @@
 							var len = 0, dots = "";
 							// alert("...");
 
-							if (items[i].cells[j]) {
-								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+							// if (items[i].cells[j]) {
+							// 	items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
 
-								var str = items[i].cells[j].innerHTML.match(/[^\W][0-9|\.]+[^\W]/g);
-								// alert(str);
-								if (str != null && str.length > 0) {
-									// alert(str.length);
-									for (var k = 0; k < str.length; k++) {
-										// alert(str[k]);
-										// var str1 = "[" + str[k] + "]";
-										var str1 = fmt.Sprintf("[%s]", str[k]);
-										// items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str[k], str1);
-									};
-								};
-							};
+							// 	var str = items[i].cells[j].innerHTML.match(/[^\W][0-9|\.]+[^\W]/g);
+							// 	// alert(str);
+							// 	if (str != null && str.length > 0) {
+							// 		// alert(str.length);
+							// 		for (var k = 0; k < str.length; k++) {
+							// 			// alert(str[k]);
+							// 			// var str1 = "[" + str[k] + "]";
+							// 			// var str1 = fmt.Sprintf("[%s]", str[k]);
+							// 			// items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str[k], str1);
+							// 		};
+							// 	};
+							// };
 						};
 					};
 				};
 			})();
+
+		</script>
+		{{end}}
+
+		{{define "execution_ajax"}}
+		<script>
+			
+			$(document).ready(function() {
+				// alert("...");
+				$('#report-table').dataTable( {
+
+					"ajax": {
+						// "url": "api/getlastexecution",
+						"url": "api/getlastexecution/?testplan=TSS_DB_Plan",
+						"dataSrc": ""
+					},
+
+					// "deferRender": true
+					"columns": [
+						{ "data": "Platform" },
+						{ "data": "ToadModule" },
+						{ "data": "SubModule" },
+						{ "data": "Testcase_id" },
+						{ "data": "TestCase" },
+						{ "data": "Status" },
+						{ "data": "Build" },
+						{ "data": "LasTimeRun" },
+						{ "data": "Notes" },
+						{ "data": "Tester" },
+					],
+
+					"stateSave": true,
+
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					//"aLengthMenu": [ 10, 25, 50, 100 , -1],
+					// "aLengthMenu": [ 50, 100 , -1],
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+					// "width": "80%",
+
+					// "scrollY": "200px",
+					// "scrollCollapse": true,
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+				} );
+
+				// set the table head's width
+				var table = $('#report-table').DataTable();
+				// alert(table.bStateSave);
+				$("#report-table thead th").each(function(i) {
+					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+				});
+
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#report-table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							case 7:
+							case 8: 
+								// alert("...");
+								break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+
+								break;
+						};
+					};
+				});
+
+			} );
+
+		</script>
+		{{end}}
+
+		{{define "table_addfooter"}}
+		<script>
+
+			$(document).ready(function() {
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#report-table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							case 7:
+							case 8: 
+								// alert("...");
+								break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+								break;
+						};
+					};
+				});
+			} );
 
 		</script>
 		{{end}}

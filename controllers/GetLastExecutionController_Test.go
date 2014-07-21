@@ -7,19 +7,15 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/royburns/goTestLinkReport/models"
 	"strconv"
-	// "time"
-	// "strings"
 )
 
-type ReportController struct {
+type GetLastExecutionController struct {
 	beego.Controller
 }
 
-func (this *ReportController) Get() {
+func (this *GetLastExecutionController) Get() {
 
-	ExecutionsTableHeader := models.GetExectutionTableHeader()
-
-	ExecutionsTableHeader = []string{
+	var ExecutionsTableHeader = []string{
 		// "TestPlan",
 		"Platform",
 		"ToadModule",
@@ -86,57 +82,11 @@ func (this *ReportController) Get() {
 		}
 	}
 
-	// var executions []*V_testlink_testexecution_tree
-	executions := []models.V_testlink_testexecution_tree{}
-	testplan := this.Input().Get("testplan")
-	if testplan != "" {
-		key := testplan
-		value, err := client.Get(key)
-		if err != nil {
-			fmt.Println("Failed to get value: ", err)
-			return
-		}
-
-		if value == nil {
-			fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
-
-			// Get Executions
-			maxTPNum := 10000
-			testexecution_where, err := models.GetAllExecutionsWhere(testplan)
-			tpCount := len(testexecution_where)
-			if err != nil || tpCount > maxTPNum {
-				testplan = ""
-			}
-
-			executions = testexecution_where
-			value, err := json.Marshal(testexecution_where)
-			if err != nil {
-				fmt.Println("Failed to marshal: ", err)
-			}
-			client.Set(key, value)
-			client.Expire(key, expiration)
-		} else {
-			fmt.Println("The plan is exists. We will unmarshal them.")
-			// var temp planinfo
-			err := json.Unmarshal(value, &executions)
-			if err != nil {
-				fmt.Println("Failed to unmarshal: ", err)
-				return
-			}
-		}
-	}
-
 	this.Data["TestPlans"] = tp
 	this.Data["TableHeader"] = ExecutionsTableHeader
-	this.Data["TestExecutionTree"] = executions
 
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
-	this.TplNames = "report.tpl"
-}
-
-type TestPlan struct {
-	Name  string
-	Count int
+	this.TplNames = "getlastexecution_test.tpl"
 }
