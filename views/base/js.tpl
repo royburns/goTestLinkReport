@@ -318,11 +318,51 @@
 			
 			$(document).ready(function() {
 				// alert("...");
+
+				var planname = "";
+				$("ul.pinned li").bind('click', function(event) {
+					// Act on the event 
+					// alert($(this).attr('class'));
+					alert($(this).attr('id'));
+					planname = $(this).attr('id');
+					alert(planname);
+					// alert($(this).attr('name'));
+					// SetActivePlanName($(this).attr('id'));
+					// $("ul.pinned li").each(function() {
+					// 	if ($(this).attr('id') == planname) {
+					// 		// alert("add");
+					// 		$(this).addClass('active');
+					// 	} else{
+					// 		// alert("remove");
+					// 		$(this).removeClass('active');
+					// 	};
+					// });
+				});
+
+				// $("ul.pinned li").each(function(index) {
+				// 	alert(index);
+				// 	// $(this).addClass("active");
+				// 	alert($(this).attr('class'));
+				// });
+
+				var arr = $("ul.pinned li.active").toArray();
+				// alert(arr[0].innerHTML);
+				// alert($("ul.pinned li.active").size());
+				// alert(arr[0].id);
+				if (arr[0]) {
+					var testplan = arr[0].id;
+					alert(testplan);
+					if (planname == "") {
+						planname = testplan;
+					};
+				};
+				
+				alert(planname);
 				$('#report-table').dataTable( {
 
 					"ajax": {
 						// "url": "api/getlastexecution",
-						"url": "api/getlastexecution/?testplan=TSS_DB_Plan",
+						"url": "api/getlastexecution/?testplan=" + planname,
 						"dataSrc": ""
 					},
 

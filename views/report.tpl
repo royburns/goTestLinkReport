@@ -17,7 +17,7 @@
 							<ul class="nav pinned">
 
 								{{range .TestPlans}}
-								<li class="active">
+								<li class="active" id="{{.Name}}">
 									<a href="/report/?testplan={{.Name}}" class="">
 										{{.Name}}
 										<span class="badge">{{.Count}}</span>

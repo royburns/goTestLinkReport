@@ -61,13 +61,34 @@ $(document).ready(function(){
     setupLabel();
 
     //
-    $("ul.pinned li").bind('click', function(event) {
-        // Act on the event 
-        alert($(this).attr('class'));
-        alert($(this).attr('id'));
-        // alert($(this).attr('name'));
-        SetActivePlanName($(this).attr('id'));
-    });
+    // alert($("ul.pinned li:first").size());
+    $("ul.pinned li:first").addClass('active'); // why this way will add 'active' to all 'li'?
+    // $("ul.pinned li:eq(0)").addClass('active'); // why this way will add 'active' to all 'li'?
+    // $("ul.pinned li:first").each(function(index) {
+    //     alert(index);
+    //     if (index == 0) {
+    //         // $(this).addClass("active");
+    //         alert($(this).attr('id'));
+    //     };
+    // });
+
+    // $("ul.pinned li").each(function(index) {
+    //     alert(index);
+    //     // $(this).addClass("active");
+    //     alert($(this).attr('class'));
+    // });
+
+    // alert($("ul.pinned li.active").size());
+    // var arr = $("ul.pinned li.active").toArray();
+    // alert(arr[0].innerHTML);
+    // alert(arr[0].id);
+    // $("ul.pinned li").bind('click', function(event) {
+    //     // Act on the event 
+    //     // alert($(this).attr('class'));
+    //     // alert($(this).attr('id'));
+    //     // alert($(this).attr('name'));
+    //     SetActivePlanName($(this).attr('id'));
+    // });
 });
 
 function SendCmd()
@@ -79,10 +100,10 @@ function SetActivePlanName(planname)
 {
     $("ul.pinned li").each(function() {
         if ($(this).attr('id') == planname) {
-            alert("add");
+            // alert("add");
             $(this).addClass('active');
         } else{
-            alert("remove");
+            // alert("remove");
             $(this).removeClass('active');
         };
     });

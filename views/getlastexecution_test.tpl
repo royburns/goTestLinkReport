@@ -17,10 +17,10 @@
 							<ul class="nav pinned">
 								{{range .TestPlans}}
 								<li 
-								{{if eq .Active true}} class="active" {{end}}
+								
 								name="plan" id="{{.Name}}">
-									<!-- <a href="/report/?testplan={{.Name}}" class="" onclick="GetLastExecution();"> -->
-									<a href="#" class="">
+									
+									<a href="/getlastexecution" class="">
 										{{.Name}}
 										<span class="badge">{{.Count}}</span>
 									</a>
