@@ -48,7 +48,7 @@ func (this *IndexController) Get() {
 	this.Data["PageList"] = calPageList(pn, maxPageNum)
 
 	// 100, (page-1)*100
-	testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
+	// testexecution_tree, err := models.GetAllExecutions(pagenum, (pn-1)*pagenum)
 
 	if err != nil {
 		beego.Debug(fmt.Sprintf("Failed to get reports from db: %v\n", err))
@@ -57,8 +57,7 @@ func (this *IndexController) Get() {
 	}
 
 	this.Data["TableHeader"] = ExecutionsTableHeader
-	this.Data["TestExecutionTree"] = testexecution_tree
-	this.Data["IsIndex"] = true
+	// this.Data["TestExecutionTree"] = testexecution_tree
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
