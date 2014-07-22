@@ -16,11 +16,9 @@
 
 							<ul class="nav pinned">
 								{{range .TestPlans}}
-								<li 
-								
-								name="plan" id="{{.Name}}">
+								<li {{if eq .Active true}} class="active" {{end}} name="plan" id="{{.Name}}">
 									
-									<a href="/getlastexecution" class="">
+									<a href="/getlastexecution/?testplan={{.Name}}" class="">
 										{{.Name}}
 										<span class="badge">{{.Count}}</span>
 									</a>
@@ -30,6 +28,30 @@
 							</ul>
 
 						</div>
+
+						<!-- <div class="span3">
+							<h3 class="demo-panel-title">Radio Buttons</h3>
+							<label class="radio checked">
+								
+								<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+									Radio is off
+							</label>
+							<label class="radio">
+								
+								<input type="radio" name="optionsRadios" id="optionsRadios2" value="option1" checked="">
+									Radio is on
+							</label>
+							<label class="radio disabled">
+								
+								<input type="radio" name="optionsRadiosDisabled" id="optionsRadios3" value="option2" disabled="">
+									Disabled radio is off
+							</label>
+							<label class="radio disabled checked">
+								
+								<input type="radio" name="optionsRadiosDisabled" id="optionsRadios4" value="option2" checked="" disabled="">
+									Disabled radio is on
+							</label>
+						</div> -->
 					</div>
 
 					<div class="right-col">

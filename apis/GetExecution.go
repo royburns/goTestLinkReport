@@ -20,7 +20,7 @@ func (this *ApiController) GetLastExecution() {
 		return
 	}
 
-	fmt.Println("...")
+	fmt.Println("In ApiController.GetLastExecution()...")
 	// var executions []*V_testlink_testexecution_tree
 	executions := []models.V_testlink_testexecution_tree{}
 	testplan := this.Input().Get("testplan")
@@ -63,7 +63,7 @@ func (this *ApiController) GetLastExecution() {
 	}
 
 	this.Data["json"] = &executions
-	this.ServeJson()
 
 	// this.TplNames = "report.tpl"
+	this.ServeJson()
 }

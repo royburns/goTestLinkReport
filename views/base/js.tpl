@@ -54,7 +54,7 @@
 				// alert(location.pathname);
 				var select = "a[href=\\"+location.pathname+"]";
 				// alert(select);
-				$(select).parent("li").addClass("active");
+				$(select).parent(".navbar-nav li").addClass("active");
 			});
 		</script>
 		<!-- NavBar! -->
@@ -319,50 +319,26 @@
 			$(document).ready(function() {
 				// alert("...");
 
-				var planname = "";
-				$("ul.pinned li").bind('click', function(event) {
-					// Act on the event 
-					// alert($(this).attr('class'));
-					alert($(this).attr('id'));
-					planname = $(this).attr('id');
-					alert(planname);
-					// alert($(this).attr('name'));
-					// SetActivePlanName($(this).attr('id'));
-					// $("ul.pinned li").each(function() {
-					// 	if ($(this).attr('id') == planname) {
-					// 		// alert("add");
-					// 		$(this).addClass('active');
-					// 	} else{
-					// 		// alert("remove");
-					// 		$(this).removeClass('active');
-					// 	};
-					// });
-				});
-
-				// $("ul.pinned li").each(function(index) {
-				// 	alert(index);
-				// 	// $(this).addClass("active");
-				// 	alert($(this).attr('class'));
-				// });
-
 				var arr = $("ul.pinned li.active").toArray();
-				// alert(arr[0].innerHTML);
-				// alert($("ul.pinned li.active").size());
-				// alert(arr[0].id);
+				var testplan;
 				if (arr[0]) {
-					var testplan = arr[0].id;
-					alert(testplan);
-					if (planname == "") {
-						planname = testplan;
-					};
+					testplan = arr[0].id;
+					// alert(testplan);
 				};
 				
-				alert(planname);
+				// alert(testplan);
+				
+				// location.pathname = "";
+				// location.pathname = "/api" + location.pathname + "";
+				// alert(location.pathname);
+				// alert(location.href);
+				// alert(location.search);
 				$('#report-table').dataTable( {
 
 					"ajax": {
 						// "url": "api/getlastexecution",
-						"url": "api/getlastexecution/?testplan=" + planname,
+						// "url": "api/getlastexecution/?testplan=" + testplan,
+						"url": "/api" + location.pathname + location.search,
 						"dataSrc": ""
 					},
 

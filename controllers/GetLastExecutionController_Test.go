@@ -15,6 +15,7 @@ type GetLastExecutionController struct {
 
 func (this *GetLastExecutionController) Get() {
 
+	fmt.Println("In GetLastExecutionController()...")
 	var ExecutionsTableHeader = []string{
 		// "TestPlan",
 		"Platform",
@@ -45,6 +46,8 @@ func (this *GetLastExecutionController) Get() {
 		return
 	}
 
+	testplan := this.Input().Get("testplan")
+	fmt.Println("..." + testplan)
 	var tp []TestPlan
 	if value_tp == nil {
 		fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
@@ -57,11 +60,11 @@ func (this *GetLastExecutionController) Get() {
 		}
 
 		res = models.GetAllTestPlansAndCount()
-		for index, item := range res {
+		for _, item := range res {
 			name := string(item["TestPlan"])
 			count, _ := strconv.Atoi(string(item["COUNT(*)"]))
 			bActive := false
-			if index == 0 {
+			if testplan != "" && testplan == name {
 				bActive = true
 			}
 			tp = append(tp, TestPlan{
@@ -77,6 +80,7 @@ func (this *GetLastExecutionController) Get() {
 		}
 		client.Set(key_tp, value)
 		client.Expire(key_tp, expiration)
+
 	} else {
 		fmt.Println("The plan is exists. We will unmarshal them.")
 		// var temp planinfo
@@ -84,6 +88,13 @@ func (this *GetLastExecutionController) Get() {
 		if err != nil {
 			fmt.Println("Failed to unmarshal: ", err)
 			return
+		}
+		for _, item := range tp {
+			// bActive := false
+			if testplan != "" && testplan == item.Name {
+				// bActive = true
+				item.Active = true
+			}
 		}
 	}
 

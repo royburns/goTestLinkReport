@@ -56,13 +56,17 @@ $(document).ready(function(){
     $(".checkbox, .radio").prepend("<span class='icon'></span><span class='icon-to-fade'></span>");
 
     $(".checkbox, .radio").click(function(){
+        // alert("radio");
         setupLabel();
     });
     setupLabel();
 
     //
     // alert($("ul.pinned li:first").size());
-    $("ul.pinned li:first").addClass('active'); // why this way will add 'active' to all 'li'?
+    // $("ul.pinned li:first").addClass('active'); // why this way will add 'active' to all 'li'?
+    // alert($("ul.pinned li:first").length);
+    // alert($(".pinned li[name='plan']").length);
+    // $(".pinned li[name='plan']").addClass('active');
     // $("ul.pinned li:eq(0)").addClass('active'); // why this way will add 'active' to all 'li'?
     // $("ul.pinned li:first").each(function(index) {
     //     alert(index);
@@ -82,13 +86,13 @@ $(document).ready(function(){
     // var arr = $("ul.pinned li.active").toArray();
     // alert(arr[0].innerHTML);
     // alert(arr[0].id);
-    // $("ul.pinned li").bind('click', function(event) {
-    //     // Act on the event 
-    //     // alert($(this).attr('class'));
-    //     // alert($(this).attr('id'));
-    //     // alert($(this).attr('name'));
-    //     SetActivePlanName($(this).attr('id'));
-    // });
+    $("ul.pinned li").click(function(event) {
+        /* Act on the event */
+        // alert($(this).attr('class'));
+        // alert($(this).attr('id'));
+        // alert($(this).attr('name'));
+        SetActivePlanName($(this).attr('id'));
+    });
 });
 
 function SendCmd()
@@ -99,6 +103,7 @@ function SendCmd()
 function SetActivePlanName(planname)
 {
     $("ul.pinned li").each(function() {
+        // alert($(this).attr('id'));
         if ($(this).attr('id') == planname) {
             // alert("add");
             $(this).addClass('active');
@@ -107,6 +112,13 @@ function SetActivePlanName(planname)
             $(this).removeClass('active');
         };
     });
+
+    // var arr = $("ul.pinned li.active").toArray();
+    // alert(arr.length);
+    // if (arr[0]) {
+    //     var testplan = arr[0].id;
+    //     alert(testplan);
+    // };
 };
 
 // onclick="GetLastExecution({{.Name}});"

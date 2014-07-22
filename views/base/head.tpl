@@ -9,7 +9,6 @@
 		<script src="/static/js/responsive-nav.min.js"></script>
 		<script src="/static/js/jquery.pin.min.js"></script>
 		<script src="/static/js/sco.tooltip.js"></script>
-		<script src="/static/js/flatui-checkbox.js"></script>
 		<script src="/static/js/app.js"></script>
 		
 		<script src="/static/js/jquery-ui-1.10.3.custom.min.js"></script>

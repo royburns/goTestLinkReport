@@ -49,6 +49,8 @@ func (this *ReportController) Get() {
 		return
 	}
 
+	testplan := this.Input().Get("testplan")
+	fmt.Println("..." + testplan)
 	var tp []TestPlan
 	if value_tp == nil {
 		fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
@@ -61,11 +63,11 @@ func (this *ReportController) Get() {
 		}
 
 		res = models.GetAllTestPlansAndCount()
-		for index, item := range res {
+		for _, item := range res {
 			name := string(item["TestPlan"])
 			count, _ := strconv.Atoi(string(item["COUNT(*)"]))
 			bActive := false
-			if index == 0 {
+			if testplan != "" && testplan == name {
 				bActive = true
 			}
 			tp = append(tp, TestPlan{
@@ -89,11 +91,17 @@ func (this *ReportController) Get() {
 			fmt.Println("Failed to unmarshal: ", err)
 			return
 		}
+		for _, item := range tp {
+			// bActive := false
+			if testplan != "" && testplan == item.Name {
+				// bActive = true
+				item.Active = true
+			}
+		}
 	}
 
 	// var executions []*V_testlink_testexecution_tree
 	executions := []models.V_testlink_testexecution_tree{}
-	testplan := this.Input().Get("testplan")
 	if testplan != "" {
 		key := testplan
 		value, err := client.Get(key)
