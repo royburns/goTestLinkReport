@@ -16,7 +16,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
 						<li><a href="/plan">Plan</a></li> <!-- can use js to control active class -->
-						<li><a href="/report">Report</a></li>
+						<li><a href="/getlastexecution">Report</a></li>
 						<li><a href="#">Statistics</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Test<b class="caret"></b></a>
