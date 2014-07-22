@@ -333,6 +333,7 @@
 				// alert(location.pathname);
 				// alert(location.href);
 				// alert(location.search);
+
 				$('#report-table').dataTable( {
 
 					"ajax": {
@@ -356,7 +357,7 @@
 						{ "data": "Tester" },
 					],
 
-					"stateSave": true,
+					// "stateSave": true,
 
 					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
@@ -394,6 +395,127 @@
 							// }
 						},
 					],
+
+					"createdRow": function ( row, data, index ) {
+						// if ( data[5].replace(/[\$,]/g, '') * 1 > 4000 ) {
+						// 	$('td', row).eq(5).addClass('highlight');
+						// }
+
+						for (var j = 0; j <= items[i].cells.length; j++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i].cells[j]) {
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+								switch(j)
+								{
+									case 2:
+										// len = 12;dots="...";
+										break;
+									case 4:
+										// len = 32;dots="...";
+										break;
+									case 7:
+										len = 19;dots="";
+										break;
+									case 8:
+										// len = 10;dots="...";
+										break;
+									default:
+										break;
+								}
+
+								if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
+									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
+								};
+
+								switch(j)
+								{
+									case 8:
+										// Add a link for string like "QAT-123"
+										// var str = items[i].cells[j].innerHTML.match(/\w+-\d+/);
+										// var str = items[i].cells[j].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/);
+										// if (str != null) {
+										// 	var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str + "\" target=\"_blank\">" + str + "</a>";
+										// 	items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str, 
+										// 		str1);
+										// };
+
+										var str = items[i].cells[j].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
+										// alert(str);
+										if (str != null && str.length > 0) {
+											for (var k = 0; k < str.length; k++) {
+												var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str[k] + "\" target=\"_blank\">" + str[k] + "</a>";
+												items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str[k], str1);
+											};
+										};
+										
+										break;
+									default:
+										break;
+								}
+							};
+						};
+						
+					},
+
+					// "footerCallback": function( tfoot, data, start, end, display ) {
+					// 	// tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
+					// 	alert("...");
+					// },
+
+					// footer callback
+					"footerCallback": function (row, data, start, end, display) {
+						// alert(row);
+						// tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
+						// var elements = row.getElementsByTagName('th');
+						// alert(elements.length);
+						// for (var i = elements.length - 1; i >= 0; i--) {
+						// 	// elements[i]
+						// };
+
+						// var table = $('#report-table').DataTable();
+						// $("#report-table tfoot th").each(function(i) {
+						// 	if (!table.column(i).bVisible) {
+						// 		switch(i)
+						// 		{
+						// 			// The columns no need filter
+						// 			case 7:
+						// 			case 8: 
+						// 				// alert("...");
+						// 				break;
+						// 			default:
+
+						// 				var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+						// 				.appendTo($(this).empty())
+						// 				.on('change', function() {
+						// 					if ($(this).val() && $(this).val() != "[ALL]") {
+						// 						table.column(i)
+						// 							.search( '^'+$(this).val()+'$', true, false )
+						// 							.draw();
+						// 					} else if ($(this).val() == "[ALL]") {
+						// 						table.column(i)
+						// 							.search( "", true, false )
+						// 							.draw();
+						// 					} else {
+						// 						alert($(this).val());
+						// 						table.column(i)
+						// 							.search( "", true, false )
+						// 							.draw();
+						// 					};
+						// 				});
+										
+						// 				//
+						// 				table.column(i).data().unique().sort().each(function(d, j) {
+						// 					select.append('<option value="' + d + '">' + d + '</option>')
+						// 				} );
+
+						// 				break;
+						// 		}
+						// 	};
+						// });
+					},
+
 				} );
 
 				// set the table head's width
@@ -403,8 +525,8 @@
 					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
 				});
 
+				// alert('inner');
 				// set the table root as selection
-				// var table = $('#report-table').DataTable();
 				$("#report-table tfoot th").each(function(i) {
 					// alert(i);
 					if (!table.column(i).bVisible) {
@@ -457,8 +579,10 @@
 			$(document).ready(function() {
 				// set the table root as selection
 				var table = $('#report-table').DataTable();
+				// alert(table);
 				$("#report-table tfoot th").each(function(i) {
 					// alert(i);
+					// alert('outer');
 					if (!table.column(i).bVisible) {
 						switch(i)
 						{
