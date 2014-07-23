@@ -31,7 +31,7 @@ func (this *GetLastExecutionController) Get() {
 		// "TestSuite",
 	}
 
-	expiration := int64(60 * 60)
+	expiration := int64(12 * 60 * 60)
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
 	if err != nil {
@@ -47,7 +47,7 @@ func (this *GetLastExecutionController) Get() {
 	}
 
 	testplan := this.Input().Get("testplan")
-	fmt.Println("..." + testplan)
+	fmt.Println("GetExecution of TestPlan: " + testplan)
 	var tp []TestPlan
 	if value_tp == nil {
 		fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
@@ -83,18 +83,22 @@ func (this *GetLastExecutionController) Get() {
 
 	} else {
 		fmt.Println("The plan is exists. We will unmarshal them.")
-		// var temp planinfo
-		err := json.Unmarshal(value_tp, &tp)
+		var res []TestPlan
+		err := json.Unmarshal(value_tp, &res)
 		if err != nil {
 			fmt.Println("Failed to unmarshal: ", err)
 			return
 		}
-		for _, item := range tp {
-			// bActive := false
+		for _, item := range res {
+			bActive := false
 			if testplan != "" && testplan == item.Name {
-				// bActive = true
-				item.Active = true
+				bActive = true
 			}
+			tp = append(tp, TestPlan{
+				Name:   item.Name,
+				Count:  item.Count,
+				Active: bActive,
+			})
 		}
 	}
 

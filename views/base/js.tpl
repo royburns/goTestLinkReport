@@ -319,12 +319,12 @@
 			$(document).ready(function() {
 				// alert("...");
 
-				var arr = $("ul.pinned li.active").toArray();
-				var testplan;
-				if (arr[0]) {
-					testplan = arr[0].id;
-					// alert(testplan);
-				};
+				// var arr = $("ul.pinned li.active").toArray();
+				// var testplan;
+				// if (arr[0]) {
+				// 	testplan = arr[0].id;
+				// 	alert(testplan);
+				// };
 				
 				// alert(testplan);
 				
@@ -399,15 +399,27 @@
 					"createdRow": function ( row, data, index ) {
 						// if ( data[5].replace(/[\$,]/g, '') * 1 > 4000 ) {
 						// 	$('td', row).eq(5).addClass('highlight');
+						//	$(row).eq(5).addClass('highlight');
 						// }
 
-						for (var j = 0; j <= items[i].cells.length; j++) {
+						// if ( data[4] == "A" )
+						// {
+						// 	$('td:eq(4)', row).html( '<b>A</b>' );
+						// }
+
+						// alert(row.innerHTML);
+						// alert(data);
+						// alert(index);
+
+						var items = row.getElementsByTagName("td");
+						// alert(items.length);
+						for (var i = 0; i <= items.length; i++) {
 							var len = 0, dots = "";
 							// alert("...");
 
-							if (items[i].cells[j]) {
-								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
-								switch(j)
+							if (items[i]) {
+								items[i].innerHTML = items[i].innerHTML.trim();
+								switch(i)
 								{
 									case 2:
 										// len = 12;dots="...";
@@ -423,150 +435,116 @@
 										break;
 									default:
 										break;
-								}
-
-								if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
-									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
 								};
 
-								switch(j)
-								{
-									case 8:
-										// Add a link for string like "QAT-123"
-										// var str = items[i].cells[j].innerHTML.match(/\w+-\d+/);
-										// var str = items[i].cells[j].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/);
-										// if (str != null) {
-										// 	var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str + "\" target=\"_blank\">" + str + "</a>";
-										// 	items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str, 
-										// 		str1);
-										// };
+								if (len > 0 && items[i] && items[i].innerHTML.length > len) {
+									items[i].innerHTML = items[i].innerHTML.substr(0, len) + dots;
+								};
 
-										var str = items[i].cells[j].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
+								switch(i)
+								{
+									case 5:
+										switch(items[i].innerHTML)
+										{
+											case "blocked":
+												$(row).addClass('');
+												// items[i].innerHTML = "{blocked}";
+												// data[i] = "{blocked}"; // make no sense
+												break;
+											case "passed":
+												$(row).addClass('success');
+												break;
+											case "failed":
+												$(row).addClass('danger');
+												break;
+											case "not run":
+												$(row).addClass('nostatus');
+												break;
+											default:
+												break;
+										}
+										break;
+									case 8:
+										var str = items[i].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
 										// alert(str);
 										if (str != null && str.length > 0) {
 											for (var k = 0; k < str.length; k++) {
 												var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str[k] + "\" target=\"_blank\">" + str[k] + "</a>";
-												items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.replace(str[k], str1);
+												items[i].innerHTML = items[i].innerHTML.replace(str[k], str1);
 											};
 										};
 										
 										break;
 									default:
 										break;
-								}
+								};
 							};
 						};
-						
-					},
+					},// createdRow
 
+					// footer callback
 					// "footerCallback": function( tfoot, data, start, end, display ) {
 					// 	// tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
 					// 	alert("...");
-					// },
+					// },// footerCallback
 
-					// footer callback
-					"footerCallback": function (row, data, start, end, display) {
-						// alert(row);
-						// tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
-						// var elements = row.getElementsByTagName('th');
-						// alert(elements.length);
-						// for (var i = elements.length - 1; i >= 0; i--) {
-						// 	// elements[i]
-						// };
+					"initComplete": function(settings, json) {
+						// set the table head's width
+						var table = $('#report-table').DataTable();
+						// alert(table.bStateSave);
+						$("#report-table thead th").each(function(i) {
+							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+						});
 
-						// var table = $('#report-table').DataTable();
-						// $("#report-table tfoot th").each(function(i) {
-						// 	if (!table.column(i).bVisible) {
-						// 		switch(i)
-						// 		{
-						// 			// The columns no need filter
-						// 			case 7:
-						// 			case 8: 
-						// 				// alert("...");
-						// 				break;
-						// 			default:
+						$("#report-table tbody th").each(function(i) {
+							alert(table.column(i).body().innerHTML); // Get the header name of every column.
+						});
 
-						// 				var select = $('<select><option value="[ALL]">[ALL]</option></select>')
-						// 				.appendTo($(this).empty())
-						// 				.on('change', function() {
-						// 					if ($(this).val() && $(this).val() != "[ALL]") {
-						// 						table.column(i)
-						// 							.search( '^'+$(this).val()+'$', true, false )
-						// 							.draw();
-						// 					} else if ($(this).val() == "[ALL]") {
-						// 						table.column(i)
-						// 							.search( "", true, false )
-						// 							.draw();
-						// 					} else {
-						// 						alert($(this).val());
-						// 						table.column(i)
-						// 							.search( "", true, false )
-						// 							.draw();
-						// 					};
-						// 				});
+						// alert('inner');
+						// set the table root as selection
+						$("#report-table tfoot th").each(function(i) {
+							// alert(i);
+							if (!table.column(i).bVisible) {
+								switch(i)
+								{
+									// The columns no need filter
+									case 7:
+									case 8: 
+										// alert("...");
+										break;
+									default:
+
+										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+										.appendTo($(this).empty())
+										.on('change', function() {
+											if ($(this).val() && $(this).val() != "[ALL]") {
+												table.column(i)
+													.search( '^'+$(this).val()+'$', true, false )
+													.draw();
+											} else if ($(this).val() == "[ALL]") {
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											} else {
+												// alert($(this).val());
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											};
+										});
 										
-						// 				//
-						// 				table.column(i).data().unique().sort().each(function(d, j) {
-						// 					select.append('<option value="' + d + '">' + d + '</option>')
-						// 				} );
+										//
+										table.column(i).data().unique().sort().each(function(d, j) {
+											select.append('<option value="' + d + '">' + d + '</option>')
+										} );
 
-						// 				break;
-						// 		}
-						// 	};
-						// });
-					},
+										break;
+								};
+							};
+						});
+					},// initComplete
 
 				} );
-
-				// set the table head's width
-				var table = $('#report-table').DataTable();
-				// alert(table.bStateSave);
-				$("#report-table thead th").each(function(i) {
-					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
-				});
-
-				// alert('inner');
-				// set the table root as selection
-				$("#report-table tfoot th").each(function(i) {
-					// alert(i);
-					if (!table.column(i).bVisible) {
-						switch(i)
-						{
-							// The columns no need filter
-							case 7:
-							case 8: 
-								// alert("...");
-								break;
-							default:
-
-								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
-								.appendTo($(this).empty())
-								.on('change', function() {
-									if ($(this).val() && $(this).val() != "[ALL]") {
-										table.column(i)
-											.search( '^'+$(this).val()+'$', true, false )
-											.draw();
-									} else if ($(this).val() == "[ALL]") {
-										table.column(i)
-											.search( "", true, false )
-											.draw();
-									} else {
-										alert($(this).val());
-										table.column(i)
-											.search( "", true, false )
-											.draw();
-									};
-								});
-								
-								//
-								table.column(i).data().unique().sort().each(function(d, j) {
-									select.append('<option value="' + d + '">' + d + '</option>')
-								} );
-
-								break;
-						};
-					};
-				});
 
 			} );
 

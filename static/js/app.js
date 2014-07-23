@@ -86,13 +86,13 @@ $(document).ready(function(){
     // var arr = $("ul.pinned li.active").toArray();
     // alert(arr[0].innerHTML);
     // alert(arr[0].id);
-    $("ul.pinned li").click(function(event) {
-        /* Act on the event */
-        // alert($(this).attr('class'));
-        // alert($(this).attr('id'));
-        // alert($(this).attr('name'));
-        SetActivePlanName($(this).attr('id'));
-    });
+    // $("ul.pinned li").click(function(event) {
+    //     /* Act on the event */
+    //     // alert($(this).attr('class'));
+    //     // alert($(this).attr('id'));
+    //     // alert($(this).attr('name'));
+    //     SetActivePlanName($(this).attr('id'));
+    // });
 });
 
 function SendCmd()

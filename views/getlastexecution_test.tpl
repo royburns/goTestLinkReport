@@ -141,7 +141,6 @@
 		</div>
 		
 		{{template "execution_ajax"}}
-		{{template "table_addfooter"}}
 		{{template "backToTop"}}
 		{{template "home_js"}}
 		{{template "base/js.tpl" .}}

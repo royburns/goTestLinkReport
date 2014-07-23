@@ -44,8 +44,28 @@ func (this *ApiController) GetLastExecution() {
 				testplan = ""
 			}
 
-			executions = testexecution_where
-			value, err := json.Marshal(testexecution_where)
+			// executions = testexecution_where
+			for _, v := range testexecution_where {
+				// fmt.Println(v.Status)
+				switch v.Status {
+				case "b":
+					v.Status = "blocked"
+					break
+				case "p":
+					v.Status = "passed"
+					break
+				case "f":
+					v.Status = "failed"
+					break
+				case "":
+					v.Status = "not run"
+					break
+				default:
+					break
+				}
+				executions = append(executions, v)
+			}
+			value, err := json.Marshal(executions)
 			if err != nil {
 				fmt.Println("Failed to marshal: ", err)
 			}
