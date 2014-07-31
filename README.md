@@ -21,7 +21,7 @@ Power by [Golang](http://golang.org) and [Beego](https://github.com/astaxie/beeg
 ## Note:
 * Until now, only the “Report” feature can be used.
 * When you click the test plan on the Left-Navbar, it will fetch all the test cases belong the test plan, so it maybe a little slow.
-* he first version is rough, welcome to feedback, submit, contribute code.
+* The first version is rough, welcome to feedback, submit, contribute code.
 
 ## TODO:
 * Test Plan.
