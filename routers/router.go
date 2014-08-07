@@ -17,7 +17,9 @@ func init() {
 
 	// Statistics
 	// beego.Router("/statistics", &controllers.StatisticsController{})
-	beego.Router("/statistics/sprint", &controllers.StatisticsController{}, "get:Sprint")
+	beego.Router("/statistics/sprint", &controllers.StatisticsController{})
+	beego.Router("/api/statistics/sprint", &controllers.StatisticsController{}, "get:Sprint")
+	// beego.Router("/api/statistics/stock", &controllers.StatisticsController{}, "get:Stock")
 
 	// Test
 	beego.Router("/test", &controllers.TestController{})

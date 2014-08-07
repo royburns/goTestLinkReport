@@ -607,8 +607,100 @@
 		<script>
 			$(document).ready(function() {
 				// alert("...");
-				$('table.statistics').highchartTable();
+				// $('table.statistics').highchartTable({
+				// 	title: {
+				// 		text: 'Sprint'
+				// 	},
+				// 	yAxis: [{ // Primary yAxis
+				// 		labels: { 
+				// 			formatter: function() { 
+				// 				return this.value * 100 + '%'; 
+				// 			}, 
+				// 			style: { 
+				// 				color: '#89A54E' 
+				// 			} 
+				// 		}, 
+				// 		title: { 
+				// 			text: 'Complete PCT', 
+				// 			style: { 
+				// 				color: '#89A54E' 
+				// 			} 
+				// 		}, 
+				// 		opposite: true }],
+				// });
+				
 				$('table.highchart').highchartTable();
+			});
+		</script>
+		{{end}}
+
+		{{define "statistics_sprint_json"}}
+		<script>
+			$(document).ready(function() {
+				// alert("...");
+
+				var options = {
+					chart: {
+						renderTo: "statistics_sprint_json",
+						type: "spline"
+					},
+					series: []
+				};
+
+				$.getJSON("http://localhost:8080/api/statistics/sprint", function(data) {
+					// options.series[0].data = data;
+					// alert(data[0]["SprintName"]);
+					// name: 'Temperature', 
+					// color: '#89A54E', 
+					// type: 'spline', 
+					// data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6], 
+					// tooltip: { 
+					// 	valueSuffix: ' °C' 
+					// }
+					options.title = {
+						text: "Sprint 1"
+					};
+					options.xAxis = [{
+					}];
+					options.xAxis.categories = new Array();
+					var Estimated = [];
+					var Executed = [];
+					var Remaining = [];
+					for (var i = 0; i < data.length; i++) {
+						// options.xAxis.categories
+						options.xAxis.categories[i] = data[i]["Date"];
+						// alert(options.xAxis.categories[i]);
+
+						// options.series[i].name = data[i]["SprintName"];
+						// options.series[i].color
+						// options.series[i].type = 'spline';
+						// options.series[i].data = data[i]["Executed"];
+						Estimated[i] = data[i]["Estimated"];
+						// alert(Estimated[i]);
+						Executed[i] = data[i]["Executed"];
+						Remaining[i] = data[i]["Remaining"];
+					};
+
+					// alert(Estimated);
+
+					//
+					series = [{
+						name: "Estimated",
+						data: Estimated
+					}, {
+						name: "Executed",
+						// yAxis: 1,
+						data: Executed
+					}, {
+						name: "Remaining",
+						// yAxis: 2,
+						data: Remaining
+					}];
+					options.series.push(series);
+
+					var chart = new Highcharts.Chart(options);
+				});
+
 			});
 		</script>
 		{{end}}
@@ -617,9 +709,13 @@
 		<script>
 			$(function () {
 
+				var url = location.protocol + "//" + location.host + "/api" + location.pathname;
+				// alert(url);
+
 				// Get the CSV and create the chart
 				// $.getJSON('http://localhost:8080/api/getlastexecution/?testplan=TSS_OS_Plan', function (json) {
 				$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
+				// $.getJSON(url, function (csv) {
 					
 					$('#container').highcharts({
 
@@ -635,12 +731,12 @@
 						},
 
 						title: {
-							text: 'Daily visits at www.highcharts.com'
+							text: 'Sprint'
 						},
 
-						subtitle: {
-							text: 'Source: Google Analytics'
-						},
+						// subtitle: {
+						// 	text: 'Source: Google Analytics'
+						// },
 
 						xAxis: {
 							type: 'datetime',
@@ -731,6 +827,69 @@
 					});
 				});
 
+			});
+		</script>
+		{{end}}
+
+		{{define "stock_csv"}}
+		<script>
+			$(document).ready(function() {
+				// alert("...");
+
+				var options = {
+					chart: {
+						renderTo: "stock_csv",
+						type: "spline"
+					},
+					series: [{},{},{},{},{}]
+				};
+
+				// $.getJSON("http://xueqiu.com/S/SH601166/historical.csv", function(data) {
+				$.get("http://xueqiu.com/S/SH601166/historical.csv", function(data) {
+
+					var lines = data.split('\n');
+
+					$.each(lines, function(index, el) {
+						var items = el.split(",");
+
+						if (index == 0) {
+							$.each(items, function(index, el) {
+								if (index > 0) {
+									options.xAxis.categories.push(el);
+								};
+							});
+						} else {
+							var series = {
+								data: []
+							};
+							$.each(items, function(index, el) {
+								if (index == 0) {
+									series.name = el
+								} else{
+									series.data.push(el);
+								};
+							});
+
+							options.series.push(series);
+						};
+					});
+					
+					// options.title = {
+					// 	text: "Sprint"
+					// }
+					// options.xAxis = [{
+					// 	categories: [1, 2, 3, 4, 5 ]
+					// }]
+					// for (var i = 0; i < data.length; i++) {
+					// 	options.series[i].name = data[i]["SprintName"];
+					// 	// options.series[i].color
+					// 	options.series[i].type = 'spline';
+					// 	options.series[i].data = data[i]["Executed"];
+					// };
+
+					var chart = new Highcharts.Chart(options);
+				});
+				
 			});
 		</script>
 		{{end}}

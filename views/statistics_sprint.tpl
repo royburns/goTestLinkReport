@@ -7,46 +7,73 @@
 		<!-- {{template "base/header.tpl" .}} -->
 		{{template "base/navbar.tpl" .}}
 
-		<div class="container sprint-container">
-			<div class="row">
-					
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div class="container">
+			<div class="left-col" style="height:560px;width:720px;">
 				<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
-				<table class="statistics table-bordered table-condensed table-hover table-striped" 
-				data-graph-container=".sprint-container" 
-				data-graph-type="line"
-				id="statistics_sprint" 
-				name="statistics_sprint" 
+				<table class="table table-bordered table-condensed table-hover table-striped" 
 				cellspacing="0" width="50%" style="table-layout:auto;white-space:nowrap;">
-					
-						<thead>
-							<tr>
-								{{range .Title}}
-									<th>{{ . }}</th>
-								{{end}}
-							</tr>
-						</thead>
-						
-						<tbody>
-							{{range .Sprint}}
-							<tr>
-								<td>{{.SprintName}}</td>
-								<td>{{.Planed}}</td>
-								<td>{{.Executed}}</td>
-								<td>{{.CompletedRate}}</td>
-							</tr>
-							{{end}}
-						</tbody>
-						
-				</table>
 
+					<caption>{{.Caption}}</caption>
+					<thead>
+						<tr>
+							{{range .Title}}
+							<th>{{ . }}</th>
+							{{end}}
+						</tr>
+					</thead>
+					
+					<tbody>
+						{{range .Sprint}}
+						<tr>
+							<td>{{.Date}}</td>
+							<td>{{.Estimated}}</td>
+							<td>{{.Executed}}</td>
+							<td>{{.Remaining}}</td>
+						</tr>
+						{{end}}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="right-col highchart-container" style="height:560px;width:720px;">
+				<table class="highchart"
+				data-graph-container=".highchart-container"
+				data-graph-type="line"
+				cellspacing="0" style="height:600px;width:800px;table-layout:fixed;white-space:nowrap;">
+
+					<caption>{{.Caption}}</caption>
+					<thead>
+						<tr>
+							{{range .Title}}
+							<th>{{ . }}</th>
+							{{end}}
+						</tr>
+					</thead>
+					
+					<tbody>
+						{{range .Sprint}}
+						<tr>
+							<td>{{.Date}}</td>
+							<td>{{.Estimated}}</td>
+							<td>{{.Executed}}</td>
+							<td>{{.Remaining}}</td>
+						</tr>
+						{{end}}
+					</tbody>
+				</table>	
 			</div>
 		</div>
-
 		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
+<!-- 		<div id="statistics_sprint_json" style="width: 800px; min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 		<div class="highchart-container">
-			<table class="highchart" 
-				data-graph-container=".highchart-container" 
+			<table class="---highchart"
+				data-graph-container=".highchart-container"
 				data-graph-type="line">
 				<caption>Column example</caption>
 				<thead>
@@ -84,13 +111,12 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
-
-		{{template "test_highcharts"}}
+		</div> -->
+		
 		{{template "statistics_sprint"}}
+		
 		{{template "base/js.tpl" .}}
 		
-
 		{{template "base/footer.tpl" .}}
 	</body>
 </html>
