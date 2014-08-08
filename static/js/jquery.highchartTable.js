@@ -402,7 +402,7 @@
         tooltip: {
             formatter: function() {
               if ($table.data('graph-xaxis-type') == 'datetime') {
-                return '<b>'+ this.series.name +'</b><br/>'+  Highcharts.dateFormat('%e. %b', this.x) +' : '+ this.y;
+                return '<b>'+ this.series.name +'</b><br/>'+  Highcharts.dateFormat('%b. %e', this.x) +' : '+ this.y;
               } else {
                 var xValue = typeof xValues[this.point.x] != 'undefined' ? xValues[this.point.x] : this.point.x;
                 if (globalGraphType === 'pie') {

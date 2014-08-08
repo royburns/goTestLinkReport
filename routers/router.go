@@ -34,4 +34,7 @@ func init() {
 	beego.Router("/api/getplan", &apis.ApiController{}, "get:GetPlan")
 	beego.Router("/api/getlastexecution", &apis.ApiController{}, "get:GetLastExecution")
 	beego.Router("/api/runcmd", &apis.ApiController{}, "get:RunCmd")
+
+	// static file
+	beego.SetStaticPath("/data", "data")
 }

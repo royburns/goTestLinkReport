@@ -606,31 +606,60 @@
 		{{define "statistics_sprint"}}
 		<script>
 			$(document).ready(function() {
-				// alert("...");
-				// $('table.statistics').highchartTable({
+
+				// $('table.statistics_sprint_table').highchartTable({
 				// 	title: {
-				// 		text: 'Sprint'
+				// 		text: "haha"
 				// 	},
-				// 	yAxis: [{ // Primary yAxis
-				// 		labels: { 
-				// 			formatter: function() { 
-				// 				return this.value * 100 + '%'; 
-				// 			}, 
-				// 			style: { 
-				// 				color: '#89A54E' 
-				// 			} 
-				// 		}, 
-				// 		title: { 
-				// 			text: 'Complete PCT', 
-				// 			style: { 
-				// 				color: '#89A54E' 
-				// 			} 
-				// 		}, 
-				// 		opposite: true }],
+				// 	subtitle: {
+				// 		text: "xixi"
+				// 	}
 				// });
-				
-				$('table.highchart').highchartTable();
+
+				$('table.statistics_sprint_table')
+				.bind('highchartTable.beforeRender', function(event, highChartConfig) {
+					/* Act on the event */
+					highChartConfig.title.text = "haha";
+					highChartConfig.chart.type = "column";
+					highChartConfig.chart.defaultSeriesType = "column";
+				})
+				.highchartTable();
 			});
+		</script>
+		{{end}}
+
+		{{define "statistics_sprint_js"}}
+		<script>
+			// Modify the column of the report grid.
+			(function () {
+
+				var tables = document.getElementsByName("statistics_sprint_table");
+				for (var n = 0; n < tables.length; n++) {
+
+					var table = tables[n];
+					var items = table.getElementsByTagName("tr");
+					for (var i = 1; i < items.length; i++) {
+
+						// Limit length.
+						for (var j = 0; j <= items[i].cells.length; j++) {
+
+							var len = 0, dots = "";
+							if (items[i].cells[j]) {
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+								switch(j)
+								{
+									case 0:
+										items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.split(" ")[0];
+										break;
+									default:
+										break;
+								}
+							};
+						};
+					};
+				};
+			})();
+
 		</script>
 		{{end}}
 
@@ -647,16 +676,10 @@
 					series: []
 				};
 
-				$.getJSON("http://localhost:8080/api/statistics/sprint", function(data) {
-					// options.series[0].data = data;
-					// alert(data[0]["SprintName"]);
-					// name: 'Temperature', 
-					// color: '#89A54E', 
-					// type: 'spline', 
-					// data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6], 
-					// tooltip: { 
-					// 	valueSuffix: ' °C' 
-					// }
+				// "http://localhost:8080/api/statistics/sprint"
+				var url = location.protocol + "//" + location.host + "/api" + location.pathname;
+				$.getJSON(url, function(data) {
+
 					options.title = {
 						text: "Sprint 1"
 					};
@@ -671,10 +694,6 @@
 						options.xAxis.categories[i] = data[i]["Date"];
 						// alert(options.xAxis.categories[i]);
 
-						// options.series[i].name = data[i]["SprintName"];
-						// options.series[i].color
-						// options.series[i].type = 'spline';
-						// options.series[i].data = data[i]["Executed"];
 						Estimated[i] = data[i]["Estimated"];
 						// alert(Estimated[i]);
 						Executed[i] = data[i]["Executed"];
@@ -698,6 +717,80 @@
 					}];
 					options.series.push(series);
 
+					var chart = new Highcharts.Chart(options);
+				});
+
+			});
+		</script>
+		{{end}}
+
+		{{define "statistics_sprint_json2"}}
+		<script>
+			$(document).ready(function() {
+				// alert("...");
+
+				var options = {
+					chart: {
+						renderTo: 'statistics_sprint',
+						defaultSeriesType: 'spline'
+					},
+					title: {
+						text: 'Sprint Statistics'
+					},
+					xAxis: {
+						categories: []
+					},
+					yAxis: {
+						title: {
+							text: 'Counts'
+						}
+					},
+					series: []
+				};
+
+				$.getJSON("http://localhost:8080/api/statistics/sprint", function(data) {
+
+					options.subtitle = {
+						text: "statistics_sprint_json2"
+					};
+
+					var t = {
+						Date: [],
+						Estimated:[],
+						Executed:[],
+						Remaining:[]
+					};
+
+					for (var i = 0; i < data.length; i++) {
+						
+						// 2014-06-26T00:00:00+08:00
+						// alert(data[i]["Date"]);
+						var st = data[i]["Date"];
+						var a = st.split("T");
+						var b = a[0].split("-");
+						var date = new Date(b[0], b[1], b[2]);
+						// alert(date.toLocaleString().split(",")[0]);
+						// t["Date"].push(date.toLocaleString().split(",")[0]);
+						options.xAxis.categories.push(date.toLocaleString().split(" ")[0]);
+
+						t["Estimated"].push(data[i]["Estimated"]);
+						t["Executed"].push(data[i]["Executed"]);
+						t["Remaining"].push(data[i]["Remaining"]);
+					};
+
+					// options.series.push({
+					// 	name: "Estimated",
+					// 	data: t["Estimated"]
+					// });
+					// options.series.push({
+					// 	name: "Executed",
+					// 	data: t["Executed"]
+					// });
+					options.series.push({
+						name: "Remaining",
+						data: t["Remaining"]
+					});
+					
 					var chart = new Highcharts.Chart(options);
 				});
 
@@ -831,65 +924,71 @@
 		</script>
 		{{end}}
 
-		{{define "stock_csv"}}
+		{{define "test_csv"}}
 		<script>
 			$(document).ready(function() {
 				// alert("...");
 
 				var options = {
 					chart: {
-						renderTo: "stock_csv",
-						type: "spline"
+						renderTo: 'container',
+						defaultSeriesType: 'spline'
 					},
-					series: [{},{},{},{},{}]
+					title: {
+						text: 'Fruit Consumption'
+					},
+					xAxis: {
+						categories: []
+					},
+					yAxis: {
+						title: {
+							text: 'Units'
+						}
+					},
+					series: []
 				};
 
-				// $.getJSON("http://xueqiu.com/S/SH601166/historical.csv", function(data) {
-				$.get("http://xueqiu.com/S/SH601166/historical.csv", function(data) {
-
+				$.get('/data/data.csv', function(data) {
+					// Split the lines
 					var lines = data.split('\n');
 
-					$.each(lines, function(index, el) {
-						var items = el.split(",");
+					// Iterate over the lines and add categories or series
+					$.each(lines, function(lineNo, line) {
+						var items = line.split(',');
 
-						if (index == 0) {
-							$.each(items, function(index, el) {
-								if (index > 0) {
-									options.xAxis.categories.push(el);
-								};
+						// header line containes categories
+						if (lineNo == 0) {
+							$.each(items, function(itemNo, item) {
+								if (itemNo > 0) options.xAxis.categories.push(item);
 							});
-						} else {
+						}
+
+						// the rest of the lines contain data with their name in the first 
+						// position
+						else {
 							var series = {
 								data: []
 							};
-							$.each(items, function(index, el) {
-								if (index == 0) {
-									series.name = el
-								} else{
-									series.data.push(el);
-								};
+
+							$.each(items, function(itemNo, item) {
+								if (itemNo == 0) {
+									series.name = item;
+								} else {
+									series.data.push(parseFloat(item));
+								}
 							});
+							// alert(series.data);
 
 							options.series.push(series);
-						};
-					});
-					
-					// options.title = {
-					// 	text: "Sprint"
-					// }
-					// options.xAxis = [{
-					// 	categories: [1, 2, 3, 4, 5 ]
-					// }]
-					// for (var i = 0; i < data.length; i++) {
-					// 	options.series[i].name = data[i]["SprintName"];
-					// 	// options.series[i].color
-					// 	options.series[i].type = 'spline';
-					// 	options.series[i].data = data[i]["Executed"];
-					// };
 
+						}
+
+					});
+
+					// Create the chart
 					var chart = new Highcharts.Chart(options);
 				});
-				
+
 			});
 		</script>
 		{{end}}
