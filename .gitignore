@@ -23,5 +23,8 @@ _testmain.go
 *.exe~
 *.test
 
+*.sublime-project
+*.sublime-workspace
+
 app-local.conf
 app-skytap.conf
