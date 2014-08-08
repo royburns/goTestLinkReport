@@ -18,8 +18,8 @@ var (
 
 func InitDB() (err error) {
 	// utils.LoadConfig("conf/app.conf")
-	// utils.LoadConfig("conf/app-local.conf")
-	utils.LoadConfig("conf/app-skytap.conf")
+	utils.LoadConfig("conf/app-local.conf")
+	// utils.LoadConfig("conf/app-skytap.conf")
 
 	// appname = goTestLinkReport
 	// httpport = 8080
