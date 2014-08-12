@@ -313,7 +313,245 @@
 		</script>
 		{{end}}
 
-		{{define "execution_ajax"}}
+		{{define "last_execution_ajax"}}
+		<script>
+			
+			$(document).ready(function() {
+				// alert("...");
+
+				// var arr = $("ul.pinned li.active").toArray();
+				// var testplan;
+				// if (arr[0]) {
+				// 	testplan = arr[0].id;
+				// 	alert(testplan);
+				// };
+				
+				// alert(testplan);
+				
+				// location.pathname = "";
+				// location.pathname = "/api" + location.pathname + "";
+				// alert(location.pathname);
+				// alert(location.href);
+				// alert(location.search);
+
+				$('#report-table').dataTable( {
+
+					"ajax": {
+						// "url": "api/getlastexecution",
+						// "url": "api/getlastexecution/?testplan=" + testplan,
+						"url": "/api" + location.pathname + location.search,
+						"dataSrc": ""
+					},
+
+					// "deferRender": true,
+					"columns": [
+						{ "data": "Platform" },
+						{ "data": "ToadModule" },
+						{ "data": "SubModule" },
+						{ "data": "Testcase_id" },
+						{ "data": "TestCase" },
+						{ "data": "Status" },
+						{ "data": "Build" },
+						{ "data": "LasTimeRun" },
+						{ "data": "Notes" },
+						{ "data": "Tester" },
+					],
+
+					// "stateSave": true,
+
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					//"aLengthMenu": [ 10, 25, 50, 100 , -1],
+					// "aLengthMenu": [ 50, 100 , -1],
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+					// "width": "80%",
+
+					// "scrollY": "200px",
+					// "scrollCollapse": true,
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+
+					"createdRow": function ( row, data, index ) {
+						// if ( data[5].replace(/[\$,]/g, '') * 1 > 4000 ) {
+						// 	$('td', row).eq(5).addClass('highlight');
+						//	$(row).eq(5).addClass('highlight');
+						// }
+
+						// if ( data[4] == "A" )
+						// {
+						// 	$('td:eq(4)', row).html( '<b>A</b>' );
+						// }
+
+						// alert(row.innerHTML);
+						// alert(data);
+						// alert(index);
+
+						var items = row.getElementsByTagName("td");
+						// alert(items.length);
+						for (var i = 0; i <= items.length; i++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i]) {
+								items[i].innerHTML = items[i].innerHTML.trim();
+								switch(i)
+								{
+									case 2:
+										// len = 12;dots="...";
+										break;
+									case 4:
+										// len = 32;dots="...";
+										break;
+									case 7:
+										len = 19;dots="";
+										break;
+									case 8:
+										// len = 10;dots="...";
+										break;
+									default:
+										break;
+								};
+
+								if (len > 0 && items[i] && items[i].innerHTML.length > len) {
+									items[i].innerHTML = items[i].innerHTML.substr(0, len) + dots;
+								};
+
+								switch(i)
+								{
+									case 5:
+										switch(items[i].innerHTML)
+										{
+											case "blocked":
+												$(row).addClass('');
+												// items[i].innerHTML = "{blocked}";
+												// data[i] = "{blocked}"; // make no sense
+												break;
+											case "passed":
+												$(row).addClass('success');
+												break;
+											case "failed":
+												$(row).addClass('danger');
+												break;
+											case "not run":
+												$(row).addClass('nostatus');
+												break;
+											default:
+												break;
+										}
+										break;
+									case 8:
+										var str = items[i].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
+										// alert(str);
+										if (str != null && str.length > 0) {
+											for (var k = 0; k < str.length; k++) {
+												var str1 = "<a href=\"https://jira.mel.software.dell.com/browse/" + str[k] + "\" target=\"_blank\">" + str[k] + "</a>";
+												items[i].innerHTML = items[i].innerHTML.replace(str[k], str1);
+											};
+										};
+										
+										break;
+									default:
+										break;
+								};
+							};
+						};
+					},// createdRow
+
+					// footer callback
+					// "footerCallback": function( tfoot, data, start, end, display ) {
+					// 	// tfoot.getElementsByTagName('th')[0].innerHTML = "Starting index is "+start;
+					// 	alert("...");
+					// },// footerCallback
+
+					"initComplete": function(settings, json) {
+						// set the table head's width
+						var table = $('#report-table').DataTable();
+						// alert(table.bStateSave);
+						$("#report-table thead th").each(function(i) {
+							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+						});
+
+						$("#report-table tbody th").each(function(i) {
+							alert(table.column(i).body().innerHTML); // Get the header name of every column.
+						});
+
+						// alert('inner');
+						// set the table root as selection
+						$("#report-table tfoot th").each(function(i) {
+							// alert(i);
+							if (!table.column(i).bVisible) {
+								switch(i)
+								{
+									// The columns no need filter
+									case 7:
+									case 8: 
+										// alert("...");
+										break;
+									default:
+
+										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+										.appendTo($(this).empty())
+										.on('change', function() {
+											if ($(this).val() && $(this).val() != "[ALL]") {
+												table.column(i)
+													.search( '^'+$(this).val()+'$', true, false )
+													.draw();
+											} else if ($(this).val() == "[ALL]") {
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											} else {
+												// alert($(this).val());
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											};
+										});
+										
+										//
+										table.column(i).data().unique().sort().each(function(d, j) {
+											select.append('<option value="' + d + '">' + d + '</option>')
+										} );
+
+										break;
+								};
+							};
+						});
+					},// initComplete
+
+				} );
+
+			} );
+
+		</script>
+		{{end}}
+
+		{{define "sprint_execution_ajax"}}
 		<script>
 			
 			$(document).ready(function() {

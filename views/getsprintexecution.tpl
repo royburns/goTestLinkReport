@@ -140,7 +140,7 @@
 
 		</div>
 		
-		{{template "last_execution_ajax"}}
+		{{template "sprint_execution_ajax"}}
 		{{template "backToTop"}}
 		{{template "home_js"}}
 		{{template "base/js.tpl" .}}

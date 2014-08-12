@@ -62,6 +62,8 @@ func (this *IndexController) Get() {
 	this.Data["Email"] = "roy.burns@163.com"
 
 	this.TplNames = "index.tpl"
+
+	this.Redirect("/getlastexecution", 302)
 }
 
 type page struct {

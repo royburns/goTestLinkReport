@@ -14,12 +14,12 @@ func init() {
 
 	// beego.Router("/report", &controllers.ReportController{})
 	beego.Router("/getlastexecution", &controllers.GetLastExecutionController{})
+	beego.Router("/getsprintexecution", &controllers.GetSprintExecutionController{})
 
 	// Statistics
 	// beego.Router("/statistics", &controllers.StatisticsController{})
 	beego.Router("/statistics/sprint", &controllers.StatisticsController{})
 	beego.Router("/api/statistics/sprint", &controllers.StatisticsController{}, "get:Sprint")
-	// beego.Router("/api/statistics/stock", &controllers.StatisticsController{}, "get:Stock")
 
 	// Test
 	beego.Router("/test", &controllers.TestController{})
@@ -33,6 +33,7 @@ func init() {
 	// api
 	beego.Router("/api/getplan", &apis.ApiController{}, "get:GetPlan")
 	beego.Router("/api/getlastexecution", &apis.ApiController{}, "get:GetLastExecution")
+	beego.Router("/api/getsprintexecution", &apis.ApiController{}, "get:GetSprintExecution")
 	beego.Router("/api/runcmd", &apis.ApiController{}, "get:RunCmd")
 
 	// static file
