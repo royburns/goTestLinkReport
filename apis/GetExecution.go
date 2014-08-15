@@ -34,7 +34,7 @@ func (this *ApiController) GetLastExecution() {
 		}
 
 		if value == nil {
-			fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
+			fmt.Println("The data is not exists. We will query it from mysql and then store them in redis.")
 
 			// Get Executions
 			maxTPNum := 10000
@@ -90,6 +90,8 @@ func (this *ApiController) GetLastExecution() {
 
 func (this *ApiController) GetSprintExecution() {
 
+	fmt.Println("In ApiController.GetSprintExecution()...")
+
 	expiration := int64(60 * 60)
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
@@ -98,13 +100,15 @@ func (this *ApiController) GetSprintExecution() {
 		return
 	}
 
-	fmt.Println("In ApiController.GetSprintExecution()...")
 	// var executions []*V_testlink_testexecution_tree
-	executions := []models.V_testlink_testexecution_tree{}
-	testplan := this.Input().Get("testplan")
-	fmt.Println(testplan)
-	if testplan != "" {
-		key := testplan
+	executions := []models.V_toad_sprint_report{}
+	sp_id := this.Input().Get("sp_id")
+	sp_product := this.Input().Get("sp_product")
+	sp_version := this.Input().Get("sp_version")
+	fmt.Printf("%s,%s,%s\n", sp_id, sp_product, sp_version)
+
+	if sp_id != "" {
+		key := sp_id
 		value, err := client.Get(key)
 		if err != nil {
 			fmt.Println("Failed to get value: ", err)
@@ -112,18 +116,18 @@ func (this *ApiController) GetSprintExecution() {
 		}
 
 		if value == nil {
-			fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
+			fmt.Println("The data is not exists. We will query it from mysql and then store them in redis.")
 
 			// Get Executions
 			maxTPNum := 10000
-			testexecution_where, err := models.GetAllExecutionsWhere(testplan)
-			tpCount := len(testexecution_where)
+			res, err := models.GetSprintExecutionsWhere(sp_id, sp_product, sp_version)
+			tpCount := len(res)
 			if err != nil || tpCount > maxTPNum {
-				testplan = ""
+				sp_id = ""
 			}
 
-			// executions = testexecution_where
-			for _, v := range testexecution_where {
+			// executions = res
+			for _, v := range res {
 				// fmt.Println(v.Status)
 				switch v.Status {
 				case "b":
@@ -150,7 +154,7 @@ func (this *ApiController) GetSprintExecution() {
 			client.Set(key, value)
 			client.Expire(key, expiration)
 		} else {
-			fmt.Println("The plan is exists. We will unmarshal them.")
+			fmt.Println("The data is exists. We will unmarshal them.")
 			// var temp planinfo
 			err := json.Unmarshal(value, &executions)
 			if err != nil {

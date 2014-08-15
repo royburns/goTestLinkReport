@@ -3,40 +3,9 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"time"
 
 	"strings"
 )
-
-type v_auto_last_execution struct {
-	TestPlan_Name string `xorm:"VARCHAR(100) 'TestPlan_Name'"`
-	// testplan_id       int16     `xorm:"INT 'testplan_id'"`
-	// tcversion_number  int16     `xorm:"INT 'tcversion_number'"`
-	// tcversion_id      int16     `xorm:"INT 'tcversion_id'"`
-	Platforms_Name string `xorm:"VARCHAR(100) 'Platforms_Name'"`
-	// notes             string    `xorm:"TEXT 'notes'"`
-	LastExecutionTime time.Time `xorm:"DATETIME 'LastExecutionTime'"`
-	ExecutionStatus   int16     `xorm:"INT 'ExecutionStatus'"`
-	CaseSuite         string    `xorm:"VARCHAR(100) 'CaseSuite'"`
-	CaseName          string    `xorm:"VARCHAR(100) 'CaseName'"`
-	BuildName         string    `xorm:"VARCHAR(100) 'BuildName'"`
-}
-
-type V_testlink_testexecution_tree struct {
-	TestPlan    string    `xorm:"VARCHAR(100) 'TestPlan'"`
-	Platform    string    `xorm:"VARCHAR(100) 'Platform'"`
-	ToadModule  string    `xorm:"VARCHAR(100) 'ToadModule'"`
-	SubModule   string    `xorm:"VARCHAR(403) 'SubModule'"`
-	Testcase_id int       `xorm:"INT 'testcase_id'"`
-	TestCase    string    `xorm:"VARCHAR(100) 'TestCase'"`
-	Status      string    `xorm:"CHAR(1) 'status'"`
-	Build       string    `xorm:"VARCHAR(100) 'Build'"`
-	LasTimeRun  time.Time `xorm:"DATETIME 'LasTimeRun'"`
-	Notes       string    `xorm:"TEXT 'notes'"`
-	Tester      string    `xorm:"VARCHAR(30) 'Tester'"`
-
-	// TestSuite string `xorm:"VARCHAR(100) 'TestSuite'"`
-}
 
 func GetExectutionTableHeader() []string {
 	var v V_testlink_testexecution_tree
@@ -48,8 +17,8 @@ func GetExectutionTableCaption() string {
 	return GetFieldsString(v)
 }
 
-func Get_v_auto_last_execution(count int, start int) ([]v_auto_last_execution, error) {
-	var rs []v_auto_last_execution
+func Get_v_auto_last_execution(count int, start int) ([]V_auto_last_execution, error) {
+	var rs []V_auto_last_execution
 	err := orm.Limit(count, start).Asc("TestPlan_Name").Find(&rs)
 	return rs, err
 }

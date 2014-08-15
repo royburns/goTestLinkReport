@@ -146,81 +146,55 @@ function GetLastExecution(planname)
             alert($("#"+planname).attr('class'));
         };
     };
+};
 
-    // var li = document.getElementById(planname);
-    // li.addClass('active');
-    // alert(li.getClass());
+function GetSprintExecutions()
+{
+    var sp_id = $("#sp_id").val();
+    var sp_product = $("#sp_product").val();
+    var sp_version = $("#sp_version").val();
+    var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
+    // var str = "api/getlastexecution/?testplan=" + planname;
+    var str = "/api" + location.pathname + search;
+    // alert(str);
 
+    var table;
+    if ( $.fn.dataTable.isDataTable( '#report-table' ) ) {
+        // alert("Table exists.");
+        table = $('#report-table').DataTable();
+    }
+    else {
+        // alert("Table not exists.");
+        table = $('#report-table').DataTable( {
+            paging: false
+        } );
+    };
+
+    table.ajax.url(str).load();
+};
+
+function GetSprintStats()
+{
+    // var sp_id = $("#sp_id").val();
+    // var sp_product = $("#sp_product").val();
+    // var sp_version = $("#sp_version").val();
+    // var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
+    // var str = "/api" + location.pathname + search;
+    // // alert(str);
 
     // var table;
-    // if ( $.fn.dataTable.isDataTable( '#report-table' ) ) {
-    //     table = $('#report-table').DataTable();
+    // if ( $.fn.dataTable.isDataTable( '#statistics_sprint_table' ) ) {
+    //     // alert("Table exists.");
+    //     table = $('#statistics_sprint_table').DataTable();
     // }
     // else {
-    //     table = $('#report-table').DataTable( {
+    //     // alert("Table not exists.");
+    //     table = $('#statistics_sprint_table').DataTable( {
     //         paging: false
     //     } );
     // };
 
-    // table.dataTable( {
+    // table.ajax.url(str).load();
 
-    //     "ajax": {
-    //         // "url": "api/getlastexecution",
-    //         "url": str,
-    //         "dataSrc": ""
-    //     },
-
-    //     // "deferRender": true,
-    //     "columns": [
-    //         { "data": "Platform" },
-    //         { "data": "ToadModule" },
-    //         { "data": "SubModule" },
-    //         { "data": "Testcase_id" },
-    //         { "data": "TestCase" },
-    //         { "data": "Status" },
-    //         { "data": "Build" },
-    //         { "data": "LasTimeRun" },
-    //         { "data": "Notes" },
-    //         { "data": "Tester" },
-    //     ],
-
-    //     "stateSave": true,
-
-    //     // "dom": '<"top"i>rt<"bottom"flp><"clear">',
-    //     "dom": '<"top"lfip>rt<"bottom"ip><"clear">',
-    //     // paging
-    //     "pagingType": "full_numbers",
-    //     "paging": true,
-    //     //"aLengthMenu": [ 10, 25, 50, 100 , -1],
-    //     // "aLengthMenu": [ 50, 100 , -1],
-    //     "lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
-    //     // "width": "80%",
-
-    //     // "scrollY": "200px",
-    //     // "scrollCollapse": true,
-
-    //     //.table-condensed
-    //     "autoWidth": true,
-    //     "padding": 5,
-    //     "text-overflow": "ellipsis",
-    //     "overflow": "hidden",
-    //     "white-space": "nowrap",
-    //     "margin-left": 10,
-
-    //     // set column visible
-    //     "columnDefs": [
-    //         {
-    //             // "targets": [ 0 ],
-    //             // "visible": false,
-    //             // "searchable": false
-                
-    //             // "targets": [5],
-    //             // "createdCell": function (td, cellData, rowData, row, col) {
-    //             //  if ( cellData == "Status" ) {
-    //             //      $(td).css('color', 'blue')
-    //             //  }
-    //             // }
-    //         },
-    //     ],
-    // } );    
+    location.reload(false);
 };

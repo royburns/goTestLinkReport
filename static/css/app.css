@@ -423,3 +423,15 @@ body > .container {
   width: 38px;
   background: url("/static/img/top.png") no-repeat scroll 0% 0% transparent;
 }
+
+.stat_cap {
+  font-size: 20px;
+
+  text-align: center;
+  bottom: 20px;
+  height: 38px;
+}
+
+.statistics_sprint .dataTables_wrapper {
+  width: 40% !important;
+}

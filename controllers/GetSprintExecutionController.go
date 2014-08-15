@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/alphazero/Go-Redis"
 	"github.com/astaxie/beego"
+	set "github.com/redsymbol/goset"
 	"github.com/royburns/goTestLinkReport/models"
 	"strconv"
 )
@@ -31,7 +32,7 @@ func (this *GetSprintExecutionController) Get() {
 		// "TestSuite",
 	}
 
-	expiration := int64(12 * 60 * 60)
+	// expiration := int64(12 * 60 * 60)
 	spec := redis.DefaultSpec().Db(0)
 	client, err := redis.NewSynchClientWithSpec(spec)
 	if err != nil {
@@ -39,74 +40,80 @@ func (this *GetSprintExecutionController) Get() {
 		return
 	}
 
-	key_tp := "testplan"
-	value_tp, err := client.Get(key_tp)
+	key_sp := "sprintplans"
+	value_sp, err := client.Get(key_sp)
 	if err != nil {
 		fmt.Println("Failed to get value: ", err)
 		return
 	}
 
-	testplan := this.Input().Get("testplan")
-	fmt.Println("GetExecution of TestPlan: " + testplan)
-	var tp []TestPlan
-	if value_tp == nil {
-		fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
+	var sp []interface{}
+	sp_id := set.New()
+	sp_product := set.New()
+	sp_version := set.New()
+	if value_sp == nil {
+		fmt.Println("The data is not exists. We will query it from mysql and then store them in redis.")
 
-		// Get TestPlans
-		testplans := make(map[int]string)
-		res := models.GetAllTestPlans("V_testlink_testexecution_tree")
-		for key, item := range res {
-			testplans[key] = string(item["TestPlan"])
-		}
-
-		res = models.GetAllTestPlansAndCount()
+		res := models.GetToadSprintPlans()
 		for _, item := range res {
-			name := string(item["TestPlan"])
-			count, _ := strconv.Atoi(string(item["COUNT(*)"]))
-			bActive := false
-			if testplan != "" && testplan == name {
-				bActive = true
-			}
-			tp = append(tp, TestPlan{
-				Name:   name,
-				Count:  count,
-				Active: bActive,
+
+			temp, _ := strconv.Atoi(string(item["sprintNo"]))
+			id := int32(temp)
+			fmt.Println(id)
+
+			temp, _ = strconv.Atoi(string(item["testplan_id"]))
+			tp_id := int32(temp)
+			temp, _ = strconv.Atoi(string(item["sprintNo"]))
+			sp_num := int32(temp)
+			product := string(item["product"])
+			version := string(item["version"])
+			temp, _ = strconv.Atoi(string(item["releaseplan_id"]))
+			rp_id := int32(temp)
+
+			sp = append(sp, models.Toad_sprint_plans{
+				Id:            id,
+				TestPlanId:    tp_id,
+				SprintNo:      sp_num,
+				Product:       product,
+				Version:       version,
+				ReleasePlanId: rp_id,
 			})
+
+			// sp_id = append(sp_id, id)
+			sp_id.Add(id)
+			sp_product.Add(product)
+			sp_version.Add(version)
 		}
 
-		value, err := json.Marshal(tp)
-		if err != nil {
-			fmt.Println("Failed to marshal: ", err)
-		}
-		client.Set(key_tp, value)
-		client.Expire(key_tp, expiration)
+		// value, err := json.Marshal(sp)
+		// if err != nil {
+		// 	fmt.Println("Failed to marshal: ", err)
+		// }
+		// client.Set(key_sp, value)
+		// client.Expire(key_sp, expiration)
 
 	} else {
-		fmt.Println("The plan is exists. We will unmarshal them.")
+		fmt.Println("The data is exists. We will unmarshal them.")
 		var res []TestPlan
-		err := json.Unmarshal(value_tp, &res)
+		err := json.Unmarshal(value_sp, &res)
 		if err != nil {
 			fmt.Println("Failed to unmarshal: ", err)
 			return
 		}
-		for _, item := range res {
-			bActive := false
-			if testplan != "" && testplan == item.Name {
-				bActive = true
-			}
-			tp = append(tp, TestPlan{
-				Name:   item.Name,
-				Count:  item.Count,
-				Active: bActive,
-			})
-		}
 	}
 
-	this.Data["TestPlans"] = tp
+	// sp_id.Sorted()
+	// sp_product.Sorted()
+	// sp_version.Sorted()
+
+	this.Data["SprintPlans"] = sp
+	this.Data["sp_id"] = sp_id.Slice()
+	this.Data["sp_product"] = sp_product.Slice()
+	this.Data["sp_version"] = sp_version.Slice()
 	this.Data["TableHeader"] = ExecutionsTableHeader
 
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
-	this.TplNames = "getlastexecution_test.tpl"
+	this.TplNames = "getsprintexecution.tpl"
 }

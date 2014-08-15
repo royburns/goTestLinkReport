@@ -557,12 +557,10 @@
 			$(document).ready(function() {
 				// alert("...");
 
-				// var arr = $("ul.pinned li.active").toArray();
-				// var testplan;
-				// if (arr[0]) {
-				// 	testplan = arr[0].id;
-				// 	alert(testplan);
-				// };
+				var sp_id = $("#sp_id").val();
+				var sp_product = $("#sp_product").val();
+				var sp_version = $("#sp_version").val();
+				var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
 				
 				// alert(testplan);
 				
@@ -575,9 +573,7 @@
 				$('#report-table').dataTable( {
 
 					"ajax": {
-						// "url": "api/getlastexecution",
-						// "url": "api/getlastexecution/?testplan=" + testplan,
-						"url": "/api" + location.pathname + location.search,
+						"url": "/api" + location.pathname + search,
 						"dataSrc": ""
 					},
 
@@ -789,6 +785,76 @@
 		</script>
 		{{end}}
 
+		{{define "sprint_stat_ajax"}}
+		<script>
+			
+			$(document).ready(function() {
+				// alert("...");
+
+				var sp_id = $("#sp_id").val();
+				var sp_product = $("#sp_product").val();
+				var sp_version = $("#sp_version").val();
+				var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
+				var str = "/api" + location.pathname + search;
+				// alert(str);
+
+				$('#statistics_sprint_table').dataTable( {
+
+					"ajax": {
+						"url": str,
+						"dataSrc": ""
+					},
+
+					// "deferRender": true,
+					"columns": [
+						{ "data": "Date" },
+						{ "data": "TotalCases" },
+						{ "data": "RemainedCases" },
+						{ "data": "FailedCases" },
+						{ "data": "CompletePCT" },
+					],
+
+					// "stateSave": true,
+
+					"paging": false,
+					"ordering": false,
+					"info":     false,
+					"filter":   false,
+
+					// "scrollY": "200px",
+					// "scrollCollapse": true,
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+
+				} );
+
+			} );
+
+		</script>
+		{{end}}
+
 		{{define "table_addfooter"}}
 		<script>
 
@@ -877,7 +943,7 @@
 					var table = tables[n];
 					var items = table.getElementsByTagName("tr");
 					for (var i = 1; i < items.length; i++) {
-
+						alert("...");
 						// Limit length.
 						for (var j = 0; j <= items[i].cells.length; j++) {
 
@@ -887,7 +953,7 @@
 								switch(j)
 								{
 									case 0:
-										items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.split(" ")[0];
+										items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.split("T")[0];
 										break;
 									default:
 										break;
@@ -967,9 +1033,16 @@
 			$(document).ready(function() {
 				// alert("...");
 
+				var sp_id = $("#sp_id").val();
+				var sp_product = $("#sp_product").val();
+				var sp_version = $("#sp_version").val();
+				var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
+				var str = "/api" + location.pathname + search;
+				// alert(str);
+
 				var options = {
 					chart: {
-						renderTo: 'statistics_sprint',
+						renderTo: 'statistics_sprint_json',
 						defaultSeriesType: 'spline'
 					},
 					title: {
@@ -986,17 +1059,17 @@
 					series: []
 				};
 
-				$.getJSON("http://localhost:8080/api/statistics/sprint", function(data) {
+				$.getJSON(str, function(data) {
 
 					options.subtitle = {
-						text: "statistics_sprint_json2"
+						// text: "statistics_sprint_json2"
 					};
 
 					var t = {
 						Date: [],
-						Estimated:[],
-						Executed:[],
-						Remaining:[]
+						TotalCases:[],
+						RemainedCases:[],
+						FailedCases:[]
 					};
 
 					for (var i = 0; i < data.length; i++) {
@@ -1005,28 +1078,29 @@
 						// alert(data[i]["Date"]);
 						var st = data[i]["Date"];
 						var a = st.split("T");
-						var b = a[0].split("-");
-						var date = new Date(b[0], b[1], b[2]);
+						// alert(a[0]);
+						// var b = a[0].split("-");
+						// var date = new Date(b[0], b[1], b[2]);
 						// alert(date.toLocaleString().split(",")[0]);
 						// t["Date"].push(date.toLocaleString().split(",")[0]);
-						options.xAxis.categories.push(date.toLocaleString().split(" ")[0]);
+						options.xAxis.categories.push(a[0]);
 
-						t["Estimated"].push(data[i]["Estimated"]);
-						t["Executed"].push(data[i]["Executed"]);
-						t["Remaining"].push(data[i]["Remaining"]);
+						t["TotalCases"].push(data[i]["TotalCases"]);
+						t["RemainedCases"].push(data[i]["RemainedCases"]);
+						t["FailedCases"].push(data[i]["FailedCases"]);
 					};
 
 					// options.series.push({
-					// 	name: "Estimated",
-					// 	data: t["Estimated"]
+					// 	name: "TotalCases",
+					// 	data: t["TotalCases"]
 					// });
 					// options.series.push({
-					// 	name: "Executed",
-					// 	data: t["Executed"]
+					// 	name: "RemainedCases",
+					// 	data: t["RemainedCases"]
 					// });
 					options.series.push({
-						name: "Remaining",
-						data: t["Remaining"]
+						name: "RemainedCases",
+						data: t["RemainedCases"]
 					});
 					
 					var chart = new Highcharts.Chart(options);
