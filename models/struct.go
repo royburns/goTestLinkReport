@@ -1,9 +1,6 @@
 package models
 
 import (
-	// "fmt"
-	// "github.com/astaxie/beego"
-	// "strings"
 	"time"
 )
 
@@ -14,6 +11,9 @@ var (
 	// report_sprint
 	str_toad_sprint_plans    string = "toad_sprint_plans"
 	str_v_toad_sprint_report string = "v_toad_sprint_report"
+
+	str_toad_release_plan   string = "toad_release_plan"
+	str_toad_release_report string = "toad_release_report"
 
 	// statistics
 	str_toad_sprint_stats string = "toad_sprint_stats"
@@ -81,6 +81,28 @@ type V_toad_sprint_report struct {
 	Tester      string    `xorm:"VARCHAR(30) 'Tester'"`
 
 	// TestSuite string `xorm:"VARCHAR(100) 'TestSuite'"`
+}
+
+type Toad_release_plan struct {
+	Platform   string `xorm:"VARCHAR(50) 'Platform'"`
+	ToadModule string `xorm:"VARCHAR(170) 'ToadModule'"`
+	SubModule  string `xorm:"VARCHAR(174) 'SubModule'"`
+	TC_Id      int    `xorm:"INT 'testcase_id'"`
+	TestCase   string `xorm:"VARCHAR(100) 'TestCase'"`
+	Covered    string `xorm:"VARCHAR(20) 'Covered'"`
+}
+
+type Toad_release_report struct {
+	Platform   string `xorm:"VARCHAR(50) 'Platform'"`
+	ToadModule string `xorm:"VARCHAR(170) 'ToadModule'"`
+	SubModule  string `xorm:"VARCHAR(174) 'SubModule'"`
+	TC_Id      int    `xorm:"INT 'testcase_id'"`
+	TestCase   string `xorm:"VARCHAR(100) 'TestCase'"`
+	Sprint1    string `xorm:"VARCHAR(50) 'Sprint1'"`
+	Sprint2    string `xorm:"VARCHAR(50) 'Sprint2'"`
+	Sprint3    string `xorm:"VARCHAR(50) 'Sprint3'"`
+	Sprint4    string `xorm:"VARCHAR(50) 'Sprint4'"`
+	Sprint5    string `xorm:"VARCHAR(50) 'Sprint5'"`
 }
 
 // statistics

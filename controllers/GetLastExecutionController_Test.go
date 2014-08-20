@@ -50,11 +50,12 @@ func (this *GetLastExecutionController) Get() {
 	fmt.Println("GetExecution of TestPlan: " + testplan)
 	var tp []TestPlan
 	if value_tp == nil {
-		fmt.Println("The plan is not exists. We will query it from mysql and then store them in redis.")
+		fmt.Println("The testplan is not exists. We will query it from mysql and then store them in redis.")
 
 		// Get TestPlans
 		testplans := make(map[int]string)
-		res := models.GetAllTestPlans("V_testlink_testexecution_tree")
+		// res := models.GetAllTestPlans("V_testlink_testexecution_tree")
+		res := models.GetAllTestPlanNames()
 		for key, item := range res {
 			testplans[key] = string(item["TestPlan"])
 		}
@@ -82,7 +83,7 @@ func (this *GetLastExecutionController) Get() {
 		client.Expire(key_tp, expiration)
 
 	} else {
-		fmt.Println("The plan is exists. We will unmarshal them.")
+		fmt.Println("The testplan is exists. We will unmarshal them.")
 		var res []TestPlan
 		err := json.Unmarshal(value_tp, &res)
 		if err != nil {

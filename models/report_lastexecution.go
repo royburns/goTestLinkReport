@@ -34,6 +34,27 @@ func GetAllTestPlans(table string) []map[string][]byte {
 	return testplans
 }
 
+func GetAllTestPlanNames() []map[string][]byte {
+	fmt.Println("In GetAllTestPlanNames().")
+	sql := `SELECT 
+				tl_nodes_hierarchy.id AS testplan_id 
+				,tl_nodes_hierarchy.name AS testplan_name 
+			FROM 
+				testlink.tl_testplans tl_testplans 
+			INNER JOIN testlink.tl_nodes_hierarchy tl_nodes_hierarchy 
+			ON (tl_testplans.id = tl_nodes_hierarchy.id) 
+			WHERE 
+			(tl_testplans.testproject_id = 1)
+		`
+
+	//
+	testplans, err := orm.Query(sql)
+	if err != nil {
+		beego.Error("models.GetAllTestPlanNames() -> Failed to query. Error info: ", err.Error())
+	}
+	return testplans
+}
+
 func GetAllTestPlansAndCount() []map[string][]byte {
 	// select TestPlan, COUNT(*) FROM V_testlink_testexecution_tree group by TestPlan;
 	sql := "select TestPlan, COUNT(*) FROM V_testlink_testexecution_tree group by TestPlan;"

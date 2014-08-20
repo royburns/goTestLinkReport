@@ -38,6 +38,7 @@
 					</div>
 
 					<div class="right-col">
+						<br/><br/>
 						<div class="container">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-5 statistics_sprint">

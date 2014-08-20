@@ -15,11 +15,17 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/plan">Plan</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Plan<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/getreleaseplan">Release</a></li>
+							</ul>
+						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Report<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="/getsprintexecution">Sprint</a></li>
+								<li><a href="/getreleasereport">Release</a></li>
 								<li><a href="/getlastexecution">Last Execution</a></li>
 							</ul>
 						</li>

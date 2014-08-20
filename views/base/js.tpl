@@ -273,6 +273,198 @@
 		{{end}}
 		<!-- Report Grid -->
 
+		{{define "release_plan_table"}}
+		<script type="text/javascript" language="javascript" class="init">
+			$(document).ready(function() {
+				// alert("...");
+				// settings
+				$('#release_plan_table').dataTable({
+
+					"stateSave": true,
+
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+
+				});
+
+				// set the table head's width
+				var table = $('#release_plan_table').DataTable();
+				// alert(table.bStateSave);
+				$("#release_plan_table thead th").each(function(i) {
+					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+				});
+
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#release_plan_table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							case 7:
+							case 8:
+								break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+
+								break;
+						};
+					};
+					
+				});
+
+			});
+		</script>
+		{{end}}
+
+		{{define "release_report_table"}}
+		<script type="text/javascript" language="javascript" class="init">
+			$(document).ready(function() {
+				// alert("...");
+				// settings
+				$('#release_report_table').dataTable({
+
+					"stateSave": true,
+
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+
+				});
+
+				// set the table head's width
+				var table = $('#release_report_table').DataTable();
+				// alert(table.bStateSave);
+				$("#release_report_table thead th").each(function(i) {
+					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+				});
+
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#release_report_table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							// case 7:
+							// case 8:
+							// 	break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+
+								break;
+						};
+					};
+					
+				});
+
+			});
+		</script>
+		{{end}}
+
 		{{define "plan_js"}}
 		<script>
 			// Modify the column of the report grid.
@@ -848,6 +1040,29 @@
 						},
 					],
 
+					"createdRow": function ( row, data, index ) {
+
+						var items = row.getElementsByTagName("td");
+						// alert(items.length);
+						for (var i = 0; i <= items.length; i++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i]) {
+								items[i].innerHTML = items[i].innerHTML.trim();
+
+								switch(i)
+								{
+									case 0:
+										items[i].innerHTML = items[i].innerHTML.split("T")[0];
+										break;
+									default:
+										break;
+								};
+							};
+						};
+					},// createdRow
+
 				} );
 
 			} );
@@ -939,7 +1154,7 @@
 
 				var tables = document.getElementsByName("statistics_sprint_table");
 				for (var n = 0; n < tables.length; n++) {
-
+					// alert("...");
 					var table = tables[n];
 					var items = table.getElementsByTagName("tr");
 					for (var i = 1; i < items.length; i++) {
@@ -1044,6 +1259,9 @@
 					chart: {
 						renderTo: 'statistics_sprint_json',
 						defaultSeriesType: 'spline'
+					},
+					credits: {
+						enabled: false
 					},
 					title: {
 						text: 'Sprint Statistics'
