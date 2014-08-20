@@ -75,7 +75,7 @@
 									</table>
 								</div>
 
-								<div class="col-sm-4" id="statistics_sprint_json" width="40%" style="height:480px;width:640px;">
+								<div class="col-sm-4 statistics_sprint_json" id="statistics_sprint_json" width="40%" style="height:480px;width:640px;">
 								</div>
 						</div>
 

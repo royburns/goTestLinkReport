@@ -1070,6 +1070,274 @@
 		</script>
 		{{end}}
 
+		{{define "release_plan_ajax"}}
+		<script>
+			$(document).ready(function() {
+
+				var releaseplan = $("#releaseplan").val();
+				var search = "?releaseplan=" + releaseplan;
+				var str = "/api" + location.pathname + search;
+				// alert(str);
+
+				$('#release_plan_table').dataTable( {
+
+					"ajax": {
+						"url": str,
+						"dataSrc": ""
+					},
+
+					// "deferRender": true,
+					"columns": [
+						{ "data": "Platform" },
+						{ "data": "ToadModule" },
+						{ "data": "SubModule" },
+						{ "data": "TC_Id" },
+						{ "data": "TestCase" },
+						{ "data": "Covered" },
+					],
+
+					// "stateSave": true,
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+
+					"paging": true,
+					"ordering": true,
+					"info":     true,
+					"filter":   true,
+
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+						},
+					],
+
+					"createdRow": function ( row, data, index ) {
+
+						var items = row.getElementsByTagName("td");
+						// alert(items.length);
+						for (var i = 0; i <= items.length; i++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							// if (items[i]) {
+							// 	items[i].innerHTML = items[i].innerHTML.trim();
+
+							// 	switch(i)
+							// 	{
+							// 		case 0:
+							// 			items[i].innerHTML = items[i].innerHTML.split("T")[0];
+							// 			break;
+							// 		default:
+							// 			break;
+							// 	};
+							// };
+						};
+					},// createdRow
+
+					"initComplete": function(settings, json) {
+						// set the table head's width
+						var table = $('#release_plan_table').DataTable();
+						// alert(table.bStateSave);
+						$("#release_plan_table thead th").each(function(i) {
+							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+						});
+
+						$("#release_plan_table tbody th").each(function(i) {
+							alert(table.column(i).body().innerHTML); // Get the header name of every column.
+						});
+
+						// alert('inner');
+						// set the table root as selection
+						$("#release_plan_table tfoot th").each(function(i) {
+							// alert(i);
+							if (!table.column(i).bVisible) {
+								switch(i)
+								{
+									// The columns no need filter
+									case 7:
+									case 8: 
+										// alert("...");
+										break;
+									default:
+
+										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+										.appendTo($(this).empty())
+										.on('change', function() {
+											if ($(this).val() && $(this).val() != "[ALL]") {
+												table.column(i)
+													.search( '^'+$(this).val()+'$', true, false )
+													.draw();
+											} else if ($(this).val() == "[ALL]") {
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											} else {
+												// alert($(this).val());
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											};
+										});
+										
+										//
+										table.column(i).data().unique().sort().each(function(d, j) {
+											select.append('<option value="' + d + '">' + d + '</option>')
+										} );
+
+										break;
+								};
+							};
+						});
+					},// initComplete
+
+				} );
+
+			} );
+		</script>
+		{{end}}
+
+		{{define "release_report_ajax"}}
+		<script>
+			$(document).ready(function() {
+
+				var releasereport = $("#releasereport").val();
+				var search = "?releasereport=" + releasereport;
+				var str = "/api" + location.pathname + search;
+				// alert(str);
+
+				$('#release_report_table').dataTable( {
+
+					"ajax": {
+						"url": str,
+						"dataSrc": ""
+					},
+
+					// "deferRender": true,
+					"columns": [
+						{ "data": "Platform" },
+						{ "data": "ToadModule" },
+						{ "data": "SubModule" },
+						{ "data": "TC_Id" },
+						{ "data": "TestCase" },
+						{ "data": "Sprint1" },
+						{ "data": "Sprint2" },
+						{ "data": "Sprint3" },
+						{ "data": "Sprint4" },
+						{ "data": "Sprint5" },
+					],
+
+					// "stateSave": true,
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+
+					"paging": true,
+					"ordering": true,
+					"info":     true,
+					"filter":   true,
+
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+						},
+					],
+
+					"createdRow": function ( row, data, index ) {
+
+						var items = row.getElementsByTagName("td");
+						// alert(items.length);
+						for (var i = 0; i <= items.length; i++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							// if (items[i]) {
+							// 	items[i].innerHTML = items[i].innerHTML.trim();
+
+							// 	switch(i)
+							// 	{
+							// 		case 0:
+							// 			items[i].innerHTML = items[i].innerHTML.split("T")[0];
+							// 			break;
+							// 		default:
+							// 			break;
+							// 	};
+							// };
+						};
+					},// createdRow
+
+					"initComplete": function(settings, json) {
+						// set the table head's width
+						var table = $('#release_report_table').DataTable();
+						// alert(table.bStateSave);
+						$("#release_report_table thead th").each(function(i) {
+							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+						});
+
+						$("#release_report_table tbody th").each(function(i) {
+							alert(table.column(i).body().innerHTML); // Get the header name of every column.
+						});
+
+						// alert('inner');
+						// set the table root as selection
+						$("#release_report_table tfoot th").each(function(i) {
+							// alert(i);
+							if (!table.column(i).bVisible) {
+								switch(i)
+								{
+									// The columns no need filter
+									case 7:
+									case 8: 
+										// alert("...");
+										break;
+									default:
+
+										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+										.appendTo($(this).empty())
+										.on('change', function() {
+											if ($(this).val() && $(this).val() != "[ALL]") {
+												table.column(i)
+													.search( '^'+$(this).val()+'$', true, false )
+													.draw();
+											} else if ($(this).val() == "[ALL]") {
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											} else {
+												// alert($(this).val());
+												table.column(i)
+													.search( "", true, false )
+													.draw();
+											};
+										});
+										
+										//
+										table.column(i).data().unique().sort().each(function(d, j) {
+											select.append('<option value="' + d + '">' + d + '</option>')
+										} );
+
+										break;
+								};
+							};
+						});
+					},// initComplete
+
+				} );
+
+			} );
+		</script>
+		{{end}}
+
 		{{define "table_addfooter"}}
 		<script>
 

@@ -15,17 +15,13 @@
 						<div class="hovered">
 
 							<ul class="nav pinned">
+								<select id="releaseplan">
+									{{range .ReleasePlan}}
+									<option value="{{.}}">{{.}}</option>
+									{{end}}
+								</select><br/><br/>
 
-								{{range .TestPlans}}
-								<li class="active" id="{{.Name}}">
-									<a href="/report/?testplan={{.Name}}" class="">
-										{{.Name}}
-										<span class="badge">{{.Count}}</span>
-									</a>
-									
-								</li>
-								{{end}}
-
+								<button onclick="GetReleasePlans();">Submit</button>
 							</ul>
 							
 						</div>
@@ -91,7 +87,7 @@
 		</div>
 		
 		{{template "home_js"}}
-		{{template "release_plan_table"}}
+		{{template "release_plan_ajax"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 

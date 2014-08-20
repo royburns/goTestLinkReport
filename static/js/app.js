@@ -175,26 +175,182 @@ function GetSprintExecutions()
 
 function GetSprintStats()
 {
-    // var sp_id = $("#sp_id").val();
-    // var sp_product = $("#sp_product").val();
-    // var sp_version = $("#sp_version").val();
-    // var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
-    // var str = "/api" + location.pathname + search;
-    // // alert(str);
+    // location.reload(false); // refresh the current page
 
-    // var table;
-    // if ( $.fn.dataTable.isDataTable( '#statistics_sprint_table' ) ) {
-    //     // alert("Table exists.");
-    //     table = $('#statistics_sprint_table').DataTable();
-    // }
-    // else {
-    //     // alert("Table not exists.");
-    //     table = $('#statistics_sprint_table').DataTable( {
-    //         paging: false
-    //     } );
-    // };
+    var sp_id = $("#sp_id").val();
+    var sp_product = $("#sp_product").val();
+    var sp_version = $("#sp_version").val();
+    var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
+    var str = "/api" + location.pathname + search;
+    // alert(str);
 
-    // table.ajax.url(str).load();
+    var table;
+    if ( $.fn.dataTable.isDataTable( '#statistics_sprint_table' ) ) {
+        // alert("Table exists.");
+        table = $('#statistics_sprint_table').DataTable();
+    }
+    else {
+        // alert("Table not exists.");
+        table = $('#statistics_sprint_table').DataTable( {
+            paging: false
+        } );
+    };
 
-    location.reload(false);
+    table.ajax.url(str).load();
+
+    // Redraw the highchart.
+    var options = {
+        chart: {
+            renderTo: 'statistics_sprint_json',
+            defaultSeriesType: 'spline'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Sprint Statistics'
+        },
+        xAxis: {
+            categories: []
+        },
+        yAxis: {
+            title: {
+                text: 'Counts'
+            }
+        },
+        series: []
+    };
+
+    $.getJSON(str, function(data) {
+
+        options.subtitle = {
+            // text: "statistics_sprint_json2"
+        };
+
+        var t = {
+            Date: [],
+            TotalCases:[],
+            RemainedCases:[],
+            FailedCases:[]
+        };
+
+        for (var i = 0; i < data.length; i++) {
+            
+            // 2014-06-26T00:00:00+08:00
+            // alert(data[i]["Date"]);
+            var st = data[i]["Date"];
+            var a = st.split("T");
+            // alert(a[0]);
+            // var b = a[0].split("-");
+            // var date = new Date(b[0], b[1], b[2]);
+            // alert(date.toLocaleString().split(",")[0]);
+            // t["Date"].push(date.toLocaleString().split(",")[0]);
+            options.xAxis.categories.push(a[0]);
+
+            t["TotalCases"].push(data[i]["TotalCases"]);
+            t["RemainedCases"].push(data[i]["RemainedCases"]);
+            t["FailedCases"].push(data[i]["FailedCases"]);
+        };
+
+        // options.series.push({
+        //  name: "TotalCases",
+        //  data: t["TotalCases"]
+        // });
+        // options.series.push({
+        //  name: "RemainedCases",
+        //  data: t["RemainedCases"]
+        // });
+        options.series.push({
+            name: "RemainedCases",
+            data: t["RemainedCases"]
+        });
+        
+        var chart = new Highcharts.Chart(options);
+        // $('table.statistics_sprint_json').redraw();
+    });
+};
+
+function GetReleasePlans()
+{
+    var releaseplan = $("#releaseplan").val();
+    var search = "?releaseplan=" + releaseplan;
+    var str = "/api" + location.pathname + search;
+    // alert(str);
+
+    var table;
+    if ( $.fn.dataTable.isDataTable( '#release_plan_table' ) ) {
+        // alert("Table exists.");
+        table = $('#release_plan_table').DataTable();
+    }
+    else {
+        // alert("Table not exists.");
+        table = $('#release_plan_table').DataTable( {
+            paging: false
+        } );
+    };
+
+    table.ajax.url(str).load();
+};
+
+function GetReleaseReports()
+{
+    var releasereport = $("#releasereport").val();
+    var search = "?releasereport=" + releasereport;
+    var str = "/api" + location.pathname + search;
+    // alert(str);
+
+    var table;
+    if ( $.fn.dataTable.isDataTable( '#release_report_table' ) ) {
+        // alert("Table exists.");
+        table = $('#release_report_table').DataTable();
+    }
+    else {
+        // alert("Table not exists.");
+        table = $('#release_report_table').DataTable( {
+            paging: true
+        } );
+    };
+
+    table.ajax.url(str).load();
+    // alert(1);
+    $("#release_report_table tfoot th").each(function(i) {
+        // alert(i);
+        if (!table.column(i).bVisible) {
+            switch(i)
+            {
+                // The columns no need filter
+                case 7:
+                case 8: 
+                    // alert("...");
+                    break;
+                default:
+
+                    var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+                    .appendTo($(this).empty())
+                    .on('change', function() {
+                        if ($(this).val() && $(this).val() != "[ALL]") {
+                            table.column(i)
+                                .search( '^'+$(this).val()+'$', true, false )
+                                .draw();
+                        } else if ($(this).val() == "[ALL]") {
+                            table.column(i)
+                                .search( "", true, false )
+                                .draw();
+                        } else {
+                            // alert($(this).val());
+                            table.column(i)
+                                .search( "", true, false )
+                                .draw();
+                        };
+                    });
+                    
+                    //
+                    table.column(i).data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    } );
+
+                    break;
+            };
+        };
+    });
 };

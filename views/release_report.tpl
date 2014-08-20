@@ -15,17 +15,13 @@
 						<div class="hovered">
 
 							<ul class="nav pinned">
+								<select id="releasereport">
+									{{range .ReleaseReport}}
+									<option value="{{.}}">{{.}}</option>
+									{{end}}
+								</select><br/><br/>
 
-								{{range .TestPlans}}
-								<li class="active" id="{{.Name}}">
-									<a href="/report/?testplan={{.Name}}" class="">
-										{{.Name}}
-										<span class="badge">{{.Count}}</span>
-									</a>
-									
-								</li>
-								{{end}}
-
+								<button onclick="GetReleaseReports();">Submit</button>
 							</ul>
 							
 						</div>
@@ -45,7 +41,7 @@
 							</thead>
 
 							<tbody id="report-table-body">
-								{{range .ReleasePlans}}
+								{{range .ReleaseReports}}
 								<tr>
 									<td>
 										{{if eq .Platform ""}} {null} {{end}}
@@ -106,7 +102,7 @@
 		</div>
 		
 		{{template "home_js"}}
-		{{template "release_report_table"}}
+		{{template "release_report_ajax"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 
