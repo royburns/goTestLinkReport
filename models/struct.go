@@ -12,8 +12,9 @@ var (
 	str_toad_sprint_plans    string = "toad_sprint_plans"
 	str_v_toad_sprint_report string = "v_toad_sprint_report"
 
-	str_toad_release_plan   string = "toad_release_plan"
-	str_toad_release_report string = "toad_release_report"
+	str_toad_release_overview string = "toad_release_overview"
+	str_toad_release_report   string = "toad_release_report"
+	str_v_toad_release_report string = "v_toad_release_report"
 
 	// statistics
 	str_toad_sprint_stats string = "toad_sprint_stats"
@@ -83,26 +84,44 @@ type V_toad_sprint_report struct {
 	// TestSuite string `xorm:"VARCHAR(100) 'TestSuite'"`
 }
 
-type Toad_release_plan struct {
-	Platform   string `xorm:"VARCHAR(50) 'Platform'"`
-	ToadModule string `xorm:"VARCHAR(170) 'ToadModule'"`
-	SubModule  string `xorm:"VARCHAR(174) 'SubModule'"`
-	TC_Id      int    `xorm:"INT 'testcase_id'"`
-	TestCase   string `xorm:"VARCHAR(100) 'TestCase'"`
-	Covered    string `xorm:"VARCHAR(20) 'Covered'"`
+type Toad_release_report struct {
+	ReleasePlan string `xorm:"VARCHAR(50) 'ReleasePlan'"`
+	Platform    string `xorm:"VARCHAR(50) 'Platform'"`
+	ToadModule  string `xorm:"VARCHAR(170) 'ToadModule'"`
+	SubModule   string `xorm:"VARCHAR(174) 'SubModule'"`
+	TC_Id       int    `xorm:"INT 'testcase_id'"`
+	TestCase    string `xorm:"VARCHAR(100) 'TestCase'"`
+	Status      string `xorm:"VARCHAR(20) 'status'"`
+	LastTimeRun string `xorm:"DATETIME 'lastTimeRun'"`
+	Covered     string `xorm:"VARCHAR(20) 'Covered'"`
 }
 
-type Toad_release_report struct {
-	Platform   string `xorm:"VARCHAR(50) 'Platform'"`
-	ToadModule string `xorm:"VARCHAR(170) 'ToadModule'"`
-	SubModule  string `xorm:"VARCHAR(174) 'SubModule'"`
-	TC_Id      int    `xorm:"INT 'testcase_id'"`
-	TestCase   string `xorm:"VARCHAR(100) 'TestCase'"`
-	Sprint1    string `xorm:"VARCHAR(50) 'Sprint1'"`
-	Sprint2    string `xorm:"VARCHAR(50) 'Sprint2'"`
-	Sprint3    string `xorm:"VARCHAR(50) 'Sprint3'"`
-	Sprint4    string `xorm:"VARCHAR(50) 'Sprint4'"`
-	Sprint5    string `xorm:"VARCHAR(50) 'Sprint5'"`
+type V_toad_release_report struct {
+	ToadModule  string `xorm:"VARCHAR(170) 'ToadModule'"`
+	SubModule   string `xorm:"VARCHAR(174) 'SubModule'"`
+	TC_Id       int    `xorm:"INT 'testcase_id'"`
+	TestCase    string `xorm:"VARCHAR(100) 'TestCase'"`
+	Status      string `xorm:"VARCHAR(20) 'status'"`
+	ReleasePlan string `xorm:"VARCHAR(50) 'releaseplan'"`
+	Product     string `xorm:"VARCHAR(50) 'product'"`
+	Platform    string `xorm:"VARCHAR(50) 'platforms'"`
+	LastTimeRun string `xorm:"DATETIME 'LasTimeRun'"`
+	Covered     string `xorm:"VARCHAR(20) 'Covered'"`
+	Build       string `xorm:"VARCHAR(100) 'Build'"`
+}
+
+type Toad_release_overview struct {
+	ReleasePlan string `xorm:"VARCHAR(20) 'ReleasePlan'"`
+	Platform    string `xorm:"VARCHAR(50) 'Platform'"`
+	ToadModule  string `xorm:"VARCHAR(170) 'ToadModule'"`
+	SubModule   string `xorm:"VARCHAR(174) 'SubModule'"`
+	TC_Id       int    `xorm:"INT 'testcase_id'"`
+	TestCase    string `xorm:"VARCHAR(100) 'TestCase'"`
+	Sprint1     string `xorm:"VARCHAR(50) 'Sprint1'"`
+	Sprint2     string `xorm:"VARCHAR(50) 'Sprint2'"`
+	Sprint3     string `xorm:"VARCHAR(50) 'Sprint3'"`
+	Sprint4     string `xorm:"VARCHAR(50) 'Sprint4'"`
+	Sprint5     string `xorm:"VARCHAR(50) 'Sprint5'"`
 }
 
 // statistics

@@ -270,28 +270,6 @@ function GetSprintStats()
     });
 };
 
-function GetReleasePlans()
-{
-    var releaseplan = $("#releaseplan").val();
-    var search = "?releaseplan=" + releaseplan;
-    var str = "/api" + location.pathname + search;
-    // alert(str);
-
-    var table;
-    if ( $.fn.dataTable.isDataTable( '#release_plan_table' ) ) {
-        // alert("Table exists.");
-        table = $('#release_plan_table').DataTable();
-    }
-    else {
-        // alert("Table not exists.");
-        table = $('#release_plan_table').DataTable( {
-            paging: false
-        } );
-    };
-
-    table.ajax.url(str).load();
-};
-
 function GetReleaseReports()
 {
     var releasereport = $("#releasereport").val();
@@ -307,13 +285,35 @@ function GetReleaseReports()
     else {
         // alert("Table not exists.");
         table = $('#release_report_table').DataTable( {
+            paging: false
+        } );
+    };
+
+    table.ajax.url(str).load();
+};
+
+function GetReleaseOverviews()
+{
+    var releaseoverview = $("#releaseoverview").val();
+    var search = "?releaseoverview=" + releaseoverview;
+    var str = "/api" + location.pathname + search;
+    // alert(str);
+
+    var table;
+    if ( $.fn.dataTable.isDataTable( '#release_overview_table' ) ) {
+        // alert("Table exists.");
+        table = $('#release_overview_table').DataTable();
+    }
+    else {
+        // alert("Table not exists.");
+        table = $('#release_overview_table').DataTable( {
             paging: true
         } );
     };
 
     table.ajax.url(str).load();
     // alert(1);
-    $("#release_report_table tfoot th").each(function(i) {
+    $("#release_overview_table tfoot th").each(function(i) {
         // alert(i);
         if (!table.column(i).bVisible) {
             switch(i)

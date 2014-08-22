@@ -15,13 +15,13 @@
 						<div class="hovered">
 
 							<ul class="nav pinned">
-								<select id="releaseplan">
-									{{range .ReleasePlan}}
+								<select id="releaseoverview">
+									{{range .ReleaseOverview}}
 									<option value="{{.}}">{{.}}</option>
 									{{end}}
 								</select><br/><br/>
 
-								<button onclick="GetReleasePlans();">Submit</button>
+								<button onclick="GetReleaseOverviews();">Submit</button>
 							</ul>
 							
 						</div>
@@ -29,7 +29,7 @@
 
 					<div class="right-col">
 						<table class="table table-bordered table-condensed table-hover table-striped" 
-						id="release_plan_table" name="release_plan_table" 
+						id="release_overview_table" name="release_overview_table" 
 						cellspacing="0" width="100%" style="table-layout:fixed;">
 							
 							<thead>
@@ -41,9 +41,8 @@
 							</thead>
 
 							<tbody id="report-table-body">
-								{{range .ReleasePlans}}
+								{{range .ReleaseOverviews}}
 								<tr>
-									
 									<td>
 										{{if eq .Platform ""}} {null} {{end}}
 										{{.Platform}}
@@ -64,8 +63,24 @@
 										{{.TestCase}}
 									</td>
 									<td>
-										{{if eq .Covered ""}} {null} {{end}}
-										{{.Covered}}
+										{{if eq .Sprint1 ""}} {null} {{end}}
+										{{.Sprint1}}
+									</td>
+									<td>
+										{{if eq .Sprint2 ""}} {null} {{end}}
+										{{.Sprint2}}
+									</td>
+									<td>
+										{{if eq .Sprint3 ""}} {null} {{end}}
+										{{.Sprint3}}
+									</td>
+									<td>
+										{{if eq .Sprint4 ""}} {null} {{end}}
+										{{.Sprint4}}
+									</td>
+									<td>
+										{{if eq .Sprint5 ""}} {null} {{end}}
+										{{.Sprint5}}
 									</td>
 								</tr>
 								{{end}}
@@ -87,7 +102,7 @@
 		</div>
 		
 		{{template "home_js"}}
-		{{template "release_plan_ajax"}}
+		{{template "release_overview_ajax"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 

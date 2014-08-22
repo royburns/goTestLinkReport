@@ -32,16 +32,27 @@
 								</select><br/><br/>
 
 								<button onclick="GetSprintExecutions();">Submit</button>
+
+								<br/>
+								<br/>
+								<br/>
+								<table border="0" cellpadding="5" cellspacing="5">
+									<tbody>
+										<tr>
+											<td style="color:#16a085;">Start Date: <input id="startdate" name="startdate" type="text"></td>
+										</tr>
+										<tr>
+											<td style="color:#16a085;">End Date: <input id="enddate" name="enddate" type="text"></td>
+										</tr>
+									</tbody>
+								</table>
 							</ul>
 
 						</div>
 					</div>
 
 					<div class="right-col">
-						<!-- <div class="hideloading"></div>
-						<div class="showloading well well-large well-transparent lead" id="loading">
-							<i class="icon-spinner icon-spin"></i> The report is loading...
-						</div> -->
+
 						<!--table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%"-->
 						<table class="table table-bordered table-condensed table-hover table-striped" id="report-table" name="report-table" cellspacing="0" width="100%" style="table-layout:fixed;">
 							
@@ -124,6 +135,7 @@
 		</div>
 		
 		{{template "sprint_execution_ajax"}}
+		{{template "sprint_execution_date_filter"}}
 		{{template "backToTop"}}
 		{{template "home_js"}}
 		{{template "base/js.tpl" .}}

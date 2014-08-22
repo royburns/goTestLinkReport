@@ -22,6 +22,7 @@ func GetSprintExecutionsWhere(sp_id string, sp_product string, sp_version string
 	rs := []V_toad_sprint_report{}
 	var err error
 	sql := fmt.Sprintf("select * from %s", str_v_toad_sprint_report)
+	fmt.Println(sql)
 	sql = fmt.Sprintf("%s where sprintNo=%s and product='%s' and version='%s'", sql, sp_id, sp_product, sp_version)
 	fmt.Println(sql)
 	err = orm.Sql(sql).Asc("ToadModule").Find(&rs)

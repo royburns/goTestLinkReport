@@ -22,6 +22,20 @@
 								</select><br/><br/>
 
 								<button onclick="GetReleaseReports();">Submit</button>
+
+								<br/>
+								<br/>
+								<br/>
+								<table border="0" cellpadding="5" cellspacing="5">
+									<tbody>
+										<tr>
+											<td style="color:#16a085;">Start Date: <input id="startdate" name="startdate" type="text"></td>
+										</tr>
+										<tr>
+											<td style="color:#16a085;">End Date: <input id="enddate" name="enddate" type="text"></td>
+										</tr>
+									</tbody>
+								</table>
 							</ul>
 							
 						</div>
@@ -43,6 +57,7 @@
 							<tbody id="report-table-body">
 								{{range .ReleaseReports}}
 								<tr>
+									
 									<td>
 										{{if eq .Platform ""}} {null} {{end}}
 										{{.Platform}}
@@ -63,24 +78,20 @@
 										{{.TestCase}}
 									</td>
 									<td>
-										{{if eq .Sprint1 ""}} {null} {{end}}
-										{{.Sprint1}}
+										{{if eq .Status ""}} {null} {{end}}
+										{{.Status}}
 									</td>
 									<td>
-										{{if eq .Sprint2 ""}} {null} {{end}}
-										{{.Sprint2}}
+										{{if eq .Build ""}} {null} {{end}}
+										{{.Build}}
 									</td>
 									<td>
-										{{if eq .Sprint3 ""}} {null} {{end}}
-										{{.Sprint3}}
+										{{if eq .LastTimeRun ""}} {null} {{end}}
+										{{.LastTimeRun}}
 									</td>
 									<td>
-										{{if eq .Sprint4 ""}} {null} {{end}}
-										{{.Sprint4}}
-									</td>
-									<td>
-										{{if eq .Sprint5 ""}} {null} {{end}}
-										{{.Sprint5}}
+										{{if eq .Covered ""}} {null} {{end}}
+										{{.Covered}}
 									</td>
 								</tr>
 								{{end}}
@@ -103,6 +114,7 @@
 		
 		{{template "home_js"}}
 		{{template "release_report_ajax"}}
+		{{template "report_sprint_date_filter"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 

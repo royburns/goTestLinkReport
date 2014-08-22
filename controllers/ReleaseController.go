@@ -73,33 +73,36 @@ type ReleaseController struct {
 // 	this.TplNames = "release_plan.tpl"
 // }
 
-func (this *ReleaseController) GetReleasePlan() {
+func (this *ReleaseController) GetReleaseReport() {
 
-	fmt.Println("In GetReleasePlan()...")
+	fmt.Println("In GetReleaseReport()...")
 	var TableHeader = []string{
 		"Platform",
 		"ToadModule",
 		"SubModule",
 		"TC_Id",
 		"TestCase",
+		"Status",
+		"Build",
+		"LastTimeRun",
 		"Covered",
 	}
 
-	// Get TestPlans
-	releaseplan := make(map[int]string)
-	res := models.GetToadReleasePlanColumn("ReleasePlan")
+	// Get TestReports
+	releasereport := make(map[int]string)
+	res := models.GetToadReleaseReportColumn("releaseplan")
 	fmt.Println(len(res))
 	for key, item := range res {
-		releaseplan[key] = string(item["ReleasePlan"])
+		releasereport[key] = string(item["releaseplan"])
 	}
 
 	this.Data["TableHeader"] = TableHeader
-	this.Data["ReleasePlan"] = releaseplan
+	this.Data["ReleaseReport"] = releasereport
 
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
-	this.TplNames = "release_plan.tpl"
+	this.TplNames = "release_report.tpl"
 }
 
 // func (this *ReleaseController) GetReleaseReport() {
@@ -167,9 +170,9 @@ func (this *ReleaseController) GetReleasePlan() {
 // 	this.TplNames = "release_report.tpl"
 // }
 
-func (this *ReleaseController) GetReleaseReport() {
+func (this *ReleaseController) GetReleaseOverview() {
 
-	fmt.Println("In GetReleaseReport()...")
+	fmt.Println("In GetReleaseOverview()...")
 	var TableHeader = []string{
 		"Platform",
 		"ToadModule",
@@ -183,20 +186,20 @@ func (this *ReleaseController) GetReleaseReport() {
 		"Sprint5",
 	}
 
-	releasereport := make(map[int]string)
-	res := models.GetToadReleaseReportColumn("ReleasePlan")
+	releaseoverview := make(map[int]string)
+	res := models.GetToadReleaseOverviewColumn("ReleasePlan")
 	fmt.Println(len(res))
 	for key, item := range res {
-		releasereport[key] = string(item["ReleasePlan"])
+		releaseoverview[key] = string(item["ReleasePlan"])
 	}
 
 	this.Data["TableHeader"] = TableHeader
-	this.Data["ReleaseReport"] = releasereport
+	this.Data["ReleaseOverview"] = releaseoverview
 
 	this.Data["Website"] = "goTestLinkReport.org"
 	this.Data["Email"] = "roy.burns@163.com"
 
-	this.TplNames = "release_report.tpl"
+	this.TplNames = "release_overview.tpl"
 }
 
 type ReleasePlan struct {

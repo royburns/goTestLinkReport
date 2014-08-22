@@ -105,10 +105,11 @@ func (this *ApiController) GetSprintExecution() {
 	sp_id := this.Input().Get("sp_id")
 	sp_product := this.Input().Get("sp_product")
 	sp_version := this.Input().Get("sp_version")
+
 	fmt.Printf("%s,%s,%s\n", sp_id, sp_product, sp_version)
 
 	if sp_id != "" {
-		key := sp_id
+		key := fmt.Sprintf("%s-%s-%s\n", sp_id, sp_product, sp_version)
 		value, err := client.Get(key)
 		if err != nil {
 			fmt.Println("Failed to get value: ", err)
@@ -164,6 +165,7 @@ func (this *ApiController) GetSprintExecution() {
 		}
 	}
 
+	fmt.Println(len(executions))
 	this.Data["json"] = &executions
 
 	// this.TplNames = "report.tpl"

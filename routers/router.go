@@ -15,10 +15,10 @@ func init() {
 	// beego.Router("/report", &controllers.ReportController{})
 	beego.Router("/getlastexecution", &controllers.GetLastExecutionController{})
 	beego.Router("/getsprintexecution", &controllers.GetSprintExecutionController{})
-	beego.Router("/getreleaseplan", &controllers.ReleaseController{}, "get:GetReleasePlan")
-	beego.Router("/api/getreleaseplan", &apis.ApiController{}, "get:GetReleasePlan")
 	beego.Router("/getreleasereport", &controllers.ReleaseController{}, "get:GetReleaseReport")
 	beego.Router("/api/getreleasereport", &apis.ApiController{}, "get:GetReleaseReport")
+	beego.Router("/getreleaseoverview", &controllers.ReleaseController{}, "get:GetReleaseOverview")
+	beego.Router("/api/getreleaseoverview", &apis.ApiController{}, "get:GetReleaseOverview")
 
 	// Statistics
 	// beego.Router("/statistics", &controllers.StatisticsController{})

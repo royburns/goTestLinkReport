@@ -273,102 +273,6 @@
 		{{end}}
 		<!-- Report Grid -->
 
-		{{define "release_plan_table"}}
-		<script type="text/javascript" language="javascript" class="init">
-			$(document).ready(function() {
-				// alert("...");
-				// settings
-				$('#release_plan_table').dataTable({
-
-					"stateSave": true,
-
-					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
-					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
-					// paging
-					"pagingType": "full_numbers",
-					"paging": true,
-					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
-
-					//.table-condensed
-					"autoWidth": true,
-					"padding": 5,
-					"text-overflow": "ellipsis",
-					"overflow": "hidden",
-					"white-space": "nowrap",
-					"margin-left": 10,
-
-					// set column visible
-					"columnDefs": [
-						{
-							// "targets": [ 0 ],
-							// "visible": false,
-							// "searchable": false
-							
-							// "targets": [5],
-							// "createdCell": function (td, cellData, rowData, row, col) {
-							// 	if ( cellData == "Status" ) {
-							// 		$(td).css('color', 'blue')
-							// 	}
-							// }
-						},
-					],
-
-				});
-
-				// set the table head's width
-				var table = $('#release_plan_table').DataTable();
-				// alert(table.bStateSave);
-				$("#release_plan_table thead th").each(function(i) {
-					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
-				});
-
-				// set the table root as selection
-				// var table = $('#report-table').DataTable();
-				$("#release_plan_table tfoot th").each(function(i) {
-					// alert(i);
-					if (!table.column(i).bVisible) {
-						switch(i)
-						{
-							// The columns no need filter
-							case 7:
-							case 8:
-								break;
-							default:
-
-								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
-								.appendTo($(this).empty())
-								.on('change', function() {
-									if ($(this).val() && $(this).val() != "[ALL]") {
-										table.column(i)
-											.search( '^'+$(this).val()+'$', true, false )
-											.draw();
-									} else if ($(this).val() == "[ALL]") {
-										table.column(i)
-											.search( "", true, false )
-											.draw();
-									} else {
-										alert($(this).val());
-										table.column(i)
-											.search( "", true, false )
-											.draw();
-									};
-								});
-								
-								//
-								table.column(i).data().unique().sort().each(function(d, j) {
-									select.append('<option value="' + d + '">' + d + '</option>')
-								} );
-
-								break;
-						};
-					};
-					
-				});
-
-			});
-		</script>
-		{{end}}
-
 		{{define "release_report_table"}}
 		<script type="text/javascript" language="javascript" class="init">
 			$(document).ready(function() {
@@ -421,6 +325,102 @@
 				// set the table root as selection
 				// var table = $('#report-table').DataTable();
 				$("#release_report_table tfoot th").each(function(i) {
+					// alert(i);
+					if (!table.column(i).bVisible) {
+						switch(i)
+						{
+							// The columns no need filter
+							case 7:
+							case 8:
+								break;
+							default:
+
+								var select = $('<select><option value="[ALL]">[ALL]</option></select>')
+								.appendTo($(this).empty())
+								.on('change', function() {
+									if ($(this).val() && $(this).val() != "[ALL]") {
+										table.column(i)
+											.search( '^'+$(this).val()+'$', true, false )
+											.draw();
+									} else if ($(this).val() == "[ALL]") {
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									} else {
+										alert($(this).val());
+										table.column(i)
+											.search( "", true, false )
+											.draw();
+									};
+								});
+								
+								//
+								table.column(i).data().unique().sort().each(function(d, j) {
+									select.append('<option value="' + d + '">' + d + '</option>')
+								} );
+
+								break;
+						};
+					};
+					
+				});
+
+			});
+		</script>
+		{{end}}
+
+		{{define "release_overview_table"}}
+		<script type="text/javascript" language="javascript" class="init">
+			$(document).ready(function() {
+				// alert("...");
+				// settings
+				$('#release_overview_table').dataTable({
+
+					"stateSave": true,
+
+					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
+					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
+					// paging
+					"pagingType": "full_numbers",
+					"paging": true,
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
+
+					//.table-condensed
+					"autoWidth": true,
+					"padding": 5,
+					"text-overflow": "ellipsis",
+					"overflow": "hidden",
+					"white-space": "nowrap",
+					"margin-left": 10,
+
+					// set column visible
+					"columnDefs": [
+						{
+							// "targets": [ 0 ],
+							// "visible": false,
+							// "searchable": false
+							
+							// "targets": [5],
+							// "createdCell": function (td, cellData, rowData, row, col) {
+							// 	if ( cellData == "Status" ) {
+							// 		$(td).css('color', 'blue')
+							// 	}
+							// }
+						},
+					],
+
+				});
+
+				// set the table head's width
+				var table = $('#release_overview_table').DataTable();
+				// alert(table.bStateSave);
+				$("#release_overview_table thead th").each(function(i) {
+					// alert(table.column(i).header().innerHTML); // Get the header name of every column.
+				});
+
+				// set the table root as selection
+				// var table = $('#report-table').DataTable();
+				$("#release_overview_table tfoot th").each(function(i) {
 					// alert(i);
 					if (!table.column(i).bVisible) {
 						switch(i)
@@ -745,7 +745,7 @@
 
 		{{define "sprint_execution_ajax"}}
 		<script>
-			
+
 			$(document).ready(function() {
 				// alert("...");
 
@@ -977,6 +977,105 @@
 		</script>
 		{{end}}
 
+		{{define "sprint_execution_date_filter"}}
+		<script>
+			$.fn.dataTable.ext.search.push(
+				function( settings, data, dataIndex ) {
+				var min = $('#startdate').val();
+				var max = $('#enddate').val();
+				// var age = parseFloat( data[7] ) || 0; // use data for the age column
+				var date = data[7].split("T")[0];
+				// alert(typeof(date));
+				
+				if ( ( min == '' && max == '' ) ||
+					( min == '' && date <= max ) ||
+					( min <= date && '' == max ) ||
+					( min <= date && date <= max ) )
+					{
+						return true;
+					}
+					return false;
+				}
+			);
+			
+			$(document).ready(function() {
+				
+				var table = $('#report-table').DataTable();
+
+				// Event listener to the two range filtering inputs to redraw on input
+				$('#startdate, #enddate').keyup( function() {
+					table.draw();
+				} );
+			} );
+		</script>
+		{{end}}
+
+		{{define "report_sprint_date_filter"}}
+		<script>
+			$.fn.dataTable.ext.search.push(
+				function( settings, data, dataIndex ) {
+				var min = $('#startdate').val();
+				var max = $('#enddate').val();
+				// var age = parseFloat( data[7] ) || 0; // use data for the age column
+				var date = data[7].split(" ")[0];
+				// alert(typeof(date));
+				
+				if ( ( min == '' && max == '' ) ||
+					( min == '' && date <= max ) ||
+					( min <= date && '' == max ) ||
+					( min <= date && date <= max ) )
+					{
+						return true;
+					}
+					return false;
+				}
+			);
+			
+			$(document).ready(function() {
+				
+				var table = $('#release_report_table').DataTable();
+
+				// Event listener to the two range filtering inputs to redraw on input
+				$('#startdate, #enddate').keyup( function() {
+					table.draw();
+				} );
+			} );
+		</script>
+		{{end}}
+
+		{{define "last_execution_date_filter"}}
+		<script>
+			$.fn.dataTable.ext.search.push(
+				function( settings, data, dataIndex ) {
+				var min = $('#startdate').val();
+				var max = $('#enddate').val();
+				// var age = parseFloat( data[7] ) || 0; // use data for the age column
+				var date = data[7].split("T")[0];
+				// alert(typeof(date));
+				
+				if ( ( min == '' && max == '' ) ||
+					( min == '' && date <= max ) ||
+					( min <= date && '' == max ) ||
+					( min <= date && date <= max ) )
+					{
+						return true;
+					}
+					return false;
+				}
+			);
+			
+			$(document).ready(function() {
+				
+				var table = $('#report-table').DataTable();
+
+				// Event listener to the two range filtering inputs to redraw on input
+				$('#startdate, #enddate').keyup( function() {
+					table.draw();
+				} );
+			} );
+		</script>
+		{{end}}
+
 		{{define "sprint_stat_ajax"}}
 		<script>
 			
@@ -1070,16 +1169,16 @@
 		</script>
 		{{end}}
 
-		{{define "release_plan_ajax"}}
+		{{define "release_report_ajax"}}
 		<script>
 			$(document).ready(function() {
 
-				var releaseplan = $("#releaseplan").val();
-				var search = "?releaseplan=" + releaseplan;
+				var releasereport = $("#releasereport").val();
+				var search = "?releasereport=" + releasereport;
 				var str = "/api" + location.pathname + search;
 				// alert(str);
 
-				$('#release_plan_table').dataTable( {
+				$('#release_report_table').dataTable( {
 
 					"ajax": {
 						"url": str,
@@ -1093,6 +1192,9 @@
 						{ "data": "SubModule" },
 						{ "data": "TC_Id" },
 						{ "data": "TestCase" },
+						{ "data": "Status" },
+						{ "data": "Build" },
+						{ "data": "LastTimeRun" },
 						{ "data": "Covered" },
 					],
 
@@ -1142,28 +1244,28 @@
 
 					"initComplete": function(settings, json) {
 						// set the table head's width
-						var table = $('#release_plan_table').DataTable();
+						var table = $('#release_report_table').DataTable();
 						// alert(table.bStateSave);
-						$("#release_plan_table thead th").each(function(i) {
+						$("#release_report_table thead th").each(function(i) {
 							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
 						});
 
-						$("#release_plan_table tbody th").each(function(i) {
+						$("#release_report_table tbody th").each(function(i) {
 							alert(table.column(i).body().innerHTML); // Get the header name of every column.
 						});
 
 						// alert('inner');
 						// set the table root as selection
-						$("#release_plan_table tfoot th").each(function(i) {
+						$("#release_report_table tfoot th").each(function(i) {
 							// alert(i);
 							if (!table.column(i).bVisible) {
 								switch(i)
 								{
 									// The columns no need filter
-									case 7:
-									case 8: 
+									// case 7:
+									// case 8: 
 										// alert("...");
-										break;
+										// break;
 									default:
 
 										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
@@ -1202,16 +1304,16 @@
 		</script>
 		{{end}}
 
-		{{define "release_report_ajax"}}
+		{{define "release_overview_ajax"}}
 		<script>
 			$(document).ready(function() {
 
-				var releasereport = $("#releasereport").val();
-				var search = "?releasereport=" + releasereport;
+				var releaseoverview = $("#releaseoverview").val();
+				var search = "?releaseoverview=" + releaseoverview;
 				var str = "/api" + location.pathname + search;
 				// alert(str);
 
-				$('#release_report_table').dataTable( {
+				$('#release_overview_table').dataTable( {
 
 					"ajax": {
 						"url": str,
@@ -1278,19 +1380,19 @@
 
 					"initComplete": function(settings, json) {
 						// set the table head's width
-						var table = $('#release_report_table').DataTable();
+						var table = $('#release_overview_table').DataTable();
 						// alert(table.bStateSave);
-						$("#release_report_table thead th").each(function(i) {
+						$("#release_overview_table thead th").each(function(i) {
 							// alert(table.column(i).header().innerHTML); // Get the header name of every column.
 						});
 
-						$("#release_report_table tbody th").each(function(i) {
+						$("#release_overview_table tbody th").each(function(i) {
 							alert(table.column(i).body().innerHTML); // Get the header name of every column.
 						});
 
 						// alert('inner');
 						// set the table root as selection
-						$("#release_report_table tfoot th").each(function(i) {
+						$("#release_overview_table tfoot th").each(function(i) {
 							// alert(i);
 							if (!table.column(i).bVisible) {
 								switch(i)

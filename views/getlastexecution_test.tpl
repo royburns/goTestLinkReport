@@ -25,6 +25,19 @@
 									
 								</li>
 								{{end}}
+
+								<br/>
+								<br/>
+								<table border="0" cellpadding="5" cellspacing="5">
+									<tbody>
+										<tr>
+											<td style="color:#16a085;">Start Date: <input id="startdate" name="startdate" type="text"></td>
+										</tr>
+										<tr>
+											<td style="color:#16a085;">End Date: <input id="enddate" name="enddate" type="text"></td>
+										</tr>
+									</tbody>
+								</table>
 							</ul>
 
 						</div>
@@ -141,6 +154,7 @@
 		</div>
 		
 		{{template "last_execution_ajax"}}
+		{{template "last_execution_date_filter"}}
 		{{template "backToTop"}}
 		{{template "home_js"}}
 		{{template "base/js.tpl" .}}
