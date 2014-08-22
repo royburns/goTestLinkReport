@@ -1012,6 +1012,10 @@
 
 		{{define "report_sprint_date_filter"}}
 		<script>
+			// $('.form_datetime').datetimepicker({
+			// 	format: 'yyyy-mm-dd'
+			// });
+
 			$.fn.dataTable.ext.search.push(
 				function( settings, data, dataIndex ) {
 				var min = $('#startdate').val();

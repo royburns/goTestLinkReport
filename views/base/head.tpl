@@ -18,11 +18,14 @@
 		<script src="/static/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/static/js/bootstrap-select.js"></script>
 		<script src="/static/js/bootstrap-switch.js"></script>
+		<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="/static/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 		<script src="/static/js/jquery.dataTables.js"></script>
 		<script src="/static/js/jquery.highchartTable.js"></script>
 		
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" />
+		<link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 		<link href="/static/css/font-awesome.min.css" rel="stylesheet" >
 		<link href="/static/css/responsive-nav.css" rel="stylesheet" />
 		<link href="/static/css/flat-ui.css" rel="stylesheet" />
