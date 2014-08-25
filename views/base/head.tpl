@@ -18,8 +18,8 @@
 		<script src="/static/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/static/js/bootstrap-select.js"></script>
 		<script src="/static/js/bootstrap-switch.js"></script>
-		<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
-		<script src="/static/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+		<script src="/static/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+		<script src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 		<script src="/static/js/jquery.dataTables.js"></script>
 		<script src="/static/js/jquery.highchartTable.js"></script>
 		

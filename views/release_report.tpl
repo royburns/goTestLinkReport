@@ -29,13 +29,14 @@
 								<table border="0" cellpadding="5" cellspacing="5">
 									<tbody>
 										<tr>
-											<td style="color:#16a085;">Start Date: <input class="form_datetime" id="startdate" name="startdate" type="text" value="2014-01-01"></td>
+											<td style="color:#16a085;">Start Date: <input class="" id="startdate" name="startdate" type="text" value="2014-01-01"></td>
 										</tr>
 										<tr>
-											<td style="color:#16a085;">End Date: <input class="form_datetime" id="enddate" name="enddate" type="text" value="2014-02-01"></td>
+											<td style="color:#16a085;">End Date: <input class="" id="enddate" name="enddate" type="text" value="2014-02-01"></td>
 										</tr>
 									</tbody>
 								</table>
+
 							</ul>
 							
 						</div>
@@ -115,6 +116,7 @@
 		{{template "home_js"}}
 		{{template "release_report_ajax"}}
 		{{template "report_sprint_date_filter"}}
+		{{template "form_datetime"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}
 
