@@ -1074,6 +1074,11 @@
 
 				// Event listener to the two range filtering inputs to redraw on input
 				$('#startdate, #enddate').keyup( function() {
+					// alert("1");
+					table.draw();
+				} );
+				$('#startdate, #enddate').change( function() {
+					// alert("2");
 					table.draw();
 				} );
 			} );
@@ -1901,15 +1906,25 @@
 		<script>
 		$(document).ready(function() {
 			// alert("...");
-			$(".form_datetime").datetimepicker({
-				format: 'yyyy-mm-dd',
-				weekStart: 1,
-					todayBtn:  1,
-					autoclose: 1,
-					todayHighlight: 1,
-					startView: 2,
-					forceParse: 0,
-					showMeridian: 1
+			// $(".form_datetime").datetimepicker({
+			// 	format: 'yyyy-mm-dd',
+			// 	weekStart: 1,
+			// 		todayBtn:  1,
+			// 		autoclose: 1,
+			// 		todayHighlight: 1,
+			// 		startView: 2,
+			// 		forceParse: 0,
+			// 		showMeridian: 1
+			// });
+			$(".form_datetime").datepicker({
+				dateFormat: 'yy-mm-dd',
+				// numberOfMonths: 3,
+				showButtonPanel: true,
+				onSelect: function(dateText,inst){
+					// alert("您选择的日期是："+dateText)
+					var table = $('#report-table').DataTable();
+					table.draw();
+				},
 			});
 			// $('.form_datetime').datetimepicker({
 			// 	//language:  'fr',

@@ -27,14 +27,13 @@
 								{{end}}
 
 								<br/>
-								<br/>
 								<table border="0" cellpadding="5" cellspacing="5">
 									<tbody>
 										<tr>
-											<td style="color:#16a085;">Start Date: <input id="startdate" name="startdate" type="text"></td>
+											<td style="color:#16a085;">Start Date: <input class="form_datetime" id="startdate" name="startdate" type="text"></td>
 										</tr>
 										<tr>
-											<td style="color:#16a085;">End Date: <input id="enddate" name="enddate" type="text"></td>
+											<td style="color:#16a085;">End Date: <input class="form_datetime" id="enddate" name="enddate" type="text"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -155,6 +154,7 @@
 		
 		{{template "last_execution_ajax"}}
 		{{template "last_execution_date_filter"}}
+		{{template "form_datetime"}}
 		{{template "backToTop"}}
 		{{template "home_js"}}
 		{{template "base/js.tpl" .}}
