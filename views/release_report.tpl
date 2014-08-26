@@ -43,7 +43,7 @@
 					</div>
 
 					<div class="right-col">
-						<table class="table table-bordered table-condensed table-hover table-striped" 
+						<table class="table table-bordered table-condensed table-hover table-striped form_datetime" 
 						id="release_report_table" name="release_report_table" 
 						cellspacing="0" width="100%" style="table-layout:fixed;">
 							

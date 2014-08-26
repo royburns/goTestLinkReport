@@ -1407,10 +1407,10 @@
 								switch(i)
 								{
 									// The columns no need filter
-									case 7:
-									case 8: 
-										// alert("...");
-										break;
+									// case 7:
+									// case 8: 
+									// 	// alert("...");
+									// 	break;
 									default:
 
 										var select = $('<select><option value="[ALL]">[ALL]</option></select>')
@@ -1922,7 +1922,7 @@
 				showButtonPanel: true,
 				onSelect: function(dateText,inst){
 					// alert("您选择的日期是："+dateText)
-					var table = $('#report-table').DataTable();
+					var table = $('table.form_datetime').DataTable();
 					table.draw();
 				},
 			});
