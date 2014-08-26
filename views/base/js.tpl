@@ -1341,6 +1341,7 @@
 						{ "data": "Sprint3" },
 						{ "data": "Sprint4" },
 						{ "data": "Sprint5" },
+						{ "data": "Exec_Freq" },
 					],
 
 					// "stateSave": true,
@@ -1350,6 +1351,7 @@
 					"ordering": true,
 					"info":     true,
 					"filter":   true,
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
 
 					"autoWidth": true,
 					"padding": 5,
@@ -1366,24 +1368,39 @@
 
 					"createdRow": function ( row, data, index ) {
 
+						var table = $('#release_overview_table').DataTable();
 						var items = row.getElementsByTagName("td");
 						// alert(items.length);
 						for (var i = 0; i <= items.length; i++) {
 							var len = 0, dots = "";
 							// alert("...");
 
-							// if (items[i]) {
-							// 	items[i].innerHTML = items[i].innerHTML.trim();
+							if (items[i]) {
+								items[i].innerHTML = items[i].innerHTML.trim();
 
-							// 	switch(i)
-							// 	{
-							// 		case 0:
-							// 			items[i].innerHTML = items[i].innerHTML.split("T")[0];
-							// 			break;
-							// 		default:
-							// 			break;
-							// 	};
-							// };
+								switch(i)
+								{
+									case 10:
+										// items[i].innerHTML = "...";
+										break;
+									default:
+										break;
+								};
+							};
+						};
+
+						var Exec_Freq = 0;
+						for (var i = 5; i < items.length-1; i++) {
+							// alert(items[i]);
+							if (items[i].innerHTML) {
+								Exec_Freq = Exec_Freq + 1;
+								// alert("...");
+							};
+						};
+						// alert(Exec_Freq);
+						if (Exec_Freq && Exec_Freq != 0) {
+							items[items.length-1].innerHTML = Exec_Freq;
+							// alert(table.column(items.length-1).data());
 						};
 					},// createdRow
 
@@ -1687,17 +1704,17 @@
 						t["FailedCases"].push(data[i]["FailedCases"]);
 					};
 
-					// options.series.push({
-					// 	name: "TotalCases",
-					// 	data: t["TotalCases"]
-					// });
-					// options.series.push({
-					// 	name: "RemainedCases",
-					// 	data: t["RemainedCases"]
-					// });
+					options.series.push({
+						name: "TotalCases",
+						data: t["TotalCases"]
+					});
 					options.series.push({
 						name: "RemainedCases",
 						data: t["RemainedCases"]
+					});
+					options.series.push({
+						name: "FailedCases",
+						data: t["FailedCases"]
 					});
 					
 					var chart = new Highcharts.Chart(options);

@@ -82,6 +82,10 @@
 										{{if eq .Sprint5 ""}} {null} {{end}}
 										{{.Sprint5}}
 									</td>
+									<td>
+										{{if eq .Exec_Freq ""}} {null} {{end}}
+										{{.Exec_Freq}}
+									</td>
 								</tr>
 								{{end}}
 							</tbody>

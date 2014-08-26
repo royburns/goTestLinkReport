@@ -122,6 +122,7 @@ type Toad_release_overview struct {
 	Sprint3     string `xorm:"VARCHAR(50) 'Sprint3'"`
 	Sprint4     string `xorm:"VARCHAR(50) 'Sprint4'"`
 	Sprint5     string `xorm:"VARCHAR(50) 'Sprint5'"`
+	Exec_Freq   int    `xorm:"-"`
 }
 
 // statistics

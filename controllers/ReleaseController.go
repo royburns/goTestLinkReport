@@ -184,6 +184,7 @@ func (this *ReleaseController) GetReleaseOverview() {
 		"Sprint3",
 		"Sprint4",
 		"Sprint5",
+		"Exec_Freq",
 	}
 
 	releaseoverview := make(map[int]string)

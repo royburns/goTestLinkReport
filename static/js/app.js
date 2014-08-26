@@ -252,17 +252,17 @@ function GetSprintStats()
             t["FailedCases"].push(data[i]["FailedCases"]);
         };
 
-        // options.series.push({
-        //  name: "TotalCases",
-        //  data: t["TotalCases"]
-        // });
-        // options.series.push({
-        //  name: "RemainedCases",
-        //  data: t["RemainedCases"]
-        // });
+        options.series.push({
+            name: "TotalCases",
+            data: t["TotalCases"]
+        });
         options.series.push({
             name: "RemainedCases",
             data: t["RemainedCases"]
+        });
+        options.series.push({
+            name: "FailedCases",
+            data: t["FailedCases"]
         });
         
         var chart = new Highcharts.Chart(options);
