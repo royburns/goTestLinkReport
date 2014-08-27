@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/alphazero/Go-Redis"
 	"github.com/royburns/goTestLinkReport/models"
+	"time"
 	// "strconv"
 	// "strings"
 )
@@ -37,6 +38,13 @@ func (this *ApiController) GetReleaseReport() {
 
 		res := models.GetToadReleaseReportWhere("releaseplan", releasereport)
 		for _, item := range res {
+			item.LastTimeRun = fmt.Sprintf("%04d-%02d-%02d", item.Date.Year(), item.Date.Month(), item.Date.Day())
+			// if item.LastTimeRun.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			if !item.Date.IsZero() {
+				t := time.Now()
+				d := t.Sub(item.Date)
+				item.DataRange = int32(d.Hours()) / 24
+			}
 			rp = append(rp, item)
 		}
 
@@ -86,6 +94,22 @@ func (this *ApiController) GetReleaseOverview() {
 
 		res := models.GetToadReleaseOverviewWhere("ReleasePlan", releaseoverview)
 		for _, item := range res {
+			if item.Sprint1 == "p" {
+				item.Exec_Freq = item.Exec_Freq + 1
+			}
+			if item.Sprint2 == "p" {
+				item.Exec_Freq = item.Exec_Freq + 1
+			}
+			if item.Sprint3 == "p" {
+
+				item.Exec_Freq = item.Exec_Freq + 1
+			}
+			if item.Sprint4 == "p" {
+				item.Exec_Freq = item.Exec_Freq + 1
+			}
+			if item.Sprint5 == "p" {
+				item.Exec_Freq = item.Exec_Freq + 1
+			}
 			rp = append(rp, item)
 		}
 

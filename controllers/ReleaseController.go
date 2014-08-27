@@ -85,6 +85,7 @@ func (this *ReleaseController) GetReleaseReport() {
 		"Status",
 		"Build",
 		"LastTimeRun",
+		"DataRange",
 		"Covered",
 	}
 

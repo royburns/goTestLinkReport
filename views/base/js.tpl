@@ -164,6 +164,155 @@
 		</script>
 		{{end}}
 
+		{{define "release_report_home_js"}}
+		<script>
+			// Modify the column of the report grid.
+			(function () {
+
+				var tables = document.getElementsByName("release_report_table");
+				var now = new Date();
+				// var len = 100;
+				for (var n = 0; n < tables.length; n++) {
+					var table = tables[n];
+					var items = table.getElementsByTagName("tr");
+					// var items = table.getElementsByTagName("tbody tr");
+					// var items = table.getElementsById("#report-table-body");
+					// alert(items.length);
+					for (var i = 0; i < items.length; i++) {
+						// Limit length.
+						for (var j = 0; j <= items[i].cells.length; j++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i].cells[j]) {
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+								switch(j)
+								{
+									case 2:
+										// len = 12;dots="...";
+										break;
+									case 4:
+										// len = 32;dots="...";
+										break;
+									case 7:
+										len = 19;dots="";
+										break;
+									case 8:
+										// len = 10;dots="...";
+										break;
+									default:
+										break;
+								}
+
+								if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
+									// items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
+								};
+
+								// switch(j)
+								// {
+								// 	case 5:
+								// 		switch(items[i].cells[j].innerHTML)
+								// 		{
+								// 			case "b":
+								// 				alert("...");
+								// 				$("#report-table-body tr").delclass();
+								// 				break;
+								// 			case "p":
+								// 				$("#report-table-body tr").addclass("success");
+								// 				break;
+								// 			case "f":
+								// 				$("#report-table-body tr").addclass("danger");
+								// 				break;
+								// 			case "":
+								// 				$("#report-table-body tr").addclass("nostatus");
+								// 				break;
+								// 			default:
+								// 				break;
+								// 		}
+								// 		break;
+								// 	case 7:
+								// 		// items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.split("T")[0];
+								// 		// if (items[i].cells[j].innerHTML == "0001-01-01") {
+								// 		// 	items[i].cells[j].innerHTML = "{null}"
+								// 		// }
+								// 		break;
+								// 	case 8:
+										
+								// 		break;
+								// 	default:
+								// 		break;
+								// }
+							};
+						};
+					};
+				};
+
+			})();
+
+		</script>
+		{{end}}
+
+		{{define "release_overview_home_js"}}
+		<script>
+			// Modify the column of the report grid.
+			(function () {
+
+				var tables = document.getElementsByName("release_overview_table");
+				var now = new Date();
+				// var len = 100;
+				for (var n = 0; n < tables.length; n++) {
+					var table = tables[n];
+					var items = table.getElementsByTagName("tr");
+					// var items = table.getElementsByTagName("tbody tr");
+					// var items = table.getElementsById("#report-table-body");
+					// alert(items.length);
+					for (var i = 0; i < items.length; i++) {
+						// Limit length.
+						for (var j = 0; j <= items[i].cells.length; j++) {
+							var len = 0, dots = "";
+							// alert("...");
+
+							if (items[i].cells[j]) {
+								items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.trim();
+								switch(j)
+								{
+									case 2:
+										// len = 12;dots="...";
+										break;
+									case 4:
+										// len = 32;dots="...";
+										break;
+									case 7:
+										len = 19;dots="";
+										break;
+									case 8:
+										// len = 10;dots="...";
+										break;
+									default:
+										break;
+								}
+
+								if (len > 0 && items[i].cells[j] && items[i].cells[j].innerHTML.length > len) {
+									items[i].cells[j].innerHTML = items[i].cells[j].innerHTML.substr(0, len) + dots;
+								};
+
+								switch(j)
+								{
+									case 8:
+										
+										break;
+									default:
+										break;
+								}
+							};
+						};
+					};
+				};
+			})();
+
+		</script>
+		{{end}}
+
 		<!-- Report Grid -->
 		{{define "report_table"}}
 		<script type="text/javascript" language="javascript" class="init">
@@ -544,7 +693,7 @@
 						{ "data": "TestCase" },
 						{ "data": "Status" },
 						{ "data": "Build" },
-						{ "data": "LasTimeRun" },
+						{ "data": "LastTimeRun" },
 						{ "data": "Notes" },
 						{ "data": "Tester" },
 					],
@@ -700,7 +849,7 @@
 								switch(i)
 								{
 									// The columns no need filter
-									case 7:
+									// case 7:
 									case 8: 
 										// alert("...");
 										break;
@@ -778,7 +927,7 @@
 						{ "data": "TestCase" },
 						{ "data": "Status" },
 						{ "data": "Build" },
-						{ "data": "LasTimeRun" },
+						{ "data": "LastTimeRun" },
 						{ "data": "Notes" },
 						{ "data": "Tester" },
 					],
@@ -934,7 +1083,7 @@
 								switch(i)
 								{
 									// The columns no need filter
-									case 7:
+									// case 7:
 									case 8: 
 										// alert("...");
 										break;
@@ -1204,16 +1353,18 @@
 						{ "data": "Status" },
 						{ "data": "Build" },
 						{ "data": "LastTimeRun" },
+						{ "data": "DataRange" },
 						{ "data": "Covered" },
 					],
 
 					// "stateSave": true,
 					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
 
-					"paging": true,
+					"paging": 	true,
 					"ordering": true,
 					"info":     true,
 					"filter":   true,
+					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
 
 					"autoWidth": true,
 					"padding": 5,
@@ -1229,25 +1380,46 @@
 					],
 
 					"createdRow": function ( row, data, index ) {
-
 						var items = row.getElementsByTagName("td");
 						// alert(items.length);
 						for (var i = 0; i <= items.length; i++) {
 							var len = 0, dots = "";
 							// alert("...");
 
-							// if (items[i]) {
-							// 	items[i].innerHTML = items[i].innerHTML.trim();
+							if (items[i]) {
+								items[i].innerHTML = items[i].innerHTML.trim();
 
-							// 	switch(i)
-							// 	{
-							// 		case 0:
-							// 			items[i].innerHTML = items[i].innerHTML.split("T")[0];
-							// 			break;
-							// 		default:
-							// 			break;
-							// 	};
-							// };
+								switch(i)
+								{
+									// case 0:
+									// 	items[i].innerHTML = items[i].innerHTML.split("T")[0];
+									// 	break;
+									case 5:
+										// alert(items[i].innerHTML);
+										switch(items[i].innerHTML)
+										{
+											case "b":
+												// alert("...");
+												$(row).removeClass();
+												break;
+											case "p":
+												// alert("...");
+												$(row).addClass("success");
+												break;
+											case "f":
+												$(row).addClass("danger");
+												break;
+											case "":
+												$(row).addClass("nostatus");
+												break;
+											default:
+												break;
+										}
+										break;
+									default:
+										break;
+								};
+							};
 						};
 					},// createdRow
 
@@ -1347,7 +1519,7 @@
 					// "stateSave": true,
 					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
 
-					"paging": true,
+					"paging": 	true,
 					"ordering": true,
 					"info":     true,
 					"filter":   true,
@@ -1389,19 +1561,19 @@
 							};
 						};
 
-						var Exec_Freq = 0;
-						for (var i = 5; i < items.length-1; i++) {
-							// alert(items[i]);
-							if (items[i].innerHTML) {
-								Exec_Freq = Exec_Freq + 1;
-								// alert("...");
-							};
-						};
-						// alert(Exec_Freq);
-						if (Exec_Freq && Exec_Freq != 0) {
-							items[items.length-1].innerHTML = Exec_Freq;
-							// alert(table.column(items.length-1).data());
-						};
+						// var Exec_Freq = 0;
+						// for (var i = 5; i < items.length-1; i++) {
+						// 	// alert(items[i]);
+						// 	if (items[i].innerHTML) {
+						// 		Exec_Freq = Exec_Freq + 1;
+						// 		// alert("...");
+						// 	};
+						// };
+						// // alert(Exec_Freq);
+						// if (Exec_Freq && Exec_Freq != 0) {
+						// 	items[items.length-1].innerHTML = Exec_Freq;
+						// 	// alert(table.column(items.length-1).data());
+						// };
 					},// createdRow
 
 					"initComplete": function(settings, json) {
@@ -1427,6 +1599,16 @@
 									// case 7:
 									// case 8: 
 									// 	// alert("...");
+									// 	break;
+									// case 10:
+									// 	var title = $('#release_overview_table thead th').eq( $(this).index() ).text();
+									// 	$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+									// 	$("#release_overview_table tfoot input").on( 'keyup change', function () {
+									// 		table
+									// 		.column( $(this).parent().index()+':visible' )
+									// 		.search( this.value )
+									// 		.draw();
+									// 	} );
 									// 	break;
 									default:
 

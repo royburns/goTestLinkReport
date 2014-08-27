@@ -105,7 +105,7 @@
 
 		</div>
 		
-		{{template "home_js"}}
+		{{template "release_overview_home_js"}}
 		{{template "release_overview_ajax"}}
 		{{template "backToTop"}}
 		{{template "base/js.tpl" .}}

@@ -46,7 +46,8 @@ func (this *ApiController) GetLastExecution() {
 
 			// executions = testexecution_where
 			for _, v := range testexecution_where {
-				// fmt.Println(v.Status)
+
+				v.LastTimeRun = fmt.Sprintf("%04d-%02d-%02d", v.Date.Year(), v.Date.Month(), v.Date.Day())
 				switch v.Status {
 				case "b":
 					v.Status = "blocked"
@@ -109,7 +110,7 @@ func (this *ApiController) GetSprintExecution() {
 	fmt.Printf("%s,%s,%s\n", sp_id, sp_product, sp_version)
 
 	if sp_id != "" {
-		key := fmt.Sprintf("%s-%s-%s\n", sp_id, sp_product, sp_version)
+		key := fmt.Sprintf("%s-%s-%s", sp_id, sp_product, sp_version)
 		value, err := client.Get(key)
 		if err != nil {
 			fmt.Println("Failed to get value: ", err)
@@ -129,6 +130,8 @@ func (this *ApiController) GetSprintExecution() {
 
 			// executions = res
 			for _, v := range res {
+
+				v.LastTimeRun = fmt.Sprintf("%04d-%02d-%02d", v.Date.Year(), v.Date.Month(), v.Date.Day())
 				// fmt.Println(v.Status)
 				switch v.Status {
 				case "b":

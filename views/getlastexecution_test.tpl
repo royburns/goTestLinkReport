@@ -122,8 +122,7 @@
 										{{.Build}}
 									</td>
 									<td>
-										
-										{{.LasTimeRun}}
+										{{.LastTimeRun}}
 									</td>
 									<td data-toggle="tooltip" title="{{.Notes}}">
 										{{if eq .Notes ""}} {null} {{end}}

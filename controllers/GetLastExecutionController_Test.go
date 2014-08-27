@@ -25,7 +25,7 @@ func (this *GetLastExecutionController) Get() {
 		"TestCase",
 		"Status",
 		"Build",
-		"LasTimeRun",
+		"LastTimeRun",
 		"Notes",
 		"Tester",
 		// "TestSuite",

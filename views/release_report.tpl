@@ -57,7 +57,12 @@
 
 							<tbody id="report-table-body">
 								{{range .ReleaseReports}}
-								<tr>
+								<tr 
+								{{if eq .Status "b"}} class="" {{end}}
+								{{if eq .Status "p"}} class="success" {{end}}
+								{{if eq .Status "f"}} class="danger" {{end}}
+								{{if eq .Status ""}} class="nostatus" {{end}}
+								>
 									
 									<td>
 										{{if eq .Platform ""}} {null} {{end}}
@@ -91,6 +96,10 @@
 										{{.LastTimeRun}}
 									</td>
 									<td>
+										{{if eq .DataRange ""}} {null} {{end}}
+										{{.DataRange}}
+									</td>
+									<td>
 										{{if eq .Covered ""}} {null} {{end}}
 										{{.Covered}}
 									</td>
@@ -113,7 +122,7 @@
 
 		</div>
 		
-		{{template "home_js"}}
+		{{template "release_report_home_js"}}
 		{{template "release_report_ajax"}}
 		{{template "report_sprint_date_filter"}}
 		{{template "form_datetime"}}
