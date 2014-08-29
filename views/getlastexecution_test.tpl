@@ -104,8 +104,7 @@
 										{{.SubModule}}
 									</td>
 									<td>
-										
-										{{.Testcase_id}}
+										<a href="http://zhutdptestlink:8080/lib/execute/execSetResults.php?version_id=1046&level=testcase&id=1045&tplan_id=1049&setting_build=11&setting_platform=0&caller=undefined">{{.Testcase_id}}</a>
 									</td>
 									<td data-toggle="tooltip" title="{{.TestCase}}">
 										{{if eq .TestCase ""}} {null} {{end}}

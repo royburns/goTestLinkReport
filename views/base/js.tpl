@@ -784,6 +784,16 @@
 
 								switch(i)
 								{
+									case 3:
+										var str = items[i].innerHTML.match(/\d+/g);
+										if (str != null && str.length > 0) {
+											for (var k = 0; k < str.length; k++) {
+												// var url = "http://zhutdptestlink:8080/lib/execute/execSetResults.php?version_id=1046&level=testcase&id=1045&tplan_id=1049&setting_build=11&setting_platform=0&caller=undefined"
+												var str1 = "<a href=\"http://zhutdptestlink:8080/lib/execute/execSetResults.php?version_id=1046&level=testcase&id=1045&tplan_id=1049&setting_build=11&setting_platform=0&caller=undefined"  + "\" target=\"_blank\">" + str[k] + "</a>";
+												items[i].innerHTML = items[i].innerHTML.replace(str[k], str1);
+											};
+										};
+										break;
 									case 5:
 										switch(items[i].innerHTML)
 										{
@@ -903,7 +913,7 @@
 				var sp_version = $("#sp_version").val();
 				var search = "?sp_id=" + sp_id + "&" + "sp_product=" + sp_product + "&" + "sp_version=" + sp_version;
 				
-				// alert(testplan);
+				// alert(search);
 				
 				// location.pathname = "";
 				// location.pathname = "/api" + location.pathname + "";
@@ -919,13 +929,35 @@
 					},
 
 					// "deferRender": true,
+					// "Product": "tdp",
+					// "Version": "3.7",
+					// "SprintNo": 1,
+					// "TP_ID": 2403,
+					// "TestPlan": "TDP_3.7_S1",
+					// "Platform_ID": 75,
+					// "Platform": "NoPlatform",
+					// "ToadModule": "Licensing",
+					// "SubModule": "TDP Licesing",
+					// "Testcase_id": 26,
+					// "TestCase": "Toad for Oracle DEV key",
+					// "Status": "blocked",
+					// "Build_ID": 492,
+					// "Build": "3.7.0.2",
+					// "Date": "2014-08-14T02:52:33+08:00",
+					// "LastTimeRun": "2014-08-14",
+					// "Notes": "",
+					// "Tester": "csang"
 					"columns": [
+						{ "data": "TP_ID" },
+						{ "data": "TestPlan" },
+						{ "data": "Platform_ID" },
 						{ "data": "Platform" },
 						{ "data": "ToadModule" },
 						{ "data": "SubModule" },
 						{ "data": "Testcase_id" },
 						{ "data": "TestCase" },
 						{ "data": "Status" },
+						{ "data": "Build_ID" },
 						{ "data": "Build" },
 						{ "data": "LastTimeRun" },
 						{ "data": "Notes" },
@@ -934,13 +966,10 @@
 
 					// "stateSave": true,
 
-					// "dom": '<"top"i>rt<"bottom"flp><"clear">',
 					"dom": '<"top"lfip>rt<"bottom"ip><"clear">',
 					// paging
 					"pagingType": "full_numbers",
 					"paging": true,
-					//"aLengthMenu": [ 10, 25, 50, 100 , -1],
-					// "aLengthMenu": [ 50, 100 , -1],
 					"lengthMenu": [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]],
 					// "width": "80%",
 
@@ -958,7 +987,7 @@
 					// set column visible
 					"columnDefs": [
 						{
-							// "targets": [ 0 ],
+							// "targets": [ 0,2 ],
 							// "visible": false,
 							// "searchable": false
 							
@@ -969,6 +998,7 @@
 							// 	}
 							// }
 						},
+						{ "visible": false,  "targets": [ 0, 2, 9 ] }
 					],
 
 					"createdRow": function ( row, data, index ) {
@@ -983,7 +1013,8 @@
 						// }
 
 						// alert(row.innerHTML);
-						// alert(data);
+						// alert(data.length);
+						// alert(data["TP_ID"]);
 						// alert(index);
 
 						var items = row.getElementsByTagName("td");
@@ -1002,10 +1033,10 @@
 									case 4:
 										// len = 32;dots="...";
 										break;
-									case 7:
-										len = 19;dots="";
-										break;
 									case 8:
+										// len = 19;dots="";
+										break;
+									case 9:
 										// len = 10;dots="...";
 										break;
 									default:
@@ -1018,7 +1049,17 @@
 
 								switch(i)
 								{
-									case 5:
+									case 4:
+										// alert(items[i].innerHTML);
+										var str = items[i].innerHTML.match(/\d+/g);
+										if (str != null && str.length > 0) {
+											for (var k = 0; k < str.length; k++) {
+												var str1 = "<a href=\"http://zhutdptestlink:8080/lib/testcases/archiveData.php?edit=testcase&id=" + str + "&tcversion_id=undefined" + "\" target=\"_blank\">" + str[k] + "</a>";
+												items[i].innerHTML = items[i].innerHTML.replace(str[k], str1);
+											};
+										};
+										break;
+									case 6:
 										switch(items[i].innerHTML)
 										{
 											case "blocked":
@@ -1038,8 +1079,22 @@
 											default:
 												break;
 										}
+										var str = items[4].innerHTML.match(/>\d+</g);
+										if (str != null && str.length > 0) {
+											var str = str[0].match(/\d+/g);
+											var str1 = "<a href=\"http://zhutdptestlink:8080/lib/execute/execSetResults.php?level=testcase&id=" + str[0] + "&tplan_id=" + data["TP_ID"] + "&setting_build=" + data["Build_ID"] + "&setting_platform=" + data["Platform_ID"] + "\" target=\"_blank\">" + items[i].innerHTML + "</a>";
+											items[i].innerHTML = str1;
+										};
 										break;
 									case 8:
+										var str = items[4].innerHTML.match(/>\d+</g);
+										if (str != null && str.length > 0) {
+											var str = str[0].match(/\d+/g);
+											var str1 = "<a href=\"http://zhutdptestlink:8080/lib/execute/execHistory.php?tcase_id=" + str[0] + "\" target=\"_blank\">" + items[i].innerHTML + "</a>";
+											items[i].innerHTML = str1;
+										};
+										break;
+									case 9:
 										var str = items[i].innerHTML.match(/[^\W][a-z|A-Z]+-\d+[^\W]/g);
 										// alert(str);
 										if (str != null && str.length > 0) {
@@ -1048,7 +1103,6 @@
 												items[i].innerHTML = items[i].innerHTML.replace(str[k], str1);
 											};
 										};
-										
 										break;
 									default:
 										break;
@@ -1084,9 +1138,9 @@
 								{
 									// The columns no need filter
 									// case 7:
-									case 8: 
-										// alert("...");
-										break;
+									// case 8: 
+									// 	// alert("...");
+									// 	break;
 									default:
 
 										var select = $('<select><option value="[ALL]">[ALL]</option></select>')

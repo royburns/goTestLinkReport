@@ -18,13 +18,16 @@ func (this *GetSprintExecutionController) Get() {
 
 	fmt.Println("In GetSprintExecutionController()...")
 	var ExecutionsTableHeader = []string{
-		// "TestPlan",
+		"TP_ID",
+		"TestPlan",
+		"Platform_ID",
 		"Platform",
 		"ToadModule",
 		"SubModule",
 		"Testcase_id",
 		"TestCase",
 		"Status",
+		"Build_ID",
 		"Build",
 		"LastTimeRun",
 		"Notes",

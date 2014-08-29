@@ -70,13 +70,19 @@ type Toad_sprint_plans struct {
 }
 
 type V_toad_sprint_report struct {
+	Product     string    `xorm:"VARCHAR(100) 'product'"`
+	Version     string    `xorm:"VARCHAR(100) 'version'"`
+	SprintNo    int32     `xorm:"INT 'sprintNo'"`
+	TP_ID       int32     `xorm:"INT 'testplan_id'"`
 	TestPlan    string    `xorm:"VARCHAR(100) 'TestPlan'"`
+	Platform_ID int32     `xorm:"INT 'platform_id'"`
 	Platform    string    `xorm:"VARCHAR(100) 'Platform'"`
 	ToadModule  string    `xorm:"VARCHAR(100) 'ToadModule'"`
 	SubModule   string    `xorm:"VARCHAR(403) 'SubModule'"`
 	Testcase_id int32     `xorm:"INT 'testcase_id'"`
 	TestCase    string    `xorm:"VARCHAR(100) 'TestCase'"`
 	Status      string    `xorm:"CHAR(1) 'status'"`
+	Build_ID    int32     `xorm:"INT 'build_id'"`
 	Build       string    `xorm:"VARCHAR(100) 'Build'"`
 	Date        time.Time `xorm:"DATETIME 'LasTimeRun'"`
 	LastTimeRun string    `xorm:"-"`

@@ -72,7 +72,7 @@
 								{{if eq .Status "f"}} class="danger" {{end}}
 								{{if eq .Status ""}} class="nostatus" {{end}}
 								>
-									<!-- <td>{{.TestPlan}}</td> -->
+									<td>{{.TestPlan}}</td>
 									<td>
 										{{if eq .Platform ""}} {null} {{end}}
 										{{.Platform}}
@@ -137,7 +137,7 @@
 		{{template "sprint_execution_date_filter"}}
 		{{template "form_datetime"}}
 		{{template "backToTop"}}
-		{{template "home_js"}}
+		
 		{{template "base/js.tpl" .}}
 
 		{{template "base/footer.tpl" .}}

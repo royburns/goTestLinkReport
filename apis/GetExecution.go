@@ -107,7 +107,7 @@ func (this *ApiController) GetSprintExecution() {
 	sp_product := this.Input().Get("sp_product")
 	sp_version := this.Input().Get("sp_version")
 
-	fmt.Printf("%s,%s,%s\n", sp_id, sp_product, sp_version)
+	fmt.Printf("%s-%s-%s\n", sp_id, sp_product, sp_version)
 
 	if sp_id != "" {
 		key := fmt.Sprintf("%s-%s-%s", sp_id, sp_product, sp_version)
